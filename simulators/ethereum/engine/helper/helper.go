@@ -19,11 +19,11 @@ import (
 	"github.com/ethereum/hive/simulators/ethereum/engine/globals"
 
 	gokzg4844 "github.com/crate-crypto/go-kzg-4844"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/core-coin/go-core/common"
+	"github.com/core-coin/go-core/core"
+	"github.com/core-coin/go-core/core/types"
+	"github.com/core-coin/go-core/rlp"
+	"github.com/core-coin/go-core/rpc"
 	"github.com/ethereum/hive/hivesim"
 	typ "github.com/ethereum/hive/simulators/ethereum/engine/types"
 )

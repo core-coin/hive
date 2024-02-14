@@ -23,7 +23,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/core-coin/go-core/v2/rpc"
 	"github.com/hashicorp/yamux"
 )
 

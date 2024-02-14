@@ -10,8 +10,8 @@ import (
 	"sync"
 	"time"
 
-	ethcommon "github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core"
+	ethcommon "github.com/core-coin/go-core/common"
+	"github.com/core-coin/go-core/core"
 	"github.com/pkg/errors"
 
 	"github.com/protolambda/eth2api"

@@ -4,12 +4,12 @@ import (
 	"context"
 	"math/big"
 
-	api "github.com/ethereum/go-ethereum/beacon/engine"
-	"github.com/ethereum/go-ethereum/core"
+	api "github.com/core-coin/go-core/beacon/engine"
+	"github.com/core-coin/go-core/core"
 	"github.com/ethereum/hive/hivesim"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/core-coin/go-core/common"
+	"github.com/core-coin/go-core/core/types"
 	typ "github.com/ethereum/hive/simulators/ethereum/engine/types"
 )
 

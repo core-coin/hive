@@ -7,9 +7,9 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/core-coin/go-core/common"
+	"github.com/core-coin/go-core/crypto"
+	"github.com/core-coin/go-core/params"
 	"github.com/ethereum/hive/hivesim"
 )
 

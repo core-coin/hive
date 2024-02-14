@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/core-coin/go-core/common"
+	"github.com/core-coin/go-core/core"
+	"github.com/core-coin/go-core/core/types"
+	"github.com/core-coin/go-core/params"
 	"github.com/ethereum/hive/hivesim"
 	"github.com/ethereum/hive/simulators/eth2/common/config"
 )

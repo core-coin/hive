@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sort"
 
-	ethcommon "github.com/ethereum/go-ethereum/common"
+	ethcommon "github.com/core-coin/go-core/common"
 	"github.com/ethereum/hive/simulators/eth2/common/utils"
 	beacon_client "github.com/marioevz/eth-clients/clients/beacon"
 	"github.com/protolambda/eth2api"

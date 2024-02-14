@@ -1,9 +1,9 @@
 package helper
 
 import (
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/trie"
+	"github.com/core-coin/go-core/common"
+	"github.com/core-coin/go-core/core/types"
+	"github.com/core-coin/go-core/trie"
 )
 
 var (

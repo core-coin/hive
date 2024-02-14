@@ -14,8 +14,8 @@ import (
 	"github.com/pkg/errors"
 
 	gokzg4844 "github.com/crate-crypto/go-kzg-4844"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/core-coin/go-core/common"
+	"github.com/core-coin/go-core/core/types"
 	"github.com/ethereum/hive/simulators/ethereum/engine/globals"
 	typ "github.com/ethereum/hive/simulators/ethereum/engine/types"
 )

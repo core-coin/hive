@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/ethereum/go-ethereum/common"
+	"github.com/core-coin/go-core/common"
 	"github.com/ethereum/hive/simulators/ethereum/engine/clmock"
 	"github.com/ethereum/hive/simulators/ethereum/engine/config"
 	"github.com/ethereum/hive/simulators/ethereum/engine/globals"

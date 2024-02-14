@@ -3,8 +3,8 @@ package main
 import (
 	"crypto/ecdsa"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/core-coin/go-core/v2/common"
+	"github.com/core-coin/go-core/v2/crypto"
 )
 
 var knownAccounts = []genAccount{
@@ -90,7 +90,7 @@ var knownAccounts = []genAccount{
 	},
 }
 
-func mustParseKey(s string) *ecdsa.PrivateKey {
+func mustParseKey(s string) *crypto.PrivateKey {
 	key, err := crypto.HexToECDSA(s)
 	if err != nil {
 		panic(err)

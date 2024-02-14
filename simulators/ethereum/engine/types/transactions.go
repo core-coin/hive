@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/core-coin/go-core/common"
+	"github.com/core-coin/go-core/core/types"
+	"github.com/core-coin/go-core/rlp"
 	"github.com/holiman/uint256"
 )
 

@@ -8,7 +8,7 @@ import (
 	"github.com/ethereum/hive/simulators/ethereum/engine/helper"
 	"github.com/ethereum/hive/simulators/ethereum/engine/test"
 
-	"github.com/ethereum/go-ethereum/common"
+	"github.com/core-coin/go-core/common"
 )
 
 // Execution specification reference:

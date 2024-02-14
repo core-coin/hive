@@ -8,8 +8,8 @@ import (
 	"math/big"
 	"sort"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/core-coin/go-core/common"
+	"github.com/core-coin/go-core/core/types"
 	cl "github.com/ethereum/hive/simulators/eth2/common/config/consensus"
 	"github.com/ethereum/hive/simulators/eth2/common/testnet"
 	beacon_client "github.com/marioevz/eth-clients/clients/beacon"

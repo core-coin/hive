@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core"
+	"github.com/core-coin/go-core/common"
+	"github.com/core-coin/go-core/core"
 )
 
 // ConfigGenesis configures the genesis block for the Cancun fork.

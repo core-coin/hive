@@ -8,20 +8,20 @@ import (
 	"math/rand"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/consensus"
-	"github.com/ethereum/go-ethereum/consensus/beacon"
-	"github.com/ethereum/go-ethereum/consensus/clique"
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/trie"
+	"github.com/core-coin/go-core/v2/accounts"
+	"github.com/core-coin/go-core/v2/common"
+	"github.com/core-coin/go-core/v2/consensus"
+	"github.com/core-coin/go-core/v2/consensus/beacon"
+	"github.com/core-coin/go-core/v2/consensus/clique"
+	"github.com/core-coin/go-core/v2/consensus/ethash"
+	"github.com/core-coin/go-core/v2/core"
+	"github.com/core-coin/go-core/v2/core/rawdb"
+	"github.com/core-coin/go-core/v2/core/state"
+	"github.com/core-coin/go-core/v2/core/types"
+	"github.com/core-coin/go-core/v2/core/vm"
+	"github.com/core-coin/go-core/v2/crypto"
+	"github.com/core-coin/go-core/v2/xcbdb"
+	"github.com/core-coin/go-core/v2/trie"
 	"golang.org/x/exp/slices"
 )
 
@@ -61,7 +61,7 @@ type generator struct {
 	cfg      generatorConfig
 	genesis  *core.Genesis
 	td       *big.Int
-	accounts []genAccount
+	accounts []*crypto.PrivateKey
 	rand     *rand.Rand
 
 	// Modifier lists.

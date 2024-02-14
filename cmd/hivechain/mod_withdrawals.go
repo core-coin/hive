@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/core-coin/go-core/core/types"
 )
 
 func init() {

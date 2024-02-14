@@ -3,7 +3,7 @@ package beacon
 import (
 	"fmt"
 
-	api "github.com/ethereum/go-ethereum/beacon/engine"
+	api "github.com/core-coin/go-core/beacon/engine"
 	exec_client "github.com/marioevz/eth-clients/clients/execution"
 	spoof "github.com/rauljordan/engine-proxy/proxy"
 	"golang.org/x/exp/slices"

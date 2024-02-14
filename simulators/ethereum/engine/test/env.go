@@ -14,7 +14,7 @@ import (
 	"github.com/ethereum/hive/simulators/ethereum/engine/globals"
 	"github.com/ethereum/hive/simulators/ethereum/engine/helper"
 
-	"github.com/ethereum/go-ethereum/core"
+	"github.com/core-coin/go-core/core"
 	"github.com/ethereum/hive/hivesim"
 )
 

@@ -11,9 +11,9 @@ import (
 	"sync"
 	"time"
 
-	api "github.com/ethereum/go-ethereum/beacon/engine"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/forkid"
+	api "github.com/core-coin/go-core/beacon/engine"
+	"github.com/core-coin/go-core/core"
+	"github.com/core-coin/go-core/core/forkid"
 	"github.com/ethereum/hive/simulators/ethereum/engine/client"
 	"github.com/ethereum/hive/simulators/ethereum/engine/config"
 	"github.com/ethereum/hive/simulators/ethereum/engine/config/cancun"
@@ -21,8 +21,8 @@ import (
 	"github.com/ethereum/hive/simulators/ethereum/engine/helper"
 	typ "github.com/ethereum/hive/simulators/ethereum/engine/types"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/core-coin/go-core/common"
+	"github.com/core-coin/go-core/core/types"
 	"github.com/ethereum/hive/hivesim"
 	"github.com/pkg/errors"
 )

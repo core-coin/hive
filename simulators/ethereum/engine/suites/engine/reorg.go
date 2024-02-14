@@ -7,8 +7,8 @@ import (
 	"math/big"
 	"time"
 
-	api "github.com/ethereum/go-ethereum/beacon/engine"
-	"github.com/ethereum/go-ethereum/common"
+	api "github.com/core-coin/go-core/beacon/engine"
+	"github.com/core-coin/go-core/common"
 	"github.com/ethereum/hive/simulators/ethereum/engine/clmock"
 	"github.com/ethereum/hive/simulators/ethereum/engine/config"
 	"github.com/ethereum/hive/simulators/ethereum/engine/globals"

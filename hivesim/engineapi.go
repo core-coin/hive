@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/core-coin/go-core/v2/rpc"
 	"github.com/golang-jwt/jwt/v4"
 )
 

@@ -3,7 +3,7 @@ module github.com/ethereum/hive/simulators/ethereum/pyspec
 go 1.20
 
 require (
-	github.com/ethereum/go-ethereum v1.13.5-0.20231127143928-5b57727d6de2
+	github.com/core-coin/go-core v1.13.5-0.20231127143928-5b57727d6de2
 	github.com/ethereum/hive v0.0.0-20231031133732-dcd7ddb75960
 	github.com/ethereum/hive/simulators/ethereum/engine v0.0.0-20230919054339-322945164a97
 )

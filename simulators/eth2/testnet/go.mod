@@ -28,7 +28,7 @@ require (
 	github.com/cockroachdb/redact v1.1.3 // indirect
 	github.com/deckarep/golang-set/v2 v2.1.0 // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.1.0 // indirect
-	github.com/ethereum/go-ethereum v1.11.4 // indirect
+	github.com/core-coin/go-core v1.11.4 // indirect
 	github.com/ferranbt/fastssz v0.1.2 // indirect
 	github.com/getsentry/sentry-go v0.18.0 // indirect
 	github.com/gofrs/flock v0.8.1 // indirect

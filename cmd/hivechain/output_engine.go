@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/ethereum/go-ethereum/beacon/engine"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/core-coin/go-core/beacon/engine"
+	"github.com/core-coin/go-core/common"
+	"github.com/core-coin/go-core/core/types"
 )
 
 // writeEngineNewPayload writes engine API newPayload requests for the chain.

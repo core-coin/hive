@@ -7,11 +7,11 @@ import (
 	"strings"
 	"sync"
 
-	api "github.com/ethereum/go-ethereum/beacon/engine"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/trie"
+	api "github.com/core-coin/go-core/beacon/engine"
+	"github.com/core-coin/go-core/common"
+	"github.com/core-coin/go-core/common/hexutil"
+	"github.com/core-coin/go-core/core/types"
+	"github.com/core-coin/go-core/trie"
 	exec_client "github.com/marioevz/eth-clients/clients/execution"
 	spoof "github.com/rauljordan/engine-proxy/proxy"
 )

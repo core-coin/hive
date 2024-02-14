@@ -6,7 +6,7 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
+	"github.com/core-coin/go-core/common"
 	"github.com/ethereum/hive/hivesim"
 	"github.com/ethereum/hive/simulators/eth2/common/clients"
 	mock_builder "github.com/marioevz/mock-builder/mock"

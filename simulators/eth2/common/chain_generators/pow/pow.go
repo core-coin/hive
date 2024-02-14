@@ -1,11 +1,11 @@
 package pow
 
 import (
-	"github.com/ethereum/go-ethereum/consensus"
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/core-coin/go-core/consensus"
+	"github.com/core-coin/go-core/consensus/ethash"
+	"github.com/core-coin/go-core/core"
+	"github.com/core-coin/go-core/core/state"
+	"github.com/core-coin/go-core/core/types"
 	execution_config "github.com/ethereum/hive/simulators/eth2/common/config/execution"
 )
 

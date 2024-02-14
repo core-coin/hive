@@ -3,7 +3,7 @@ package suite_engine
 import (
 	"fmt"
 
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/core-coin/go-core/core/types"
 	"github.com/ethereum/hive/simulators/ethereum/engine/clmock"
 	"github.com/ethereum/hive/simulators/ethereum/engine/config"
 	"github.com/ethereum/hive/simulators/ethereum/engine/test"

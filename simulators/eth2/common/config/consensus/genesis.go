@@ -3,8 +3,8 @@ package consensus_config
 import (
 	"fmt"
 
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/core-coin/go-core/core"
+	"github.com/core-coin/go-core/core/types"
 	"github.com/holiman/uint256"
 	"github.com/protolambda/zrnt/eth2/beacon/altair"
 	"github.com/protolambda/zrnt/eth2/beacon/bellatrix"

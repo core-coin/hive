@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/crate-crypto/go-kzg-4844 v0.7.0
 	github.com/davecgh/go-spew v1.1.1
-	github.com/ethereum/go-ethereum v1.13.5-0.20231127143928-5b57727d6de2
+	github.com/core-coin/go-core v1.13.5-0.20231127143928-5b57727d6de2
 	github.com/ethereum/hive v0.0.0-20231031133732-dcd7ddb75960
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/holiman/uint256 v1.2.4

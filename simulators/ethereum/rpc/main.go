@@ -5,7 +5,7 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/core-coin/go-core/params"
 	"github.com/ethereum/hive/hivesim"
 )
 

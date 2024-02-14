@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/ethereum/hive/internal/libhive"
+	"github.com/core-coin/hive/internal/libhive"
 )
 
 // This test verifies that test errors are reported correctly through the API.

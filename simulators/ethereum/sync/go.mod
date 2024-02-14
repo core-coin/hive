@@ -3,7 +3,7 @@ module github.com/ethereum/hive/simulators/ethereum/sync
 go 1.20
 
 require (
-	github.com/ethereum/go-ethereum v1.13.5-0.20231031113925-bc42e88415d3
+	github.com/core-coin/go-core v1.13.5-0.20231031113925-bc42e88415d3
 	github.com/ethereum/hive v0.0.0-20240131232337-d38a51d4e475
 )
 

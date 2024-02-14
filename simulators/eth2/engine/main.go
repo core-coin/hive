@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/core-coin/go-core/common"
+	"github.com/core-coin/go-core/crypto"
 	"github.com/ethereum/hive/hivesim"
 	"github.com/ethereum/hive/simulators/eth2/common/clients"
 	consensus_config "github.com/ethereum/hive/simulators/eth2/common/config/consensus"

@@ -22,10 +22,10 @@ import (
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/enode"
-	"github.com/ethereum/go-ethereum/p2p/rlpx"
+	"github.com/core-coin/go-core/crypto"
+	"github.com/core-coin/go-core/p2p"
+	"github.com/core-coin/go-core/p2p/enode"
+	"github.com/core-coin/go-core/p2p/rlpx"
 	"github.com/ethereum/hive/simulators/ethereum/engine/client"
 	"github.com/ethereum/hive/simulators/ethereum/engine/clmock"
 )

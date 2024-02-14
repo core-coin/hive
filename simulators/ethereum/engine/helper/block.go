@@ -3,7 +3,7 @@ package helper
 import (
 	"fmt"
 
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/core-coin/go-core/core/types"
 )
 
 func GenerateInvalidPayloadBlock(baseBlock *types.Block, uncle *types.Block, payloadField InvalidPayloadBlockField) (*types.Block, error) {

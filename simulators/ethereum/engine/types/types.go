@@ -3,10 +3,10 @@ package types
 import (
 	"math/big"
 
-	geth_beacon "github.com/ethereum/go-ethereum/beacon/engine"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/core/types"
+	geth_beacon "github.com/core-coin/go-core/beacon/engine"
+	"github.com/core-coin/go-core/common"
+	"github.com/core-coin/go-core/common/hexutil"
+	"github.com/core-coin/go-core/core/types"
 )
 
 type BinaryMarshable interface {

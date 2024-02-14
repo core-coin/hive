@@ -26,9 +26,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/core/types"
-	ethlog "github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/core-coin/go-core/core/types"
+	ethlog "github.com/core-coin/go-core/log"
+	"github.com/core-coin/go-core/rlp"
 )
 
 func main() {

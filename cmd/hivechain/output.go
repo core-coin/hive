@@ -8,10 +8,10 @@ import (
 	"path/filepath"
 	"sort"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/state"
+	"github.com/core-coin/go-core/common"
+	"github.com/core-coin/go-core/common/hexutil"
+	"github.com/core-coin/go-core/core"
+	"github.com/core-coin/go-core/core/state"
 	"golang.org/x/exp/maps"
 )
 

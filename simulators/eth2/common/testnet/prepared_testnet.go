@@ -15,8 +15,8 @@ import (
 	"github.com/protolambda/ztyp/tree"
 	"github.com/protolambda/ztyp/view"
 
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/core-coin/go-core/core/types"
+	"github.com/core-coin/go-core/params"
 	"github.com/protolambda/zrnt/eth2/beacon/common"
 	"github.com/protolambda/zrnt/eth2/configs"
 

@@ -14,7 +14,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/ethereum/go-ethereum/core"
+	"github.com/core-coin/go-core/core"
 	"github.com/ethereum/hive/hivesim"
 )
 

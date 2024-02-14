@@ -6,7 +6,7 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/ethereum/go-ethereum/core"
+	"github.com/core-coin/go-core/core"
 	"github.com/ethereum/hive/simulators/ethereum/engine/clmock"
 	"github.com/ethereum/hive/simulators/ethereum/engine/config"
 	"github.com/ethereum/hive/simulators/ethereum/engine/globals"

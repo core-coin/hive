@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core"
+	"github.com/core-coin/go-core/common"
+	"github.com/core-coin/go-core/core"
 	"github.com/ethereum/hive/simulators/eth2/common/clients"
 	execution_config "github.com/ethereum/hive/simulators/eth2/common/config/execution"
 	mock_builder "github.com/marioevz/mock-builder/mock"

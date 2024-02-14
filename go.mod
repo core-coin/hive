@@ -1,11 +1,11 @@
-module github.com/ethereum/hive
+module github.com/core-coin/hive
 
 go 1.20
 
 require (
+	github.com/core-coin/go-core/v2 v2.1.6
 	github.com/davecgh/go-spew v1.1.1
-	github.com/ethereum/go-ethereum v1.13.5-0.20231031113925-bc42e88415d3
-	github.com/ethereum/hive/hiveproxy v0.0.0-20230919105823-37cbbe1ef86d
+	github.com/core-coin/hive/hiveproxy v0.0.0-20230919105823-37cbbe1ef86d
 	github.com/evanw/esbuild v0.18.11
 	github.com/fsouza/go-dockerclient v1.9.8
 	github.com/golang-jwt/jwt/v4 v4.5.0
@@ -36,6 +36,8 @@ require (
 	github.com/consensys/bavard v0.1.13 // indirect
 	github.com/consensys/gnark-crypto v0.12.1 // indirect
 	github.com/containerd/containerd v1.6.18 // indirect
+	github.com/core-coin/ed448 v1.0.2 // indirect
+	github.com/core-coin/go-goldilocks v1.0.17 // indirect
 	github.com/crate-crypto/go-kzg-4844 v0.7.0 // indirect
 	github.com/deckarep/golang-set/v2 v2.1.0 // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.1.0 // indirect

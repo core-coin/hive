@@ -6,10 +6,10 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/core-coin/go-core/common"
+	"github.com/core-coin/go-core/core"
+	"github.com/core-coin/go-core/crypto"
+	"github.com/core-coin/go-core/params"
 	"golang.org/x/exp/slices"
 )
 

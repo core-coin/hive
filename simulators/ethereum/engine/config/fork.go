@@ -3,7 +3,7 @@ package config
 import (
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/core-coin/go-core/core/types"
 )
 
 type Fork string
