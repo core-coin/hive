@@ -5,13 +5,13 @@ import (
 
 	api "github.com/core-coin/go-core/beacon/engine"
 	"github.com/core-coin/go-core/common"
-	"github.com/ethereum/hive/simulators/ethereum/engine/client"
-	"github.com/ethereum/hive/simulators/ethereum/engine/client/hive_rpc"
-	"github.com/ethereum/hive/simulators/ethereum/engine/clmock"
-	"github.com/ethereum/hive/simulators/ethereum/engine/config"
-	"github.com/ethereum/hive/simulators/ethereum/engine/helper"
-	"github.com/ethereum/hive/simulators/ethereum/engine/test"
-	typ "github.com/ethereum/hive/simulators/ethereum/engine/types"
+	"github.com/core-coin/hive/simulators/ethereum/engine/client"
+	"github.com/core-coin/hive/simulators/ethereum/engine/client/hive_rpc"
+	"github.com/core-coin/hive/simulators/ethereum/engine/clmock"
+	"github.com/core-coin/hive/simulators/ethereum/engine/config"
+	"github.com/core-coin/hive/simulators/ethereum/engine/helper"
+	"github.com/core-coin/hive/simulators/ethereum/engine/test"
+	typ "github.com/core-coin/hive/simulators/ethereum/engine/types"
 )
 
 type ReExecutePayloadTest struct {

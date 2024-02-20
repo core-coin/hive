@@ -1,15 +1,15 @@
-module github.com/ethereum/hive/simulators/smoke/genesis
+module github.com/core-coin/hive/simulators/smoke/genesis
 
 go 1.18
 
-require github.com/ethereum/hive v0.0.0-20231031133732-dcd7ddb75960
+require github.com/core-coin/hive v0.0.0-20240214125912-54575de94bf7
 
 require (
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/btcsuite/btcd/btcec/v2 v2.3.2 // indirect
 	github.com/deckarep/golang-set/v2 v2.1.0 // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.1.0 // indirect
-	github.com/core-coin/go-core v1.13.5-0.20231031113925-bc42e88415d3 // indirect
+	github.com/core-coin/go-core/v2 v2.1.6 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/go-stack/stack v1.8.1 // indirect
 	github.com/golang/snappy v0.0.5-0.20220116011046-fa5810519dcb // indirect

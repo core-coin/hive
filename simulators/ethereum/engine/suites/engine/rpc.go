@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/ethereum/hive/simulators/ethereum/engine/clmock"
-	"github.com/ethereum/hive/simulators/ethereum/engine/config"
-	"github.com/ethereum/hive/simulators/ethereum/engine/helper"
-	"github.com/ethereum/hive/simulators/ethereum/engine/test"
-	typ "github.com/ethereum/hive/simulators/ethereum/engine/types"
+	"github.com/core-coin/hive/simulators/ethereum/engine/clmock"
+	"github.com/core-coin/hive/simulators/ethereum/engine/config"
+	"github.com/core-coin/hive/simulators/ethereum/engine/helper"
+	"github.com/core-coin/hive/simulators/ethereum/engine/test"
+	typ "github.com/core-coin/hive/simulators/ethereum/engine/types"
 )
 
 type BlockStatusRPCCheckType string

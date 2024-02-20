@@ -14,8 +14,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/hive/hiveproxy"
-	"github.com/ethereum/hive/internal/libhive"
+	"github.com/core-coin/hive/hiveproxy"
+	"github.com/core-coin/hive/internal/libhive"
 	docker "github.com/fsouza/go-dockerclient"
 	"gopkg.in/inconshreveable/log15.v2"
 )

@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/ethereum/hive/hivesim"
+	"github.com/core-coin/hive/hivesim"
 )
 
 type testResponse struct {

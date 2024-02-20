@@ -8,10 +8,9 @@ import (
 	"path/filepath"
 	"sort"
 
-	"github.com/core-coin/go-core/common"
-	"github.com/core-coin/go-core/common/hexutil"
-	"github.com/core-coin/go-core/core"
-	"github.com/core-coin/go-core/core/state"
+	"github.com/core-coin/go-core/v2/common"
+	"github.com/core-coin/go-core/v2/common/hexutil"
+	"github.com/core-coin/go-core/v2/core"
 	"golang.org/x/exp/maps"
 )
 
@@ -24,10 +23,6 @@ var outputFunctions = map[string]func(*generator) error{
 	"headblock":      (*generator).writeHeadBlock,
 	"accounts":       (*generator).writeAccounts,
 	"txinfo":         (*generator).writeTxInfo,
-	"fcu":            (*generator).writeEngineFcU,
-	"newpayload":     (*generator).writeEngineNewPayload,
-	"headfcu":        (*generator).writeEngineHeadFcU,
-	"headnewpayload": (*generator).writeEngineHeadNewPayload,
 }
 
 func outputFunctionNames() []string {
@@ -86,8 +81,8 @@ func (g *generator) writeAccounts() error {
 	}
 	m := make(map[common.Address]*accountObj, len(g.accounts))
 	for _, a := range g.accounts {
-		m[a.addr] = &accountObj{
-			Key: hexutil.Encode(a.key.D.Bytes()),
+		m[a.Address()] = &accountObj{
+			Key: hexutil.Encode(a.PrivateKey()),
 		}
 	}
 	return g.writeJSON("accounts.json", &m)
@@ -99,7 +94,8 @@ func (g *generator) writeState() error {
 	if err != nil {
 		return err
 	}
-	dump := headstate.RawDump(&state.DumpConfig{})
+	//todo:error2215 maybe we need to exclude some data
+	dump := headstate.RawDump(false, false, false)
 	return g.writeJSON("headstate.json", &dump)
 }
 
@@ -116,7 +112,7 @@ func (g *generator) writeChain() error {
 		return err
 	}
 	defer out.Close()
-	lastBlock := g.blockchain.CurrentBlock().Number.Uint64()
+	lastBlock := g.blockchain.CurrentBlock().NumberU64()
 	return exportN(g.blockchain, out, 1, lastBlock)
 }
 
@@ -128,19 +124,9 @@ func (g *generator) writePoWChain() error {
 		return err
 	}
 	defer out.Close()
-	lastBlock, ok := g.mergeBlock()
-	if !ok {
-		lastBlock = g.blockchain.CurrentBlock().Number.Uint64()
-	}
-	return exportN(g.blockchain, out, 1, lastBlock)
-}
+	lastBlock := g.blockchain.CurrentBlock().NumberU64()
 
-func (g *generator) mergeBlock() (uint64, bool) {
-	merge := g.genesis.Config.MergeNetsplitBlock
-	if merge != nil {
-		return merge.Uint64(), true
-	}
-	return 0, false
+	return exportN(g.blockchain, out, 1, lastBlock)
 }
 
 func exportN(bc *core.BlockChain, w io.Writer, first uint64, last uint64) error {

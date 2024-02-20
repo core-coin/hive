@@ -8,12 +8,12 @@ import (
 	"time"
 
 	api "github.com/core-coin/go-core/beacon/engine"
-	"github.com/ethereum/hive/hivesim"
-	"github.com/ethereum/hive/simulators/ethereum/engine/client/hive_rpc"
-	"github.com/ethereum/hive/simulators/ethereum/engine/clmock"
-	"github.com/ethereum/hive/simulators/ethereum/engine/globals"
-	"github.com/ethereum/hive/simulators/ethereum/engine/helper"
-	"github.com/ethereum/hive/simulators/ethereum/engine/test"
+	"github.com/core-coin/hive/hivesim"
+	"github.com/core-coin/hive/simulators/ethereum/engine/client/hive_rpc"
+	"github.com/core-coin/hive/simulators/ethereum/engine/clmock"
+	"github.com/core-coin/hive/simulators/ethereum/engine/globals"
+	"github.com/core-coin/hive/simulators/ethereum/engine/helper"
+	"github.com/core-coin/hive/simulators/ethereum/engine/test"
 )
 
 var Tests = []test.BaseSpec{

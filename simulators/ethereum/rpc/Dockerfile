@@ -1,6 +1,6 @@
 # This simulation runs JSON-RPC API tests.
 FROM golang:1-alpine as builder
-RUN apk add --update gcc musl-dev linux-headers
+RUN apk add --update gcc musl-dev linux-headers g++
 
 # Build the simulator executable.
 ADD . /source

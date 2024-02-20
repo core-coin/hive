@@ -29,7 +29,7 @@ import (
 	"github.com/core-coin/go-core/p2p"
 	"github.com/core-coin/go-core/p2p/rlpx"
 	"github.com/core-coin/go-core/rlp"
-	"github.com/ethereum/hive/simulators/ethereum/engine/clmock"
+	"github.com/core-coin/hive/simulators/ethereum/engine/clmock"
 )
 
 type Message interface {

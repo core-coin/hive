@@ -14,14 +14,14 @@ import (
 	"github.com/core-coin/go-core/common"
 	"github.com/core-coin/go-core/core"
 	"github.com/core-coin/go-core/core/types"
-	"github.com/ethereum/hive/simulators/ethereum/engine/client/hive_rpc"
-	"github.com/ethereum/hive/simulators/ethereum/engine/clmock"
-	"github.com/ethereum/hive/simulators/ethereum/engine/config"
-	"github.com/ethereum/hive/simulators/ethereum/engine/globals"
-	"github.com/ethereum/hive/simulators/ethereum/engine/helper"
-	suite_engine "github.com/ethereum/hive/simulators/ethereum/engine/suites/engine"
-	"github.com/ethereum/hive/simulators/ethereum/engine/test"
-	typ "github.com/ethereum/hive/simulators/ethereum/engine/types"
+	"github.com/core-coin/hive/simulators/ethereum/engine/client/hive_rpc"
+	"github.com/core-coin/hive/simulators/ethereum/engine/clmock"
+	"github.com/core-coin/hive/simulators/ethereum/engine/config"
+	"github.com/core-coin/hive/simulators/ethereum/engine/globals"
+	"github.com/core-coin/hive/simulators/ethereum/engine/helper"
+	suite_engine "github.com/core-coin/hive/simulators/ethereum/engine/suites/engine"
+	"github.com/core-coin/hive/simulators/ethereum/engine/test"
+	typ "github.com/core-coin/hive/simulators/ethereum/engine/types"
 )
 
 var (

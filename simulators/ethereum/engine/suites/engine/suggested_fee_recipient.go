@@ -6,11 +6,11 @@ import (
 	"math/big"
 
 	"github.com/core-coin/go-core/common"
-	"github.com/ethereum/hive/simulators/ethereum/engine/clmock"
-	"github.com/ethereum/hive/simulators/ethereum/engine/config"
-	"github.com/ethereum/hive/simulators/ethereum/engine/globals"
-	"github.com/ethereum/hive/simulators/ethereum/engine/helper"
-	"github.com/ethereum/hive/simulators/ethereum/engine/test"
+	"github.com/core-coin/hive/simulators/ethereum/engine/clmock"
+	"github.com/core-coin/hive/simulators/ethereum/engine/config"
+	"github.com/core-coin/hive/simulators/ethereum/engine/globals"
+	"github.com/core-coin/hive/simulators/ethereum/engine/helper"
+	"github.com/core-coin/hive/simulators/ethereum/engine/test"
 )
 
 type SuggestedFeeRecipientTest struct {

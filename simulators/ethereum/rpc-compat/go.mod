@@ -1,10 +1,10 @@
-module github.com/ethereum/hive/simulators/ethereum/rpc-compat
+module github.com/core-coin/hive/simulators/ethereum/rpc-compat
 
 go 1.18
 
 require (
-	github.com/core-coin/go-core v1.13.5-0.20231031113925-bc42e88415d3
-	github.com/ethereum/hive v0.0.0-20240131232337-d38a51d4e475
+	github.com/core-coin/go-core/v2 v2.1.6
+	github.com/core-coin/hive v0.0.0-20240131232337-d38a51d4e475
 	github.com/yudai/gojsondiff v1.0.0
 )
 

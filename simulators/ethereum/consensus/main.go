@@ -16,7 +16,7 @@ import (
 	"github.com/core-coin/go-core/common"
 	"github.com/core-coin/go-core/core"
 	"github.com/core-coin/go-core/rpc"
-	"github.com/ethereum/hive/hivesim"
+	"github.com/core-coin/hive/hivesim"
 )
 
 type envvars map[string]int

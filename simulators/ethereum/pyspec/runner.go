@@ -16,11 +16,11 @@ import (
 	"github.com/core-coin/go-core/core"
 	"github.com/core-coin/go-core/rpc"
 	"github.com/core-coin/go-core/tests"
-	"github.com/ethereum/hive/hivesim"
-	"github.com/ethereum/hive/simulators/ethereum/engine/client/hive_rpc"
-	"github.com/ethereum/hive/simulators/ethereum/engine/globals"
+	"github.com/core-coin/hive/hivesim"
+	"github.com/core-coin/hive/simulators/ethereum/engine/client/hive_rpc"
+	"github.com/core-coin/hive/simulators/ethereum/engine/globals"
 
-	typ "github.com/ethereum/hive/simulators/ethereum/engine/types"
+	typ "github.com/core-coin/hive/simulators/ethereum/engine/types"
 )
 
 // loadFixtureTests extracts tests from fixture.json files in a given directory,

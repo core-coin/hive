@@ -11,7 +11,7 @@ import (
 	"github.com/core-coin/go-core/core"
 	"github.com/core-coin/go-core/core/types"
 
-	typ "github.com/ethereum/hive/simulators/ethereum/engine/types"
+	typ "github.com/core-coin/hive/simulators/ethereum/engine/types"
 )
 
 type testcase struct {

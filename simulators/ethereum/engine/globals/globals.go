@@ -1,35 +1,27 @@
 package globals
 
 import (
-	"crypto/ecdsa"
-	"crypto/sha256"
-	"encoding/binary"
+	"crypto/rand"
 	"math/big"
 	"time"
 
-	"github.com/core-coin/go-core/common"
-	"github.com/core-coin/go-core/crypto"
-	"github.com/core-coin/go-core/params"
-	"github.com/ethereum/hive/hivesim"
+	"github.com/core-coin/go-core/v2/common"
+	"github.com/core-coin/go-core/v2/crypto"
+	"github.com/core-coin/go-core/v2/params"
+	"github.com/core-coin/hive/hivesim"
 )
 
 type TestAccount struct {
-	key     *ecdsa.PrivateKey
-	address *common.Address
+	key     *crypto.PrivateKey
 	index   uint64
 }
 
-func (a *TestAccount) GetKey() *ecdsa.PrivateKey {
+func (a *TestAccount) GetKey() *crypto.PrivateKey {
 	return a.key
 }
 
 func (a *TestAccount) GetAddress() common.Address {
-	if a.address == nil {
-		key := a.key
-		addr := crypto.PubkeyToAddress(key.PublicKey)
-		a.address = &addr
-	}
-	return *a.address
+	return a.key.Address()
 }
 
 func (a *TestAccount) GetIndex() uint64 {
@@ -39,18 +31,17 @@ func (a *TestAccount) GetIndex() uint64 {
 var (
 
 	// Test chain parameters
-	ChainID          = big.NewInt(7)
-	GasPrice         = big.NewInt(30 * params.GWei)
-	GasTipPrice      = big.NewInt(1 * params.GWei)
-	BlobGasPrice     = big.NewInt(1 * params.GWei)
-	NetworkID        = big.NewInt(7)
+	NetworkID          = big.NewInt(7)
+	EnergyPrice         = big.NewInt(30 * params.Nucle)
+	EnergyTipPrice      = big.NewInt(1 * params.Nucle)
+	BlobEnergyPrice     = big.NewInt(1 * params.Nucle)
 	GenesisTimestamp = uint64(0x1234)
 
 	// RPC Timeout for every call
 	RPCTimeout = 10 * time.Second
 
 	// Engine, Eth ports
-	EthPortHTTP    = 8545
+	XcbPortHTTP    = 8545
 	EnginePortHTTP = 8551
 
 	// JWT Authentication Related
@@ -68,32 +59,13 @@ var (
 	PoWConfirmationBlocks = uint64(15)
 	PoSConfirmationBlocks = uint64(1)
 
-	// Test related
-	PrevRandaoContractAddr = common.HexToAddress("0000000000000000000000000000000000000316")
-
-	// Clique Related
-	MinerPKHex   = "9c647b8b7c4e7c3490668fb6c11473619db80c93704c70893d3813af4090c39c"
-	MinerAddrHex = "658bdf435d810c91414ec09147daa6db62406379"
+	MinerPKHex   = "44cc42018b039b182dc1f8a05f4696995e39ba0e2af6d14f8dc68ee2fdf77195a85cbd6f8cf94905015b039300f44d8d639b287cb15abe4db0"
+	MinerAddrHex = "cb65e49851f010cd7d81b5b4969f3b0e8325c415359d"
 
 	DefaultClientEnv = hivesim.Params{
 		"HIVE_NETWORK_ID":          NetworkID.String(),
-		"HIVE_CHAIN_ID":            ChainID.String(),
-		"HIVE_FORK_HOMESTEAD":      "0",
-		"HIVE_FORK_TANGERINE":      "0",
-		"HIVE_FORK_SPURIOUS":       "0",
-		"HIVE_FORK_BYZANTIUM":      "0",
-		"HIVE_FORK_CONSTANTINOPLE": "0",
-		"HIVE_FORK_PETERSBURG":     "0",
-		"HIVE_FORK_ISTANBUL":       "0",
-		"HIVE_FORK_MUIR_GLACIER":   "0",
-		"HIVE_FORK_BERLIN":         "0",
-		"HIVE_FORK_LONDON":         "0",
-		// Tests use clique PoA to mine new blocks until the TTD is reached, then PoS takes over.
-		"HIVE_CLIQUE_PERIOD":     "1",
-		"HIVE_CLIQUE_PRIVATEKEY": MinerPKHex,
+		"HIVE_PRIVATEKEY": MinerPKHex,
 		"HIVE_MINER":             MinerAddrHex,
-		// Merge related
-		"HIVE_MERGE_BLOCK_ID": "100",
 	}
 )
 
@@ -101,10 +73,7 @@ func init() {
 	// Fill the test accounts with deterministic addresses
 	TestAccounts = make([]*TestAccount, TestAccountCount)
 	for i := uint64(0); i < TestAccountCount; i++ {
-		bs := make([]byte, 8)
-		binary.BigEndian.PutUint64(bs, uint64(i))
-		b := sha256.Sum256(bs)
-		k, err := crypto.ToECDSA(b[:])
+		k, err := crypto.GenerateKey(rand.Reader)
 		if err != nil {
 			panic(err)
 		}

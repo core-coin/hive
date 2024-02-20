@@ -3,11 +3,10 @@ package helper
 import (
 	"fmt"
 
-	"github.com/core-coin/go-core/core/types"
+	"github.com/core-coin/go-core/v2/core/types"
 )
 
-func GenerateInvalidPayloadBlock(baseBlock *types.Block, uncle *types.Block, payloadField InvalidPayloadBlockField) (*types.Block, error) {
-	if payloadField == InvalidOmmers {
+func GenerateInvalidPayloadBlock(baseBlock *types.Block, uncle *types.Block) (*types.Block, error) {
 		if uncle == nil {
 			return nil, fmt.Errorf("No ommer provided")
 		}
@@ -20,7 +19,4 @@ func GenerateInvalidPayloadBlock(baseBlock *types.Block, uncle *types.Block, pay
 		modifiedBlock := types.NewBlockWithHeader(newHeader).WithBody(baseBlock.Transactions(), uncles)
 		fmt.Printf("DEBUG: hash=%s, ommerLen=%d, ommersHash=%v\n", modifiedBlock.Hash(), len(modifiedBlock.Uncles()), modifiedBlock.UncleHash())
 		return modifiedBlock, nil
-	}
-
-	return baseBlock, nil
 }

@@ -4,16 +4,16 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"net/http"
 	"os"
 	"os/exec"
 
-	"github.com/ethereum/hive/hivesim"
+	"github.com/core-coin/hive/hivesim"
+	"github.com/core-coin/hive/internal/simapi"
 	"github.com/shogo82148/go-tap"
 )
 
 // Location of the test chain files. They are copied from
-// go-ethereum/cmd/devp2p/internal/ethtest/testdata by the simulator dockerfile.
+// go-core/cmd/devp2p/internal/xcbtest/testdata by the simulator dockerfile.
 const testChainDir = "/testchain"
 
 func main() {
@@ -22,14 +22,9 @@ func main() {
 		Description: "This suite runs Discovery v4 protocol tests.",
 		Tests: []hivesim.AnyTest{
 			hivesim.ClientTestSpec{
-				Role: "eth1",
+				Role: "xcb1",
 				Parameters: hivesim.Params{
 					"HIVE_NETWORK_ID":     "19763",
-					"HIVE_CHAIN_ID":       "19763",
-					"HIVE_FORK_HOMESTEAD": "0",
-					"HIVE_FORK_TANGERINE": "0",
-					"HIVE_FORK_SPURIOUS":  "0",
-					"HIVE_FORK_BYZANTIUM": "0",
 					"HIVE_LOGLEVEL":       "5",
 				},
 				AlwaysRun: true,
@@ -43,14 +38,9 @@ func main() {
 		Description: "This suite runs Discovery v5 protocol tests.",
 		Tests: []hivesim.AnyTest{
 			hivesim.ClientTestSpec{
-				Role: "eth1",
+				Role: "xcb1",
 				Parameters: hivesim.Params{
 					"HIVE_NETWORK_ID":     "19763",
-					"HIVE_CHAIN_ID":       "19763",
-					"HIVE_FORK_HOMESTEAD": "0",
-					"HIVE_FORK_TANGERINE": "0",
-					"HIVE_FORK_SPURIOUS":  "0",
-					"HIVE_FORK_BYZANTIUM": "0",
 					"HIVE_LOGLEVEL":       "5",
 				},
 				AlwaysRun: true,
@@ -59,30 +49,26 @@ func main() {
 				},
 			},
 			hivesim.ClientTestSpec{
-				Role: "beacon",
+				Role: "xcb1",
 				Parameters: hivesim.Params{
 					"HIVE_LOGLEVEL":        "5",
 					"HIVE_CHECK_LIVE_PORT": "4000",
 				},
-				Files: map[string]string{
-					"/hive/input/genesis.ssz": "./init/beacon/genesis.ssz",
-					"/hive/input/config.yaml": "./init/beacon/config.yaml",
-				},
 				AlwaysRun: true,
 				Run: func(t *hivesim.T, c *hivesim.Client) {
-					runDiscv5Test(t, c, getBeaconENR)
+					runDiscv5Test(t, c, (*hivesim.Client).EnodeURL)
 				},
 			},
 		},
 	}
 
 	forkenv := loadTestChainConfig()
-	eth := hivesim.Suite{
-		Name:        "eth",
-		Description: "This suite tests a client's ability to accurately respond to basic eth protocol messages.",
+	xcb := hivesim.Suite{
+		Name:        "xcb",
+		Description: "This suite tests a client's ability to accurately respond to basic xcb protocol messages.",
 		Tests: []hivesim.AnyTest{
 			hivesim.ClientTestSpec{
-				Role: "eth1",
+				Role: "xcb1",
 				Name: "client launch",
 				Description: `This test launches the client and runs the test tool.
 Results from the test tool are reported as individual sub-tests.`,
@@ -92,7 +78,7 @@ Results from the test tool are reported as individual sub-tests.`,
 					"chain.rlp":    testChainDir + "/chain.rlp",
 				},
 				AlwaysRun: true,
-				Run:       runEthTest,
+				Run:       runXcbTest,
 			},
 		},
 	}
@@ -102,7 +88,7 @@ Results from the test tool are reported as individual sub-tests.`,
 		Description: "This suite tests the snap protocol.",
 		Tests: []hivesim.AnyTest{
 			hivesim.ClientTestSpec{
-				Role: "eth1",
+				Role: "xcb1",
 				Name: "client launch",
 				Description: `This test launches the client and runs the test tool.
 Results from the test tool are reported as individual sub-tests.`,
@@ -117,7 +103,7 @@ Results from the test tool are reported as individual sub-tests.`,
 		},
 	}
 
-	hivesim.MustRun(hivesim.New(), discv4, discv5, eth, snap)
+	hivesim.MustRun(hivesim.New(), discv4, discv5, xcb, snap)
 }
 
 func loadTestChainConfig() hivesim.Params {
@@ -132,14 +118,14 @@ func loadTestChainConfig() hivesim.Params {
 	return p
 }
 
-func runEthTest(t *hivesim.T, c *hivesim.Client) {
+func runXcbTest(t *hivesim.T, c *hivesim.Client) {
 	enode, err := c.EnodeURL()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	_, pattern := t.Sim.TestPattern()
-	cmd := exec.Command("./devp2p", "rlpx", "eth-test",
+	cmd := exec.Command("./devp2p", "rlpx", "xcb-test",
 		"--tap",
 		"--run", pattern,
 		"--node", enode,
@@ -283,7 +269,7 @@ func reportTAP(t *hivesim.T, clientName string, output io.Reader) error {
 		}
 		// Forward result to hive.
 		name := fmt.Sprintf("%s (%s)", test.Description, clientName)
-		testID, err := t.Sim.StartTest(t.SuiteID, name, "")
+		testID, err := t.Sim.StartTest(t.SuiteID, &simapi.TestRequest{Name: name})
 		if err != nil {
 			return fmt.Errorf("can't report sub-test result: %v", err)
 		}
@@ -291,26 +277,4 @@ func reportTAP(t *hivesim.T, clientName string, output io.Reader) error {
 		t.Sim.EndTest(t.SuiteID, testID, result)
 	}
 	return nil
-}
-
-func getBeaconENR(c *hivesim.Client) (string, error) {
-	url := fmt.Sprintf("http://%v:4000/eth/v1/node/identity", c.IP)
-	resp, err := http.Get(url)
-	if err != nil {
-		return "", err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != 200 {
-		return "", fmt.Errorf("HTTP request to get ENR failed with status code %d", resp.StatusCode)
-	}
-	var responseJSON struct {
-		Data struct {
-			ENR string `json:"enr"`
-		} `json:"data"`
-	}
-	err = json.NewDecoder(resp.Body).Decode(&responseJSON)
-	if err != nil {
-		return "", err
-	}
-	return responseJSON.Data.ENR, nil
 }

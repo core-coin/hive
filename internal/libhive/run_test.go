@@ -9,9 +9,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/ethereum/hive/hivesim"
-	"github.com/ethereum/hive/internal/fakes"
-	"github.com/ethereum/hive/internal/libhive"
+	"github.com/core-coin/hive/hivesim"
+	"github.com/core-coin/hive/internal/fakes"
+	"github.com/core-coin/hive/internal/libhive"
 )
 
 func TestRunner(t *testing.T) {

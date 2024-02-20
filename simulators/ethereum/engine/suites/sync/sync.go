@@ -7,8 +7,8 @@ import (
 
 	"github.com/core-coin/go-core/common"
 	"github.com/core-coin/go-core/core/types"
-	"github.com/ethereum/hive/hivesim"
-	"github.com/ethereum/hive/simulators/ethereum/engine/helper"
+	"github.com/core-coin/hive/hivesim"
+	"github.com/core-coin/hive/simulators/ethereum/engine/helper"
 )
 
 // Specifies a single test variant for the given client:

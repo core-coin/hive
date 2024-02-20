@@ -7,12 +7,12 @@ import (
 	"strings"
 	"time"
 
-	ethereum "github.com/core-coin/go-core"
-	"github.com/core-coin/go-core/accounts/abi"
-	"github.com/core-coin/go-core/common"
-	"github.com/core-coin/go-core/core/types"
-	"github.com/core-coin/go-core/crypto"
-	"github.com/core-coin/go-core/params"
+	"github.com/core-coin/go-core/v2"
+	"github.com/core-coin/go-core/v2/accounts/abi"
+	"github.com/core-coin/go-core/v2/common"
+	"github.com/core-coin/go-core/v2/core/types"
+	"github.com/core-coin/go-core/v2/crypto"
+	"github.com/core-coin/go-core/v2/params"
 )
 
 var (
@@ -62,9 +62,9 @@ contract Test {
 	// test contract code as deployed
 	runtimeCode = common.Hex2Bytes("60606040526000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063a223e05d1461006a578063abd1a0cf1461008d578063abfced1d146100d4578063e05c914a14610110578063e6768b451461014c575b610000565b346100005761007761019d565b6040518082815260200191505060405180910390f35b34610000576100be600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506101a3565b6040518082815260200191505060405180910390f35b346100005761010e600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919080359060200190919050506101ed565b005b346100005761014a600480803590602001909190803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610236565b005b346100005761017960048080359060200190919080359060200190919080359060200190919050506103c4565b60405180848152602001838152602001828152602001935050505060405180910390f35b60005481565b6000600160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205490505b919050565b80600160008473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055505b5050565b7f6031a8d62d7c95988fa262657cd92107d90ed96e08d8f867d32f26edfe85502260405180905060405180910390a17f47e2689743f14e97f7dcfa5eec10ba1dff02f83b3d1d4b9c07b206cbbda66450826040518082815260200191505060405180910390a1817fa48a6b249a5084126c3da369fbc9b16827ead8cb5cdc094b717d3f1dcd995e2960405180905060405180910390a27f7890603b316f3509577afd111710f9ebeefa15e12f72347d9dffd0d65ae3bade81604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a18073ffffffffffffffffffffffffffffffffffffffff167f7efef9ea3f60ddc038e50cccec621f86a0195894dc0520482abf8b5c6b659e4160405180905060405180910390a28181604051808381526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019250505060405180910390a05b5050565b6000600060008585859250925092505b935093509390505600a165627a7a72305820aaf842d0d0c35c45622c5263cbb54813d2974d3999c8c38551d7c613ea2bc1170029")
 	// contractSrc is predeploy on the following address in the genesis block.
-	predeployedContractAddr = common.HexToAddress("0000000000000000000000000000000000000314")
+	predeployedContractAddr, _ = common.HexToAddress("cb150000000000000000000000000000000000000314")
 	// contractSrc is pre-deployed with the following address in the genesis block.
-	predeployedContractWithAddress = common.HexToAddress("391694e7e0b0cce554cb130d723a9d27458f9298")
+	predeployedContractWithAddress, _ = common.HexToAddress("cb73391694e7e0b0cce554cb130d723a9d27458f9298")
 	// holds the pre-deployed contract ABI
 	predeployedContractABI = `[{"constant":true,"inputs":[],"name":"ui","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"addr","type":"address"}],"name":"getFromMap","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"addr","type":"address"},{"name":"value","type":"uint256"}],"name":"addToMap","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"ui_","type":"uint256"},{"name":"addr_","type":"address"}],"name":"events","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"a","type":"uint256"},{"name":"b","type":"uint256"},{"name":"c","type":"uint256"}],"name":"constFunc","outputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[{"name":"ui_","type":"uint256"}],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[],"name":"E0","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"","type":"uint256"}],"name":"E1","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"","type":"uint256"}],"name":"E2","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"","type":"address"}],"name":"E3","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"","type":"address"}],"name":"E4","type":"event"},{"anonymous":true,"inputs":[{"indexed":false,"name":"","type":"uint256"},{"indexed":false,"name":"","type":"address"}],"name":"E5","type":"event"}]`
 )
@@ -76,7 +76,7 @@ var (
 
 // CodeAtTest tests the code for the pre-deployed contract.
 func CodeAtTest(t *TestEnv) {
-	code, err := t.Eth.CodeAt(t.Ctx(), predeployedContractAddr, big0)
+	code, err := t.Xcb.CodeAt(t.Ctx(), predeployedContractAddr, big0)
 	if err != nil {
 		t.Fatalf("Could not fetch code for predeployed contract: %v", err)
 	}
@@ -85,10 +85,10 @@ func CodeAtTest(t *TestEnv) {
 	}
 }
 
-// estimateGasTest fetches the estimated gas usage for a call to the events method.
-func estimateGasTest(t *TestEnv) {
+// estimateEnergyTest fetches the estimated energy usage for a call to the events method.
+func estimateEnergyTest(t *TestEnv) {
 	var (
-		address        = t.Vault.createAccount(t, big.NewInt(params.Ether))
+		address        = t.Vault.createAccount(t, big.NewInt(params.Core))
 		contractABI, _ = abi.JSON(strings.NewReader(predeployedContractABI))
 		intArg         = big.NewInt(rand.Int63())
 	)
@@ -97,25 +97,25 @@ func estimateGasTest(t *TestEnv) {
 	if err != nil {
 		t.Fatalf("Unable to prepare tx payload: %v", err)
 	}
-	msg := ethereum.CallMsg{
+	msg := core.CallMsg{
 		From: address,
 		To:   &predeployedContractAddr,
 		Data: payload,
 	}
-	estimated, err := t.Eth.EstimateGas(t.Ctx(), msg)
+	estimated, err := t.Xcb.EstimateEnergy(t.Ctx(), msg)
 	if err != nil {
-		t.Fatalf("Could not estimate gas: %v", err)
+		t.Fatalf("Could not estimate energy: %v", err)
 	}
 
-	// send the actual tx and test gas usage
-	txGas := estimated + 100000
-	rawTx := types.NewTransaction(0, *msg.To, msg.Value, txGas, big.NewInt(32*params.GWei), msg.Data)
+	// send the actual tx and test energy usage
+	txenergy := estimated + 100000
+	rawTx := types.NewTransaction(0, *msg.To, msg.Value, txenergy, big.NewInt(32*params.Nucle), msg.Data)
 	tx, err := t.Vault.signTransaction(address, rawTx)
 	if err != nil {
 		t.Fatalf("Could not sign transaction: %v", err)
 	}
 
-	if err := t.Eth.SendTransaction(t.Ctx(), tx); err != nil {
+	if err := t.Xcb.SendTransaction(t.Ctx(), tx); err != nil {
 		t.Fatalf("Could not send tx: %v", err)
 	}
 
@@ -125,12 +125,12 @@ func estimateGasTest(t *TestEnv) {
 	}
 
 	// test lower bound
-	if estimated < receipt.GasUsed {
-		t.Fatalf("Estimated gas too low, want %d >= %d", estimated, receipt.GasUsed)
+	if estimated < receipt.EnergyUsed {
+		t.Fatalf("Estimated energy too low, want %d >= %d", estimated, receipt.EnergyUsed)
 	}
 	// test upper bound
-	if receipt.GasUsed+5000 < estimated {
-		t.Fatalf("Estimated gas too high, estimated: %d, used: %d", estimated, receipt.GasUsed)
+	if receipt.EnergyUsed+5000 < estimated {
+		t.Fatalf("Estimated energy too high, estimated: %d, used: %d", estimated, receipt.EnergyUsed)
 	}
 }
 
@@ -139,23 +139,23 @@ func estimateGasTest(t *TestEnv) {
 // address are updated correct.
 func balanceAndNonceAtTest(t *TestEnv) {
 	var (
-		sourceAddr  = t.Vault.createAccount(t, big.NewInt(params.Ether))
+		sourceAddr  = t.Vault.createAccount(t, big.NewInt(params.Core))
 		sourceNonce = uint64(0)
 		targetAddr  = t.Vault.createAccount(t, nil)
 	)
 
 	// Get current balance
-	sourceAddressBalanceBefore, err := t.Eth.BalanceAt(t.Ctx(), sourceAddr, nil)
+	sourceAddressBalanceBefore, err := t.Xcb.BalanceAt(t.Ctx(), sourceAddr, nil)
 	if err != nil {
 		t.Fatalf("Unable to retrieve balance: %v", err)
 	}
 
-	expected := big.NewInt(params.Ether)
+	expected := big.NewInt(params.Core)
 	if sourceAddressBalanceBefore.Cmp(expected) != 0 {
 		t.Errorf("Expected balance %d, got %d", expected, sourceAddressBalanceBefore)
 	}
 
-	nonceBefore, err := t.Eth.NonceAt(t.Ctx(), sourceAddr, nil)
+	nonceBefore, err := t.Xcb.NonceAt(t.Ctx(), sourceAddr, nil)
 	if err != nil {
 		t.Fatalf("Unable to determine nonce: %v", err)
 	}
@@ -166,9 +166,9 @@ func balanceAndNonceAtTest(t *TestEnv) {
 	// send 1234 wei to target account and verify balances and nonces are updated
 	var (
 		amount   = big.NewInt(1234)
-		gasLimit = uint64(50000)
+		energyLimit = uint64(50000)
 	)
-	rawTx := types.NewTransaction(sourceNonce, targetAddr, amount, gasLimit, gasPrice, nil)
+	rawTx := types.NewTransaction(sourceNonce, targetAddr, amount, energyLimit, energyPrice, nil)
 	valueTx, err := t.Vault.signTransaction(sourceAddr, rawTx)
 	if err != nil {
 		t.Fatalf("Unable to sign value tx: %v", err)
@@ -176,36 +176,36 @@ func balanceAndNonceAtTest(t *TestEnv) {
 	sourceNonce++
 
 	t.Logf("BalanceAt: send %d wei from 0x%x to 0x%x in 0x%x", valueTx.Value(), sourceAddr, targetAddr, valueTx.Hash())
-	if err := t.Eth.SendTransaction(t.Ctx(), valueTx); err != nil {
+	if err := t.Xcb.SendTransaction(t.Ctx(), valueTx); err != nil {
 		t.Fatalf("Unable to send transaction: %v", err)
 	}
 
 	var receipt *types.Receipt
 	for {
-		receipt, err = t.Eth.TransactionReceipt(t.Ctx(), valueTx.Hash())
+		receipt, err = t.Xcb.TransactionReceipt(t.Ctx(), valueTx.Hash())
 		if receipt != nil {
 			break
 		}
-		if err != ethereum.NotFound {
+		if err != core.NotFound {
 			t.Fatalf("Could not fetch receipt for 0x%x: %v", valueTx.Hash(), err)
 		}
 		time.Sleep(time.Second)
 	}
 
 	// ensure balances have been updated
-	accountBalanceAfter, err := t.Eth.BalanceAt(t.Ctx(), sourceAddr, nil)
+	accountBalanceAfter, err := t.Xcb.BalanceAt(t.Ctx(), sourceAddr, nil)
 	if err != nil {
 		t.Fatalf("Unable to retrieve balance: %v", err)
 	}
-	balanceTargetAccountAfter, err := t.Eth.BalanceAt(t.Ctx(), targetAddr, nil)
+	balanceTargetAccountAfter, err := t.Xcb.BalanceAt(t.Ctx(), targetAddr, nil)
 	if err != nil {
 		t.Fatalf("Unable to retrieve balance: %v", err)
 	}
 
-	// expected balance is previous balance - tx amount - tx fee (gasUsed * gasPrice)
+	// expected balance is previous balance - tx amount - tx fee (energyUsed * energyPrice)
 	exp := new(big.Int).Set(sourceAddressBalanceBefore)
 	exp.Sub(exp, amount)
-	exp.Sub(exp, new(big.Int).Mul(big.NewInt(int64(receipt.GasUsed)), valueTx.GasPrice()))
+	exp.Sub(exp, new(big.Int).Mul(big.NewInt(int64(receipt.EnergyUsed)), valueTx.EnergyPrice()))
 
 	if exp.Cmp(accountBalanceAfter) != 0 {
 		t.Errorf("Expected sender account to have a balance of %d, got %d", exp, accountBalanceAfter)
@@ -215,7 +215,7 @@ func balanceAndNonceAtTest(t *TestEnv) {
 	}
 
 	// ensure nonce is incremented by 1
-	nonceAfter, err := t.Eth.NonceAt(t.Ctx(), sourceAddr, nil)
+	nonceAfter, err := t.Xcb.NonceAt(t.Ctx(), sourceAddr, nil)
 	if err != nil {
 		t.Fatalf("Unable to determine nonce: %v", err)
 	}
@@ -231,7 +231,7 @@ func balanceAndNonceAtTest(t *TestEnv) {
 func genesisHeaderByHashTest(t *TestEnv) {
 	gblock := loadGenesis()
 
-	headerByHash, err := t.Eth.HeaderByHash(t.Ctx(), gblock.Hash())
+	headerByHash, err := t.Xcb.HeaderByHash(t.Ctx(), gblock.Hash())
 	if err != nil {
 		t.Fatalf("Unable to fetch block %x: %v", gblock.Hash(), err)
 	}
@@ -246,7 +246,7 @@ func genesisHeaderByHashTest(t *TestEnv) {
 func genesisHeaderByNumberTest(t *TestEnv) {
 	gblock := loadGenesis()
 
-	headerByNum, err := t.Eth.HeaderByNumber(t.Ctx(), big0)
+	headerByNum, err := t.Xcb.HeaderByNumber(t.Ctx(), big0)
 	if err != nil {
 		t.Fatalf("Unable to fetch genesis block: %v", err)
 	}
@@ -260,7 +260,7 @@ func genesisHeaderByNumberTest(t *TestEnv) {
 func genesisBlockByHashTest(t *TestEnv) {
 	gblock := loadGenesis()
 
-	blockByHash, err := t.Eth.BlockByHash(t.Ctx(), gblock.Hash())
+	blockByHash, err := t.Xcb.BlockByHash(t.Ctx(), gblock.Hash())
 	if err != nil {
 		t.Fatalf("Unable to fetch block %x: %v", gblock.Hash(), err)
 	}
@@ -275,7 +275,7 @@ func genesisBlockByHashTest(t *TestEnv) {
 func genesisBlockByNumberTest(t *TestEnv) {
 	gblock := loadGenesis()
 
-	blockByNum, err := t.Eth.BlockByNumber(t.Ctx(), big0)
+	blockByNum, err := t.Xcb.BlockByNumber(t.Ctx(), big0)
 	if err != nil {
 		t.Fatalf("Unable to fetch genesis block: %v", err)
 	}
@@ -290,7 +290,7 @@ func genesisBlockByNumberTest(t *TestEnv) {
 func canonicalChainTest(t *TestEnv) {
 	// wait a bit so there is actually a chain with enough height
 	for {
-		latestBlock, err := t.Eth.BlockByNumber(t.Ctx(), nil)
+		latestBlock, err := t.Xcb.BlockByNumber(t.Ctx(), nil)
 		if err != nil {
 			t.Fatalf("Unable to fetch latest block")
 		}
@@ -302,7 +302,7 @@ func canonicalChainTest(t *TestEnv) {
 
 	var childBlock *types.Block
 	for i := 10; i >= 0; i-- {
-		block, err := t.Eth.BlockByNumber(t.Ctx(), big.NewInt(int64(i)))
+		block, err := t.Xcb.BlockByNumber(t.Ctx(), big.NewInt(int64(i)))
 		if err != nil {
 			t.Fatalf("Unable to fetch block #%d", i)
 		}
@@ -315,14 +315,14 @@ func canonicalChainTest(t *TestEnv) {
 		// try to fetch all txs and receipts and do some basic validation on them
 		// to check if the fetched chain is consistent.
 		for _, tx := range block.Transactions() {
-			fetchedTx, _, err := t.Eth.TransactionByHash(t.Ctx(), tx.Hash())
+			fetchedTx, _, err := t.Xcb.TransactionByHash(t.Ctx(), tx.Hash())
 			if err != nil {
 				t.Fatalf("Unable to fetch transaction %x from block %x: %v", tx.Hash(), block.Hash(), err)
 			}
 			if fetchedTx == nil {
 				t.Fatalf("Transaction %x could not be found but was included in block %x", tx.Hash(), block.Hash())
 			}
-			receipt, err := t.Eth.TransactionReceipt(t.Ctx(), fetchedTx.Hash())
+			receipt, err := t.Xcb.TransactionReceipt(t.Ctx(), fetchedTx.Hash())
 			if err != nil {
 				t.Fatalf("Unable to fetch receipt for %x from block %x: %v", fetchedTx.Hash(), block.Hash(), err)
 			}
@@ -336,7 +336,7 @@ func canonicalChainTest(t *TestEnv) {
 
 		// make sure all uncles can be fetched
 		for _, uncle := range block.Uncles() {
-			uBlock, err := t.Eth.HeaderByHash(t.Ctx(), uncle.Hash())
+			uBlock, err := t.Xcb.HeaderByHash(t.Ctx(), uncle.Hash())
 			if err != nil {
 				t.Fatalf("Unable to fetch uncle block: %v", err)
 			}
@@ -353,21 +353,21 @@ func canonicalChainTest(t *TestEnv) {
 // on the contract address contain the expected values (as set in the ctor).
 func deployContractTest(t *TestEnv) {
 	var (
-		address = t.Vault.createAccount(t, big.NewInt(params.Ether))
+		address = t.Vault.createAccount(t, big.NewInt(params.Core))
 		nonce   = uint64(0)
 
 		expectedContractAddress = crypto.CreateAddress(address, nonce)
-		gasLimit                = uint64(1200000)
+		energyLimit                = uint64(1200000)
 	)
 
-	rawTx := types.NewContractCreation(nonce, big0, gasLimit, gasPrice, deployCode)
+	rawTx := types.NewContractCreation(nonce, big0, energyLimit, energyPrice, deployCode)
 	deployTx, err := t.Vault.signTransaction(address, rawTx)
 	if err != nil {
 		t.Fatalf("Unable to sign deploy tx: %v", err)
 	}
 
 	// deploy contract
-	if err := t.Eth.SendTransaction(t.Ctx(), deployTx); err != nil {
+	if err := t.Xcb.SendTransaction(t.Ctx(), deployTx); err != nil {
 		t.Fatalf("Unable to send transaction: %v", err)
 	}
 
@@ -386,7 +386,7 @@ func deployContractTest(t *TestEnv) {
 	}
 
 	// test deployed code matches runtime code
-	code, err := t.Eth.CodeAt(t.Ctx(), receipt.ContractAddress, nil)
+	code, err := t.Xcb.CodeAt(t.Ctx(), receipt.ContractAddress, nil)
 	if err != nil {
 		t.Fatalf("Unable to fetch contract code: %v", err)
 	}
@@ -395,7 +395,7 @@ func deployContractTest(t *TestEnv) {
 	}
 
 	// test contract state, pos 0 must be 1234
-	value, err := t.Eth.StorageAt(t.Ctx(), receipt.ContractAddress, common.Hash{}, nil)
+	value, err := t.Xcb.StorageAt(t.Ctx(), receipt.ContractAddress, common.Hash{}, nil)
 	if err == nil {
 		v := new(big.Int).SetBytes(value)
 		if v.Uint64() != 1234 {
@@ -409,9 +409,9 @@ func deployContractTest(t *TestEnv) {
 	storageKey := make([]byte, 64)
 	copy(storageKey[12:32], address.Bytes())
 	storageKey[63] = 1
-	storageKey = crypto.Keccak256(storageKey)
+	storageKey = crypto.SHA3(storageKey)
 
-	value, err = t.Eth.StorageAt(t.Ctx(), receipt.ContractAddress, common.BytesToHash(storageKey), nil)
+	value, err = t.Xcb.StorageAt(t.Ctx(), receipt.ContractAddress, common.BytesToHash(storageKey), nil)
 	if err == nil {
 		v := new(big.Int).SetBytes(value)
 		if v.Uint64() != 1234 {
@@ -422,26 +422,26 @@ func deployContractTest(t *TestEnv) {
 	}
 }
 
-// deployContractOutOfGasTest tries to deploy `contractSrc` with insufficient gas. It
-// checks the receipts reflects the "out of gas" event and code / state isn't created in
+// deployContractOutOfEnergyTest tries to deploy `contractSrc` with insufficient energy. It
+// checks the receipts reflects the "out of energy" event and code / state isn't created in
 // the contract address.
-func deployContractOutOfGasTest(t *TestEnv) {
+func deployContractOutOfEnergyTest(t *TestEnv) {
 	var (
-		address         = t.Vault.createAccount(t, big.NewInt(params.Ether))
+		address         = t.Vault.createAccount(t, big.NewInt(params.Core))
 		nonce           = uint64(0)
 		contractAddress = crypto.CreateAddress(address, nonce)
-		gasLimit        = uint64(240000) // insufficient gas
+		energyLimit        = uint64(240000) // insufficient energy
 	)
 	t.Logf("calculated contract address: %x", contractAddress)
 
 	// Deploy the contract.
-	rawTx := types.NewContractCreation(nonce, big0, gasLimit, gasPrice, deployCode)
+	rawTx := types.NewContractCreation(nonce, big0, energyLimit, energyPrice, deployCode)
 	deployTx, err := t.Vault.signTransaction(address, rawTx)
 	if err != nil {
 		t.Fatalf("unable to sign deploy tx: %v", err)
 	}
-	t.Logf("out of gas tx: %x", deployTx.Hash())
-	if err := t.Eth.SendTransaction(t.Ctx(), deployTx); err != nil {
+	t.Logf("out of energy tx: %x", deployTx.Hash())
+	if err := t.Xcb.SendTransaction(t.Ctx(), deployTx); err != nil {
 		t.Fatalf("unable to send transaction: %v", err)
 	}
 
@@ -454,8 +454,8 @@ func deployContractOutOfGasTest(t *TestEnv) {
 	if receipt.Status != types.ReceiptStatusFailed {
 		t.Errorf("receipt has status %d, want %d", receipt.Status, types.ReceiptStatusFailed)
 	}
-	if receipt.GasUsed != gasLimit {
-		t.Errorf("receipt has gasUsed %d, want %d", receipt.GasUsed, gasLimit)
+	if receipt.EnergyUsed != energyLimit {
+		t.Errorf("receipt has energyUsed %d, want %d", receipt.EnergyUsed, energyLimit)
 	}
 	if receipt.ContractAddress != contractAddress {
 		t.Errorf("receipt has contract address %x, want %x", receipt.ContractAddress, contractAddress)
@@ -464,7 +464,7 @@ func deployContractOutOfGasTest(t *TestEnv) {
 		t.Errorf("receipt has empty block hash", receipt.BlockHash)
 	}
 	// Check that nothing is deployed at the contract address.
-	code, err := t.Eth.CodeAt(t.Ctx(), contractAddress, nil)
+	code, err := t.Xcb.CodeAt(t.Ctx(), contractAddress, nil)
 	if err != nil {
 		t.Fatalf("unable to fetch code: %v", err)
 	}
@@ -478,7 +478,7 @@ func deployContractOutOfGasTest(t *TestEnv) {
 func receiptTest(t *TestEnv) {
 	var (
 		contractABI, _ = abi.JSON(strings.NewReader(predeployedContractABI))
-		address        = t.Vault.createAccount(t, big.NewInt(params.Ether))
+		address        = t.Vault.createAccount(t, big.NewInt(params.Core))
 		nonce          = uint64(0)
 
 		intArg = big.NewInt(rand.Int63())
@@ -489,13 +489,13 @@ func receiptTest(t *TestEnv) {
 		t.Fatalf("Unable to prepare tx payload: %v", err)
 	}
 
-	rawTx := types.NewTransaction(nonce, predeployedContractAddr, big0, 500000, gasPrice, payload)
+	rawTx := types.NewTransaction(nonce, predeployedContractAddr, big0, 500000, energyPrice, payload)
 	tx, err := t.Vault.signTransaction(address, rawTx)
 	if err != nil {
 		t.Fatalf("Unable to sign deploy tx: %v", err)
 	}
 
-	if err := t.Eth.SendTransaction(t.Ctx(), tx); err != nil {
+	if err := t.Xcb.SendTransaction(t.Ctx(), tx); err != nil {
 		t.Fatalf("Unable to send transaction: %v", err)
 	}
 
@@ -578,7 +578,7 @@ func validateLog(t *TestEnv, tx *types.Transaction, log types.Log, contractAddre
 
 // syncProgressTest only tests if this function is supported by the node.
 func syncProgressTest(t *TestEnv) {
-	_, err := t.Eth.SyncProgress(t.Ctx())
+	_, err := t.Xcb.SyncProgress(t.Ctx())
 	if err != nil {
 		t.Fatalf("Unable to determine sync progress: %v", err)
 	}
@@ -588,7 +588,7 @@ func syncProgressTest(t *TestEnv) {
 // and retrieves transaction details by block hash and position.
 func transactionInBlockTest(t *TestEnv) {
 	var (
-		key         = t.Vault.createAccount(t, big.NewInt(params.Ether))
+		key         = t.Vault.createAccount(t, big.NewInt(params.Core))
 		nonce       = uint64(0)
 		blockNumber = new(big.Int)
 	)
@@ -596,16 +596,16 @@ func transactionInBlockTest(t *TestEnv) {
 	for {
 		blockNumber.Add(blockNumber, big1)
 
-		block, err := t.Eth.BlockByNumber(t.Ctx(), blockNumber)
-		if err == ethereum.NotFound { // end of chain
-			rawTx := types.NewTransaction(nonce, predeployedVaultAddr, big1, 100000, gasPrice, nil)
+		block, err := t.Xcb.BlockByNumber(t.Ctx(), blockNumber)
+		if err == core.NotFound { // end of chain
+			rawTx := types.NewTransaction(nonce, predeployedVaultAddr, big1, 100000, energyPrice, nil)
 			nonce++
 
 			tx, err := t.Vault.signTransaction(key, rawTx)
 			if err != nil {
 				t.Fatalf("Unable to sign deploy tx: %v", err)
 			}
-			if err = t.Eth.SendTransaction(t.Ctx(), tx); err != nil {
+			if err = t.Xcb.SendTransaction(t.Ctx(), tx); err != nil {
 				t.Fatalf("Unable to send transaction: %v", err)
 			}
 			time.Sleep(time.Second)
@@ -618,7 +618,7 @@ func transactionInBlockTest(t *TestEnv) {
 			continue
 		}
 		for i := 0; i < len(block.Transactions()); i++ {
-			_, err := t.Eth.TransactionInBlock(t.Ctx(), block.Hash(), uint(i))
+			_, err := t.Xcb.TransactionInBlock(t.Ctx(), block.Hash(), uint(i))
 			if err != nil {
 				t.Fatalf("Unable to fetch transaction by block hash and index: %v", err)
 			}
@@ -632,19 +632,19 @@ func transactionInBlockTest(t *TestEnv) {
 func transactionInBlockSubscriptionTest(t *TestEnv) {
 	var heads = make(chan *types.Header, 100)
 
-	sub, err := t.Eth.SubscribeNewHead(t.Ctx(), heads)
+	sub, err := t.Xcb.SubscribeNewHead(t.Ctx(), heads)
 	if err != nil {
 		t.Fatalf("Unable to subscribe to new heads: %v", err)
 	}
 
-	key := t.Vault.createAccount(t, big.NewInt(params.Ether))
+	key := t.Vault.createAccount(t, big.NewInt(params.Core))
 	for i := 0; i < 5; i++ {
-		rawTx := types.NewTransaction(uint64(i), predeployedVaultAddr, big1, 100000, gasPrice, nil)
+		rawTx := types.NewTransaction(uint64(i), predeployedVaultAddr, big1, 100000, energyPrice, nil)
 		tx, err := t.Vault.signTransaction(key, rawTx)
 		if err != nil {
 			t.Fatalf("Unable to sign deploy tx: %v", err)
 		}
-		if err = t.Eth.SendTransaction(t.Ctx(), tx); err != nil {
+		if err = t.Xcb.SendTransaction(t.Ctx(), tx); err != nil {
 			t.Fatalf("Unable to send transaction: %v", err)
 		}
 	}
@@ -654,7 +654,7 @@ func transactionInBlockSubscriptionTest(t *TestEnv) {
 	for {
 		head := <-heads
 
-		block, err := t.Eth.BlockByHash(t.Ctx(), head.Hash())
+		block, err := t.Xcb.BlockByHash(t.Ctx(), head.Hash())
 		if err != nil {
 			t.Fatalf("Unable to retrieve block %x: %v", head.Hash(), err)
 		}
@@ -662,7 +662,7 @@ func transactionInBlockSubscriptionTest(t *TestEnv) {
 			continue
 		}
 		for i := 0; i < len(block.Transactions()); i++ {
-			_, err = t.Eth.TransactionInBlock(t.Ctx(), head.Hash(), uint(i))
+			_, err = t.Xcb.TransactionInBlock(t.Ctx(), head.Hash(), uint(i))
 			if err != nil {
 				t.Fatalf("Unable to fetch transaction by block hash and index: %v", err)
 			}
@@ -677,7 +677,7 @@ func newHeadSubscriptionTest(t *TestEnv) {
 		heads = make(chan *types.Header)
 	)
 
-	sub, err := t.Eth.SubscribeNewHead(t.Ctx(), heads)
+	sub, err := t.Xcb.SubscribeNewHead(t.Ctx(), heads)
 	if err != nil {
 		t.Fatalf("Unable to subscribe to new heads: %v", err)
 	}
@@ -686,7 +686,7 @@ func newHeadSubscriptionTest(t *TestEnv) {
 	for i := 0; i < 10; i++ {
 		select {
 		case newHead := <-heads:
-			header, err := t.Eth.HeaderByHash(t.Ctx(), newHead.Hash())
+			header, err := t.Xcb.HeaderByHash(t.Ctx(), newHead.Hash())
 			if err != nil {
 				t.Fatalf("Unable to fetch header: %v", err)
 			}
@@ -701,14 +701,14 @@ func newHeadSubscriptionTest(t *TestEnv) {
 
 func logSubscriptionTest(t *TestEnv) {
 	var (
-		criteria = ethereum.FilterQuery{
+		criteria = core.FilterQuery{
 			Addresses: []common.Address{predeployedContractAddr},
 			Topics:    [][]common.Hash{},
 		}
 		logs = make(chan types.Log)
 	)
 
-	sub, err := t.Eth.SubscribeFilterLogs(t.Ctx(), criteria, logs)
+	sub, err := t.Xcb.SubscribeFilterLogs(t.Ctx(), criteria, logs)
 	if err != nil {
 		t.Fatalf("Unable to create log subscription: %v", err)
 	}
@@ -716,7 +716,7 @@ func logSubscriptionTest(t *TestEnv) {
 
 	var (
 		contractABI, _ = abi.JSON(strings.NewReader(predeployedContractABI))
-		address        = t.Vault.createAccount(t, big.NewInt(params.Ether))
+		address        = t.Vault.createAccount(t, big.NewInt(params.Core))
 		nonce          = uint64(0)
 
 		arg0 = big.NewInt(rand.Int63())
@@ -724,13 +724,13 @@ func logSubscriptionTest(t *TestEnv) {
 	)
 
 	payload, _ := contractABI.Pack("events", arg0, arg1)
-	rawTx := types.NewTransaction(nonce, predeployedContractAddr, big0, 500000, gasPrice, payload)
+	rawTx := types.NewTransaction(nonce, predeployedContractAddr, big0, 500000, energyPrice, payload)
 	tx, err := t.Vault.signTransaction(address, rawTx)
 	if err != nil {
 		t.Fatalf("Unable to sign deploy tx: %v", err)
 	}
 
-	if err = t.Eth.SendTransaction(t.Ctx(), tx); err != nil {
+	if err = t.Xcb.SendTransaction(t.Ctx(), tx); err != nil {
 		t.Fatalf("Unable to send transaction: %v", err)
 	}
 
@@ -793,26 +793,26 @@ func validatePredeployContractLogs(t *TestEnv, tx *types.Transaction, logs []typ
 
 func transactionCountTest(t *TestEnv) {
 	var (
-		key = t.Vault.createAccount(t, big.NewInt(params.Ether))
+		key = t.Vault.createAccount(t, big.NewInt(params.Core))
 	)
 
 	for i := 0; i < 60; i++ {
-		rawTx := types.NewTransaction(uint64(i), predeployedVaultAddr, big1, 100000, gasPrice, nil)
+		rawTx := types.NewTransaction(uint64(i), predeployedVaultAddr, big1, 100000, energyPrice, nil)
 		tx, err := t.Vault.signTransaction(key, rawTx)
 		if err != nil {
 			t.Fatalf("Unable to sign deploy tx: %v", err)
 		}
 
-		if err = t.Eth.SendTransaction(t.Ctx(), tx); err != nil {
+		if err = t.Xcb.SendTransaction(t.Ctx(), tx); err != nil {
 			t.Fatalf("Unable to send transaction: %v", err)
 		}
-		block, err := t.Eth.BlockByNumber(t.Ctx(), nil)
+		block, err := t.Xcb.BlockByNumber(t.Ctx(), nil)
 		if err != nil {
 			t.Fatalf("Unable to retrieve latest block: %v", err)
 		}
 
 		if len(block.Transactions()) > 0 {
-			count, err := t.Eth.TransactionCount(t.Ctx(), block.Hash())
+			count, err := t.Xcb.TransactionCount(t.Ctx(), block.Hash())
 			if err != nil {
 				t.Fatalf("Unable to retrieve block transaction count: %v", err)
 			}
@@ -829,22 +829,22 @@ func transactionCountTest(t *TestEnv) {
 // TransactionReceiptTest sends a transaction and tests the receipt fields.
 func TransactionReceiptTest(t *TestEnv) {
 	var (
-		key = t.Vault.createAccount(t, big.NewInt(params.Ether))
+		key = t.Vault.createAccount(t, big.NewInt(params.Core))
 	)
 
-	rawTx := types.NewTransaction(uint64(0), common.Address{}, big1, 100000, gasPrice, nil)
+	rawTx := types.NewTransaction(uint64(0), common.Address{}, big1, 100000, energyPrice, nil)
 	tx, err := t.Vault.signTransaction(key, rawTx)
 	if err != nil {
 		t.Fatalf("Unable to sign deploy tx: %v", err)
 	}
 
-	if err = t.Eth.SendTransaction(t.Ctx(), tx); err != nil {
+	if err = t.Xcb.SendTransaction(t.Ctx(), tx); err != nil {
 		t.Fatalf("Unable to send transaction: %v", err)
 	}
 
 	for i := 0; i < 60; i++ {
-		receipt, err := t.Eth.TransactionReceipt(t.Ctx(), tx.Hash())
-		if err == ethereum.NotFound {
+		receipt, err := t.Xcb.TransactionReceipt(t.Ctx(), tx.Hash())
+		if err == core.NotFound {
 			time.Sleep(time.Second)
 			continue
 		}
@@ -861,8 +861,8 @@ func TransactionReceiptTest(t *TestEnv) {
 		if receipt.Bloom.Big().Cmp(big0) != 0 {
 			t.Errorf("Receipt [tx=%x] bloom not empty, %x", tx.Hash(), receipt.Bloom)
 		}
-		if receipt.GasUsed != params.TxGas {
-			t.Errorf("Receipt [tx=%x] has invalid gas used, want %d, got %d", tx.Hash(), params.TxGas, receipt.GasUsed)
+		if receipt.EnergyUsed != params.TxEnergy {
+			t.Errorf("Receipt [tx=%x] has invalid energy used, want %d, got %d", tx.Hash(), params.TxEnergy, receipt.EnergyUsed)
 		}
 		if len(receipt.Logs) != 0 {
 			t.Errorf("Receipt [tx=%x] should not contain logs but got %d logs", tx.Hash(), len(receipt.Logs))

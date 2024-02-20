@@ -11,10 +11,10 @@ import (
 	"github.com/core-coin/go-core/common/hexutil"
 	"github.com/core-coin/go-core/core/types"
 	"github.com/core-coin/go-core/trie"
-	"github.com/ethereum/hive/simulators/ethereum/engine/client"
-	"github.com/ethereum/hive/simulators/ethereum/engine/config/cancun"
-	"github.com/ethereum/hive/simulators/ethereum/engine/globals"
-	typ "github.com/ethereum/hive/simulators/ethereum/engine/types"
+	"github.com/core-coin/hive/simulators/ethereum/engine/client"
+	"github.com/core-coin/hive/simulators/ethereum/engine/config/cancun"
+	"github.com/core-coin/hive/simulators/ethereum/engine/globals"
+	typ "github.com/core-coin/hive/simulators/ethereum/engine/types"
 )
 
 type EngineAPIVersionResolver interface {

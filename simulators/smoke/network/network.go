@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/ethereum/hive/hivesim"
+	"github.com/core-coin/hive/hivesim"
 )
 
 func main() {

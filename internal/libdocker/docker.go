@@ -5,7 +5,7 @@ import (
 	"io"
 	"regexp"
 
-	"github.com/ethereum/hive/internal/libhive"
+	"github.com/core-coin/hive/internal/libhive"
 	docker "github.com/fsouza/go-dockerclient"
 	"gopkg.in/inconshreveable/log15.v2"
 )

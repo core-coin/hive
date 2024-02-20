@@ -1,10 +1,10 @@
-module github.com/ethereum/hive/simulators/ethereum/consensus
+module github.com/core-coin/hive/simulators/ethereum/consensus
 
 go 1.18
 
 require (
-	github.com/core-coin/go-core v1.13.5-0.20231031113925-bc42e88415d3
-	github.com/ethereum/hive v0.0.0-20231031133732-dcd7ddb75960
+	github.com/core-coin/go-core/v2 v2.1.6
+	github.com/core-coin/hive v0.0.0-20240214125912-54575de94bf7
 )
 
 require (

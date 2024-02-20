@@ -3,9 +3,9 @@ package suite_exchange_capabilities
 import (
 	"fmt"
 
-	"github.com/ethereum/hive/simulators/ethereum/engine/config"
-	"github.com/ethereum/hive/simulators/ethereum/engine/globals"
-	"github.com/ethereum/hive/simulators/ethereum/engine/test"
+	"github.com/core-coin/hive/simulators/ethereum/engine/config"
+	"github.com/core-coin/hive/simulators/ethereum/engine/globals"
+	"github.com/core-coin/hive/simulators/ethereum/engine/test"
 	"golang.org/x/exp/slices"
 )
 

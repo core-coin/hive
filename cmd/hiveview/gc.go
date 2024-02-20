@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/ethereum/hive/internal/libhive"
+	"github.com/core-coin/hive/internal/libhive"
 )
 
 func logdirGC(dir string, cutoff time.Time, keepMin int) error {

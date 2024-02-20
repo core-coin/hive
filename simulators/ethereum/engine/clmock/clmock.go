@@ -14,16 +14,16 @@ import (
 	api "github.com/core-coin/go-core/beacon/engine"
 	"github.com/core-coin/go-core/core"
 	"github.com/core-coin/go-core/core/forkid"
-	"github.com/ethereum/hive/simulators/ethereum/engine/client"
-	"github.com/ethereum/hive/simulators/ethereum/engine/config"
-	"github.com/ethereum/hive/simulators/ethereum/engine/config/cancun"
-	"github.com/ethereum/hive/simulators/ethereum/engine/globals"
-	"github.com/ethereum/hive/simulators/ethereum/engine/helper"
-	typ "github.com/ethereum/hive/simulators/ethereum/engine/types"
+	"github.com/core-coin/hive/simulators/ethereum/engine/client"
+	"github.com/core-coin/hive/simulators/ethereum/engine/config"
+	"github.com/core-coin/hive/simulators/ethereum/engine/config/cancun"
+	"github.com/core-coin/hive/simulators/ethereum/engine/globals"
+	"github.com/core-coin/hive/simulators/ethereum/engine/helper"
+	typ "github.com/core-coin/hive/simulators/ethereum/engine/types"
 
 	"github.com/core-coin/go-core/common"
 	"github.com/core-coin/go-core/core/types"
-	"github.com/ethereum/hive/hivesim"
+	"github.com/core-coin/hive/hivesim"
 	"github.com/pkg/errors"
 )
 

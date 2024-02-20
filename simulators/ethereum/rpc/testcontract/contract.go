@@ -7,19 +7,19 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/core-coin/go-core"
-	"github.com/core-coin/go-core/accounts/abi"
-	"github.com/core-coin/go-core/accounts/abi/bind"
-	"github.com/core-coin/go-core/common"
-	"github.com/core-coin/go-core/core/types"
-	"github.com/core-coin/go-core/event"
+	core "github.com/core-coin/go-core/v2"
+	"github.com/core-coin/go-core/v2/accounts/abi"
+	"github.com/core-coin/go-core/v2/accounts/abi/bind"
+	"github.com/core-coin/go-core/v2/common"
+	"github.com/core-coin/go-core/v2/core/types"
+	"github.com/core-coin/go-core/v2/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
 var (
 	_ = big.NewInt
 	_ = strings.NewReader
-	_ = ethereum.NotFound
+	_ = core.NotFound
 	_ = bind.Bind
 	_ = common.Big1
 	_ = types.BloomLookup
@@ -29,29 +29,29 @@ var (
 // ContractABI is the input ABI used to generate the binding from.
 const ContractABI = "[{\"constant\":true,\"inputs\":[],\"name\":\"ui\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"getFromMap\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"addr\",\"type\":\"address\"},{\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"addToMap\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"ui_\",\"type\":\"uint256\"},{\"name\":\"addr_\",\"type\":\"address\"}],\"name\":\"events\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"a\",\"type\":\"uint256\"},{\"name\":\"b\",\"type\":\"uint256\"},{\"name\":\"c\",\"type\":\"uint256\"}],\"name\":\"constFunc\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"inputs\":[{\"name\":\"ui_\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[],\"name\":\"E0\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"E1\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"E2\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"\",\"type\":\"address\"}],\"name\":\"E3\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"\",\"type\":\"address\"}],\"name\":\"E4\",\"type\":\"event\"},{\"anonymous\":true,\"inputs\":[{\"indexed\":false,\"name\":\"\",\"type\":\"uint256\"},{\"indexed\":false,\"name\":\"\",\"type\":\"address\"}],\"name\":\"E5\",\"type\":\"event\"}]"
 
-// Contract is an auto generated Go binding around an Ethereum contract.
+// Contract is an auto generated Go binding around an Core contract.
 type Contract struct {
 	ContractCaller     // Read-only binding to the contract
 	ContractTransactor // Write-only binding to the contract
 	ContractFilterer   // Log filterer for contract events
 }
 
-// ContractCaller is an auto generated read-only Go binding around an Ethereum contract.
+// ContractCaller is an auto generated read-only Go binding around an Core contract.
 type ContractCaller struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// ContractTransactor is an auto generated write-only Go binding around an Ethereum contract.
+// ContractTransactor is an auto generated write-only Go binding around an Core contract.
 type ContractTransactor struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// ContractFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
+// ContractFilterer is an auto generated log filtering Go binding around an Core contract events.
 type ContractFilterer struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// ContractSession is an auto generated Go binding around an Ethereum contract,
+// ContractSession is an auto generated Go binding around an Core contract,
 // with pre-set call and transact options.
 type ContractSession struct {
 	Contract     *Contract         // Generic contract binding to set the session for
@@ -59,31 +59,31 @@ type ContractSession struct {
 	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
 }
 
-// ContractCallerSession is an auto generated read-only Go binding around an Ethereum contract,
+// ContractCallerSession is an auto generated read-only Go binding around an Core contract,
 // with pre-set call options.
 type ContractCallerSession struct {
 	Contract *ContractCaller // Generic contract caller binding to set the session for
 	CallOpts bind.CallOpts   // Call options to use throughout this session
 }
 
-// ContractTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
+// ContractTransactorSession is an auto generated write-only Go binding around an Core contract,
 // with pre-set transact options.
 type ContractTransactorSession struct {
 	Contract     *ContractTransactor // Generic contract transactor binding to set the session for
 	TransactOpts bind.TransactOpts   // Transaction auth options to use throughout this session
 }
 
-// ContractRaw is an auto generated low-level Go binding around an Ethereum contract.
+// ContractRaw is an auto generated low-level Go binding around an Core contract.
 type ContractRaw struct {
 	Contract *Contract // Generic contract binding to access the raw methods on
 }
 
-// ContractCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
+// ContractCallerRaw is an auto generated low-level read-only Go binding around an Core contract.
 type ContractCallerRaw struct {
 	Contract *ContractCaller // Generic read-only contract binding to access the raw methods on
 }
 
-// ContractTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
+// ContractTransactorRaw is an auto generated low-level write-only Go binding around an Core contract.
 type ContractTransactorRaw struct {
 	Contract *ContractTransactor // Generic write-only contract binding to access the raw methods on
 }
@@ -171,9 +171,9 @@ func (_Contract *ContractTransactorRaw) Transact(opts *bind.TransactOpts, method
 	return _Contract.Contract.contract.Transact(opts, method, params...)
 }
 
-// ConstFunc is a free data retrieval call binding the contract method 0xe6768b45.
+// ConstFunc is a free data retrieval call binding the contract method 0x498059b9.
 //
-// Solidity: function constFunc(uint256 a, uint256 b, uint256 c) returns(uint256, uint256, uint256)
+// Ylem: function constFunc(uint256 a, uint256 b, uint256 c) returns(uint256, uint256, uint256)
 func (_Contract *ContractCaller) ConstFunc(opts *bind.CallOpts, a *big.Int, b *big.Int, c *big.Int) (*big.Int, *big.Int, *big.Int, error) {
 	var out []interface{}
 	err := _Contract.contract.Call(opts, &out, "constFunc", a, b, c)
@@ -190,23 +190,23 @@ func (_Contract *ContractCaller) ConstFunc(opts *bind.CallOpts, a *big.Int, b *b
 
 }
 
-// ConstFunc is a free data retrieval call binding the contract method 0xe6768b45.
+// ConstFunc is a free data retrieval call binding the contract method 0x498059b9.
 //
-// Solidity: function constFunc(uint256 a, uint256 b, uint256 c) returns(uint256, uint256, uint256)
+// Ylem: function constFunc(uint256 a, uint256 b, uint256 c) returns(uint256, uint256, uint256)
 func (_Contract *ContractSession) ConstFunc(a *big.Int, b *big.Int, c *big.Int) (*big.Int, *big.Int, *big.Int, error) {
 	return _Contract.Contract.ConstFunc(&_Contract.CallOpts, a, b, c)
 }
 
-// ConstFunc is a free data retrieval call binding the contract method 0xe6768b45.
+// ConstFunc is a free data retrieval call binding the contract method 0x498059b9.
 //
-// Solidity: function constFunc(uint256 a, uint256 b, uint256 c) returns(uint256, uint256, uint256)
+// Ylem: function constFunc(uint256 a, uint256 b, uint256 c) returns(uint256, uint256, uint256)
 func (_Contract *ContractCallerSession) ConstFunc(a *big.Int, b *big.Int, c *big.Int) (*big.Int, *big.Int, *big.Int, error) {
 	return _Contract.Contract.ConstFunc(&_Contract.CallOpts, a, b, c)
 }
 
-// GetFromMap is a free data retrieval call binding the contract method 0xabd1a0cf.
+// GetFromMap is a free data retrieval call binding the contract method 0x0beac9b5.
 //
-// Solidity: function getFromMap(address addr) returns(uint256)
+// Ylem: function getFromMap(address addr) returns(uint256)
 func (_Contract *ContractCaller) GetFromMap(opts *bind.CallOpts, addr common.Address) (*big.Int, error) {
 	var out []interface{}
 	err := _Contract.contract.Call(opts, &out, "getFromMap", addr)
@@ -221,23 +221,23 @@ func (_Contract *ContractCaller) GetFromMap(opts *bind.CallOpts, addr common.Add
 
 }
 
-// GetFromMap is a free data retrieval call binding the contract method 0xabd1a0cf.
+// GetFromMap is a free data retrieval call binding the contract method 0x0beac9b5.
 //
-// Solidity: function getFromMap(address addr) returns(uint256)
+// Ylem: function getFromMap(address addr) returns(uint256)
 func (_Contract *ContractSession) GetFromMap(addr common.Address) (*big.Int, error) {
 	return _Contract.Contract.GetFromMap(&_Contract.CallOpts, addr)
 }
 
-// GetFromMap is a free data retrieval call binding the contract method 0xabd1a0cf.
+// GetFromMap is a free data retrieval call binding the contract method 0x0beac9b5.
 //
-// Solidity: function getFromMap(address addr) returns(uint256)
+// Ylem: function getFromMap(address addr) returns(uint256)
 func (_Contract *ContractCallerSession) GetFromMap(addr common.Address) (*big.Int, error) {
 	return _Contract.Contract.GetFromMap(&_Contract.CallOpts, addr)
 }
 
-// Ui is a free data retrieval call binding the contract method 0xa223e05d.
+// Ui is a free data retrieval call binding the contract method 0xf62fb0e9.
 //
-// Solidity: function ui() returns(uint256)
+// Ylem: function ui() returns(uint256)
 func (_Contract *ContractCaller) Ui(opts *bind.CallOpts) (*big.Int, error) {
 	var out []interface{}
 	err := _Contract.contract.Call(opts, &out, "ui")
@@ -252,58 +252,58 @@ func (_Contract *ContractCaller) Ui(opts *bind.CallOpts) (*big.Int, error) {
 
 }
 
-// Ui is a free data retrieval call binding the contract method 0xa223e05d.
+// Ui is a free data retrieval call binding the contract method 0xf62fb0e9.
 //
-// Solidity: function ui() returns(uint256)
+// Ylem: function ui() returns(uint256)
 func (_Contract *ContractSession) Ui() (*big.Int, error) {
 	return _Contract.Contract.Ui(&_Contract.CallOpts)
 }
 
-// Ui is a free data retrieval call binding the contract method 0xa223e05d.
+// Ui is a free data retrieval call binding the contract method 0xf62fb0e9.
 //
-// Solidity: function ui() returns(uint256)
+// Ylem: function ui() returns(uint256)
 func (_Contract *ContractCallerSession) Ui() (*big.Int, error) {
 	return _Contract.Contract.Ui(&_Contract.CallOpts)
 }
 
-// AddToMap is a paid mutator transaction binding the contract method 0xabfced1d.
+// AddToMap is a paid mutator transaction binding the contract method 0xe38fe5c9.
 //
-// Solidity: function addToMap(address addr, uint256 value) returns()
+// Ylem: function addToMap(address addr, uint256 value) returns()
 func (_Contract *ContractTransactor) AddToMap(opts *bind.TransactOpts, addr common.Address, value *big.Int) (*types.Transaction, error) {
 	return _Contract.contract.Transact(opts, "addToMap", addr, value)
 }
 
-// AddToMap is a paid mutator transaction binding the contract method 0xabfced1d.
+// AddToMap is a paid mutator transaction binding the contract method 0xe38fe5c9.
 //
-// Solidity: function addToMap(address addr, uint256 value) returns()
+// Ylem: function addToMap(address addr, uint256 value) returns()
 func (_Contract *ContractSession) AddToMap(addr common.Address, value *big.Int) (*types.Transaction, error) {
 	return _Contract.Contract.AddToMap(&_Contract.TransactOpts, addr, value)
 }
 
-// AddToMap is a paid mutator transaction binding the contract method 0xabfced1d.
+// AddToMap is a paid mutator transaction binding the contract method 0xe38fe5c9.
 //
-// Solidity: function addToMap(address addr, uint256 value) returns()
+// Ylem: function addToMap(address addr, uint256 value) returns()
 func (_Contract *ContractTransactorSession) AddToMap(addr common.Address, value *big.Int) (*types.Transaction, error) {
 	return _Contract.Contract.AddToMap(&_Contract.TransactOpts, addr, value)
 }
 
-// Events is a paid mutator transaction binding the contract method 0xe05c914a.
+// Events is a paid mutator transaction binding the contract method 0x45c8ce26.
 //
-// Solidity: function events(uint256 ui_, address addr_) returns()
+// Ylem: function events(uint256 ui_, address addr_) returns()
 func (_Contract *ContractTransactor) Events(opts *bind.TransactOpts, ui_ *big.Int, addr_ common.Address) (*types.Transaction, error) {
 	return _Contract.contract.Transact(opts, "events", ui_, addr_)
 }
 
-// Events is a paid mutator transaction binding the contract method 0xe05c914a.
+// Events is a paid mutator transaction binding the contract method 0x45c8ce26.
 //
-// Solidity: function events(uint256 ui_, address addr_) returns()
+// Ylem: function events(uint256 ui_, address addr_) returns()
 func (_Contract *ContractSession) Events(ui_ *big.Int, addr_ common.Address) (*types.Transaction, error) {
 	return _Contract.Contract.Events(&_Contract.TransactOpts, ui_, addr_)
 }
 
-// Events is a paid mutator transaction binding the contract method 0xe05c914a.
+// Events is a paid mutator transaction binding the contract method 0x45c8ce26.
 //
-// Solidity: function events(uint256 ui_, address addr_) returns()
+// Ylem: function events(uint256 ui_, address addr_) returns()
 func (_Contract *ContractTransactorSession) Events(ui_ *big.Int, addr_ common.Address) (*types.Transaction, error) {
 	return _Contract.Contract.Events(&_Contract.TransactOpts, ui_, addr_)
 }
@@ -315,10 +315,10 @@ type ContractE0Iterator struct {
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
 
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
+	logs chan types.Log    // Log channel receiving the found contract events
+	sub  core.Subscription // Subscription for errors, completion and termination
+	done bool              // Whether the subscription completed delivering logs
+	fail error             // Occurred error to stop iteration
 }
 
 // Next advances the iterator to the subsequent event, returning whether there
@@ -380,9 +380,9 @@ type ContractE0 struct {
 	Raw types.Log // Blockchain specific contextual infos
 }
 
-// FilterE0 is a free log retrieval operation binding the contract event 0x6031a8d62d7c95988fa262657cd92107d90ed96e08d8f867d32f26edfe855022.
+// FilterE0 is a free log retrieval operation binding the contract event 0xf44c3bfbe5c9f6c6215c71d588688f093c5264ac95f9d7c15e06b899cc170a61.
 //
-// Solidity: event E0()
+// Ylem: event E0()
 func (_Contract *ContractFilterer) FilterE0(opts *bind.FilterOpts) (*ContractE0Iterator, error) {
 
 	logs, sub, err := _Contract.contract.FilterLogs(opts, "E0")
@@ -392,9 +392,9 @@ func (_Contract *ContractFilterer) FilterE0(opts *bind.FilterOpts) (*ContractE0I
 	return &ContractE0Iterator{contract: _Contract.contract, event: "E0", logs: logs, sub: sub}, nil
 }
 
-// WatchE0 is a free log subscription operation binding the contract event 0x6031a8d62d7c95988fa262657cd92107d90ed96e08d8f867d32f26edfe855022.
+// WatchE0 is a free log subscription operation binding the contract event 0xf44c3bfbe5c9f6c6215c71d588688f093c5264ac95f9d7c15e06b899cc170a61.
 //
-// Solidity: event E0()
+// Ylem: event E0()
 func (_Contract *ContractFilterer) WatchE0(opts *bind.WatchOpts, sink chan<- *ContractE0) (event.Subscription, error) {
 
 	logs, sub, err := _Contract.contract.WatchLogs(opts, "E0")
@@ -429,14 +429,15 @@ func (_Contract *ContractFilterer) WatchE0(opts *bind.WatchOpts, sink chan<- *Co
 	}), nil
 }
 
-// ParseE0 is a log parse operation binding the contract event 0x6031a8d62d7c95988fa262657cd92107d90ed96e08d8f867d32f26edfe855022.
+// ParseE0 is a log parse operation binding the contract event 0xf44c3bfbe5c9f6c6215c71d588688f093c5264ac95f9d7c15e06b899cc170a61.
 //
-// Solidity: event E0()
+// Ylem: event E0()
 func (_Contract *ContractFilterer) ParseE0(log types.Log) (*ContractE0, error) {
 	event := new(ContractE0)
 	if err := _Contract.contract.UnpackLog(event, "E0", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -447,10 +448,10 @@ type ContractE1Iterator struct {
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
 
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
+	logs chan types.Log    // Log channel receiving the found contract events
+	sub  core.Subscription // Subscription for errors, completion and termination
+	done bool              // Whether the subscription completed delivering logs
+	fail error             // Occurred error to stop iteration
 }
 
 // Next advances the iterator to the subsequent event, returning whether there
@@ -513,9 +514,9 @@ type ContractE1 struct {
 	Raw  types.Log // Blockchain specific contextual infos
 }
 
-// FilterE1 is a free log retrieval operation binding the contract event 0x47e2689743f14e97f7dcfa5eec10ba1dff02f83b3d1d4b9c07b206cbbda66450.
+// FilterE1 is a free log retrieval operation binding the contract event 0xdf94c109eaf09c6ae0f6f63ad3848d4f23f5baca53c076d8d6096833e0b6be5b.
 //
-// Solidity: event E1(uint256 arg0)
+// Ylem: event E1(uint256 arg0)
 func (_Contract *ContractFilterer) FilterE1(opts *bind.FilterOpts) (*ContractE1Iterator, error) {
 
 	logs, sub, err := _Contract.contract.FilterLogs(opts, "E1")
@@ -525,9 +526,9 @@ func (_Contract *ContractFilterer) FilterE1(opts *bind.FilterOpts) (*ContractE1I
 	return &ContractE1Iterator{contract: _Contract.contract, event: "E1", logs: logs, sub: sub}, nil
 }
 
-// WatchE1 is a free log subscription operation binding the contract event 0x47e2689743f14e97f7dcfa5eec10ba1dff02f83b3d1d4b9c07b206cbbda66450.
+// WatchE1 is a free log subscription operation binding the contract event 0xdf94c109eaf09c6ae0f6f63ad3848d4f23f5baca53c076d8d6096833e0b6be5b.
 //
-// Solidity: event E1(uint256 arg0)
+// Ylem: event E1(uint256 arg0)
 func (_Contract *ContractFilterer) WatchE1(opts *bind.WatchOpts, sink chan<- *ContractE1) (event.Subscription, error) {
 
 	logs, sub, err := _Contract.contract.WatchLogs(opts, "E1")
@@ -562,14 +563,15 @@ func (_Contract *ContractFilterer) WatchE1(opts *bind.WatchOpts, sink chan<- *Co
 	}), nil
 }
 
-// ParseE1 is a log parse operation binding the contract event 0x47e2689743f14e97f7dcfa5eec10ba1dff02f83b3d1d4b9c07b206cbbda66450.
+// ParseE1 is a log parse operation binding the contract event 0xdf94c109eaf09c6ae0f6f63ad3848d4f23f5baca53c076d8d6096833e0b6be5b.
 //
-// Solidity: event E1(uint256 arg0)
+// Ylem: event E1(uint256 arg0)
 func (_Contract *ContractFilterer) ParseE1(log types.Log) (*ContractE1, error) {
 	event := new(ContractE1)
 	if err := _Contract.contract.UnpackLog(event, "E1", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -580,10 +582,10 @@ type ContractE2Iterator struct {
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
 
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
+	logs chan types.Log    // Log channel receiving the found contract events
+	sub  core.Subscription // Subscription for errors, completion and termination
+	done bool              // Whether the subscription completed delivering logs
+	fail error             // Occurred error to stop iteration
 }
 
 // Next advances the iterator to the subsequent event, returning whether there
@@ -646,9 +648,9 @@ type ContractE2 struct {
 	Raw  types.Log // Blockchain specific contextual infos
 }
 
-// FilterE2 is a free log retrieval operation binding the contract event 0xa48a6b249a5084126c3da369fbc9b16827ead8cb5cdc094b717d3f1dcd995e29.
+// FilterE2 is a free log retrieval operation binding the contract event 0x67b15b7b119723e10cda66d64abe2c5abbdad58a80c7fe87a84269870b479b7d.
 //
-// Solidity: event E2(uint256 indexed arg0)
+// Ylem: event E2(uint256 indexed arg0)
 func (_Contract *ContractFilterer) FilterE2(opts *bind.FilterOpts, arg0 []*big.Int) (*ContractE2Iterator, error) {
 
 	var arg0Rule []interface{}
@@ -663,9 +665,9 @@ func (_Contract *ContractFilterer) FilterE2(opts *bind.FilterOpts, arg0 []*big.I
 	return &ContractE2Iterator{contract: _Contract.contract, event: "E2", logs: logs, sub: sub}, nil
 }
 
-// WatchE2 is a free log subscription operation binding the contract event 0xa48a6b249a5084126c3da369fbc9b16827ead8cb5cdc094b717d3f1dcd995e29.
+// WatchE2 is a free log subscription operation binding the contract event 0x67b15b7b119723e10cda66d64abe2c5abbdad58a80c7fe87a84269870b479b7d.
 //
-// Solidity: event E2(uint256 indexed arg0)
+// Ylem: event E2(uint256 indexed arg0)
 func (_Contract *ContractFilterer) WatchE2(opts *bind.WatchOpts, sink chan<- *ContractE2, arg0 []*big.Int) (event.Subscription, error) {
 
 	var arg0Rule []interface{}
@@ -705,14 +707,15 @@ func (_Contract *ContractFilterer) WatchE2(opts *bind.WatchOpts, sink chan<- *Co
 	}), nil
 }
 
-// ParseE2 is a log parse operation binding the contract event 0xa48a6b249a5084126c3da369fbc9b16827ead8cb5cdc094b717d3f1dcd995e29.
+// ParseE2 is a log parse operation binding the contract event 0x67b15b7b119723e10cda66d64abe2c5abbdad58a80c7fe87a84269870b479b7d.
 //
-// Solidity: event E2(uint256 indexed arg0)
+// Ylem: event E2(uint256 indexed arg0)
 func (_Contract *ContractFilterer) ParseE2(log types.Log) (*ContractE2, error) {
 	event := new(ContractE2)
 	if err := _Contract.contract.UnpackLog(event, "E2", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -723,10 +726,10 @@ type ContractE3Iterator struct {
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
 
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
+	logs chan types.Log    // Log channel receiving the found contract events
+	sub  core.Subscription // Subscription for errors, completion and termination
+	done bool              // Whether the subscription completed delivering logs
+	fail error             // Occurred error to stop iteration
 }
 
 // Next advances the iterator to the subsequent event, returning whether there
@@ -789,9 +792,9 @@ type ContractE3 struct {
 	Raw  types.Log // Blockchain specific contextual infos
 }
 
-// FilterE3 is a free log retrieval operation binding the contract event 0x7890603b316f3509577afd111710f9ebeefa15e12f72347d9dffd0d65ae3bade.
+// FilterE3 is a free log retrieval operation binding the contract event 0x8d191de11ad932288883c26fb31ec7f22554bcffe24580f671bf01766e38d05f.
 //
-// Solidity: event E3(address arg0)
+// Ylem: event E3(address arg0)
 func (_Contract *ContractFilterer) FilterE3(opts *bind.FilterOpts) (*ContractE3Iterator, error) {
 
 	logs, sub, err := _Contract.contract.FilterLogs(opts, "E3")
@@ -801,9 +804,9 @@ func (_Contract *ContractFilterer) FilterE3(opts *bind.FilterOpts) (*ContractE3I
 	return &ContractE3Iterator{contract: _Contract.contract, event: "E3", logs: logs, sub: sub}, nil
 }
 
-// WatchE3 is a free log subscription operation binding the contract event 0x7890603b316f3509577afd111710f9ebeefa15e12f72347d9dffd0d65ae3bade.
+// WatchE3 is a free log subscription operation binding the contract event 0x8d191de11ad932288883c26fb31ec7f22554bcffe24580f671bf01766e38d05f.
 //
-// Solidity: event E3(address arg0)
+// Ylem: event E3(address arg0)
 func (_Contract *ContractFilterer) WatchE3(opts *bind.WatchOpts, sink chan<- *ContractE3) (event.Subscription, error) {
 
 	logs, sub, err := _Contract.contract.WatchLogs(opts, "E3")
@@ -838,14 +841,15 @@ func (_Contract *ContractFilterer) WatchE3(opts *bind.WatchOpts, sink chan<- *Co
 	}), nil
 }
 
-// ParseE3 is a log parse operation binding the contract event 0x7890603b316f3509577afd111710f9ebeefa15e12f72347d9dffd0d65ae3bade.
+// ParseE3 is a log parse operation binding the contract event 0x8d191de11ad932288883c26fb31ec7f22554bcffe24580f671bf01766e38d05f.
 //
-// Solidity: event E3(address arg0)
+// Ylem: event E3(address arg0)
 func (_Contract *ContractFilterer) ParseE3(log types.Log) (*ContractE3, error) {
 	event := new(ContractE3)
 	if err := _Contract.contract.UnpackLog(event, "E3", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -856,10 +860,10 @@ type ContractE4Iterator struct {
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
 
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
+	logs chan types.Log    // Log channel receiving the found contract events
+	sub  core.Subscription // Subscription for errors, completion and termination
+	done bool              // Whether the subscription completed delivering logs
+	fail error             // Occurred error to stop iteration
 }
 
 // Next advances the iterator to the subsequent event, returning whether there
@@ -922,9 +926,9 @@ type ContractE4 struct {
 	Raw  types.Log // Blockchain specific contextual infos
 }
 
-// FilterE4 is a free log retrieval operation binding the contract event 0x7efef9ea3f60ddc038e50cccec621f86a0195894dc0520482abf8b5c6b659e41.
+// FilterE4 is a free log retrieval operation binding the contract event 0x52818dd789bafd2b091a2020832994407f938992a31a0084d80f0f7c1e264824.
 //
-// Solidity: event E4(address indexed arg0)
+// Ylem: event E4(address indexed arg0)
 func (_Contract *ContractFilterer) FilterE4(opts *bind.FilterOpts, arg0 []common.Address) (*ContractE4Iterator, error) {
 
 	var arg0Rule []interface{}
@@ -939,9 +943,9 @@ func (_Contract *ContractFilterer) FilterE4(opts *bind.FilterOpts, arg0 []common
 	return &ContractE4Iterator{contract: _Contract.contract, event: "E4", logs: logs, sub: sub}, nil
 }
 
-// WatchE4 is a free log subscription operation binding the contract event 0x7efef9ea3f60ddc038e50cccec621f86a0195894dc0520482abf8b5c6b659e41.
+// WatchE4 is a free log subscription operation binding the contract event 0x52818dd789bafd2b091a2020832994407f938992a31a0084d80f0f7c1e264824.
 //
-// Solidity: event E4(address indexed arg0)
+// Ylem: event E4(address indexed arg0)
 func (_Contract *ContractFilterer) WatchE4(opts *bind.WatchOpts, sink chan<- *ContractE4, arg0 []common.Address) (event.Subscription, error) {
 
 	var arg0Rule []interface{}
@@ -981,13 +985,14 @@ func (_Contract *ContractFilterer) WatchE4(opts *bind.WatchOpts, sink chan<- *Co
 	}), nil
 }
 
-// ParseE4 is a log parse operation binding the contract event 0x7efef9ea3f60ddc038e50cccec621f86a0195894dc0520482abf8b5c6b659e41.
+// ParseE4 is a log parse operation binding the contract event 0x52818dd789bafd2b091a2020832994407f938992a31a0084d80f0f7c1e264824.
 //
-// Solidity: event E4(address indexed arg0)
+// Ylem: event E4(address indexed arg0)
 func (_Contract *ContractFilterer) ParseE4(log types.Log) (*ContractE4, error) {
 	event := new(ContractE4)
 	if err := _Contract.contract.UnpackLog(event, "E4", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }

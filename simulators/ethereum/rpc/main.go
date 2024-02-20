@@ -5,32 +5,21 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/core-coin/go-core/params"
-	"github.com/ethereum/hive/hivesim"
+	"github.com/core-coin/go-core/v2/params"
+	"github.com/core-coin/hive/hivesim"
 )
 
 var (
 	// parameters used for signing transactions
-	chainID  = big.NewInt(7)
-	gasPrice = big.NewInt(30 * params.GWei)
-
-	// would be nice to use a networkID that's different from chainID,
-	// but some clients don't support the distinction properly.
-	networkID = big.NewInt(7)
+	networkID  = big.NewInt(7)
+	energyPrice = big.NewInt(30 * params.Nucle)
 )
 
 var clientEnv = hivesim.Params{
 	"HIVE_NODETYPE":       "full",
 	"HIVE_NETWORK_ID":     networkID.String(),
-	"HIVE_CHAIN_ID":       chainID.String(),
-	"HIVE_FORK_HOMESTEAD": "0",
-	"HIVE_FORK_TANGERINE": "0",
-	"HIVE_FORK_SPURIOUS":  "0",
-
-	// All tests use clique PoA to mine new blocks.
-	"HIVE_CLIQUE_PERIOD":     "1",
-	"HIVE_CLIQUE_PRIVATEKEY": "9c647b8b7c4e7c3490668fb6c11473619db80c93704c70893d3813af4090c39c",
-	"HIVE_MINER":             "658bdf435d810c91414ec09147daa6db62406379",
+	"HIVE_PRIVATEKEY": "44cc42018b039b182dc1f8a05f4696995e39ba0e2af6d14f8dc68ee2fdf77195a85cbd6f8cf94905015b039300f44d8d639b287cb15abe4db0",
+	"HIVE_MINER":             "cb65e49851f010cd7d81b5b4969f3b0e8325c415359d",
 	"HIVE_TERMINAL_TOTAL_DIFFICULTY_PASSED": "0",
 }
 
@@ -50,8 +39,8 @@ var tests = []testSpec{
 	{Name: "http/CanonicalChain", Run: canonicalChainTest},
 	{Name: "http/CodeAt", Run: CodeAtTest},
 	{Name: "http/ContractDeployment", Run: deployContractTest},
-	{Name: "http/ContractDeploymentOutOfGas", Run: deployContractOutOfGasTest},
-	{Name: "http/EstimateGas", Run: estimateGasTest},
+	{Name: "http/ContractDeploymentOutOfEnergy", Run: deployContractOutOfEnergyTest},
+	{Name: "http/EstimateEnergy", Run: estimateEnergyTest},
 	{Name: "http/GenesisBlockByHash", Run: genesisBlockByHashTest},
 	{Name: "http/GenesisBlockByNumber", Run: genesisBlockByNumberTest},
 	{Name: "http/GenesisHeaderByHash", Run: genesisHeaderByHashTest},
@@ -71,8 +60,8 @@ var tests = []testSpec{
 	{Name: "ws/CanonicalChain", Run: canonicalChainTest},
 	{Name: "ws/CodeAt", Run: CodeAtTest},
 	{Name: "ws/ContractDeployment", Run: deployContractTest},
-	{Name: "ws/ContractDeploymentOutOfGas", Run: deployContractOutOfGasTest},
-	{Name: "ws/EstimateGas", Run: estimateGasTest},
+	{Name: "ws/ContractDeploymentOutOfEnergy", Run: deployContractOutOfEnergyTest},
+	{Name: "ws/EstimateEnergy", Run: estimateEnergyTest},
 	{Name: "ws/GenesisBlockByHash", Run: genesisBlockByHashTest},
 	{Name: "ws/GenesisBlockByNumber", Run: genesisBlockByNumberTest},
 	{Name: "ws/GenesisHeaderByHash", Run: genesisHeaderByHashTest},
@@ -104,7 +93,7 @@ interacting with one.`[1:],
 
 	// Add tests for full nodes.
 	suite.Add(&hivesim.ClientTestSpec{
-		Role:        "eth1",
+		Role:        "xcb1",
 		Name:        "client launch",
 		Description: `This test launches the client and collects its logs.`,
 		Parameters:  clientEnv,
@@ -116,7 +105,7 @@ interacting with one.`[1:],
 	// Add tests to launch LES servers.
 	serverParams := clientEnv.Set("HIVE_LES_SERVER", "1")
 	suite.Add(hivesim.ClientTestSpec{
-		Role:        "eth1_les_server",
+		Role:        "xcb1_les_server",
 		Name:        "CLIENT as LES server",
 		Description: "This test launches an LES server.",
 		Parameters:  serverParams,
@@ -134,7 +123,7 @@ func runLESTests(t *hivesim.T, serverNode *hivesim.Client) {
 	clientParams := clientEnv.Set("HIVE_NODETYPE", "light")
 	// Disable mining.
 	clientParams = clientParams.Set("HIVE_MINER", "")
-	clientParams = clientParams.Set("HIVE_CLIQUE_PRIVATEKEY", "")
+	clientParams = clientParams.Set("HIVE_PRIVATEKEY", "")
 
 	enode, err := serverNode.EnodeURL()
 	if err != nil {
@@ -143,7 +132,7 @@ func runLESTests(t *hivesim.T, serverNode *hivesim.Client) {
 
 	// Sync all sink nodes against the source.
 	t.RunAllClients(hivesim.ClientTestSpec{
-		Role:        "eth1_les_client",
+		Role:        "xcb1_les_client",
 		Name:        "CLIENT as LES client",
 		Description: "This runs the RPC tests against an LES client.",
 		Parameters:  clientParams,

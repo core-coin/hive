@@ -10,10 +10,10 @@ import (
 	"sync"
 
 	"github.com/core-coin/go-core/common"
-	"github.com/ethereum/hive/simulators/ethereum/engine/client"
-	"github.com/ethereum/hive/simulators/ethereum/engine/config/cancun"
-	"github.com/ethereum/hive/simulators/ethereum/engine/helper"
-	typ "github.com/ethereum/hive/simulators/ethereum/engine/types"
+	"github.com/core-coin/hive/simulators/ethereum/engine/client"
+	"github.com/core-coin/hive/simulators/ethereum/engine/config/cancun"
+	"github.com/core-coin/hive/simulators/ethereum/engine/helper"
+	typ "github.com/core-coin/hive/simulators/ethereum/engine/types"
 )
 
 func FakeExponential(factor, numerator, denominator uint64) uint64 {

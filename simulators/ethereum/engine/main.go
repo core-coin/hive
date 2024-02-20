@@ -9,15 +9,15 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/hive/hivesim"
-	"github.com/ethereum/hive/simulators/ethereum/engine/globals"
-	"github.com/ethereum/hive/simulators/ethereum/engine/helper"
-	suite_auth "github.com/ethereum/hive/simulators/ethereum/engine/suites/auth"
-	suite_cancun "github.com/ethereum/hive/simulators/ethereum/engine/suites/cancun"
-	suite_engine "github.com/ethereum/hive/simulators/ethereum/engine/suites/engine"
-	suite_excap "github.com/ethereum/hive/simulators/ethereum/engine/suites/exchange_capabilities"
-	suite_withdrawals "github.com/ethereum/hive/simulators/ethereum/engine/suites/withdrawals"
-	"github.com/ethereum/hive/simulators/ethereum/engine/test"
+	"github.com/core-coin/hive/hivesim"
+	"github.com/core-coin/hive/simulators/ethereum/engine/globals"
+	"github.com/core-coin/hive/simulators/ethereum/engine/helper"
+	suite_auth "github.com/core-coin/hive/simulators/ethereum/engine/suites/auth"
+	suite_cancun "github.com/core-coin/hive/simulators/ethereum/engine/suites/cancun"
+	suite_engine "github.com/core-coin/hive/simulators/ethereum/engine/suites/engine"
+	suite_excap "github.com/core-coin/hive/simulators/ethereum/engine/suites/exchange_capabilities"
+	suite_withdrawals "github.com/core-coin/hive/simulators/ethereum/engine/suites/withdrawals"
+	"github.com/core-coin/hive/simulators/ethereum/engine/test"
 )
 
 var (

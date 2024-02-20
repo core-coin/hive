@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ethereum/hive/internal/simapi"
+	"github.com/core-coin/hive/internal/simapi"
 	"github.com/gorilla/mux"
 	"gopkg.in/inconshreveable/log15.v2"
 )

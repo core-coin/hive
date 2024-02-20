@@ -3,7 +3,7 @@ package suite_withdrawals
 import (
 	"testing"
 
-	"github.com/ethereum/hive/simulators/ethereum/engine/globals"
+	"github.com/core-coin/hive/simulators/ethereum/engine/globals"
 )
 
 type BaseSpecExpected struct {

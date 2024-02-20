@@ -3,33 +3,25 @@ package main
 import (
 	"time"
 
-	"github.com/ethereum/hive/hivesim"
+	"github.com/core-coin/hive/hivesim"
 )
 
 func main() {
 	suite := hivesim.Suite{
-		Name:        "clique",
-		Description: "This test suite tests clique mining support.",
+		Name:        "mining",
+		Description: "This test suite tests mining support.",
 	}
 	suite.Add(hivesim.ClientTestSpec{
-		Role:        "eth1",
+		Role:        "xcb1",
 		Name:        "mine one block",
-		Description: "Waits for a single block to get mined with clique.",
+		Description: "Waits for a single block to get mined.",
 		Files: map[string]string{
 			"/genesis.json": "genesis.json",
 		},
 		Parameters: hivesim.Params{
-			"HIVE_CLIQUE_PERIOD":     "2",
-			"HIVE_CLIQUE_PRIVATEKEY": "9c647b8b7c4e7c3490668fb6c11473619db80c93704c70893d3813af4090c39c",
-			"HIVE_MINER":             "658bdf435d810c91414ec09147daa6db62406379",
-			// These are required for clique.
-			"HIVE_CHAIN_ID":            "1334",
-			"HIVE_FORK_HOMESTEAD":      "0",
-			"HIVE_FORK_TANGERINE":      "0",
-			"HIVE_FORK_SPURIOUS":       "0",
-			"HIVE_FORK_BYZANTIUM":      "0",
-			"HIVE_FORK_CONSTANTINOPLE": "0",
-			"HIVE_FORK_PETERSBURG":     "0",
+			"HIVE_PRIVATEKEY": "44cc42018b039b182dc1f8a05f4696995e39ba0e2af6d14f8dc68ee2fdf77195a85cbd6f8cf94905015b039300f44d8d639b287cb15abe4db0",
+			"HIVE_MINER":             "cb65e49851f010cd7d81b5b4969f3b0e8325c415359d",
+			"HIVE_NETWORK_ID":            "1334",
 		},
 		Run: miningTest,
 	})
@@ -48,7 +40,7 @@ func miningTest(t *hivesim.T, c *hivesim.Client) {
 
 	for {
 		var b block
-		if err := c.RPC().Call(&b, "eth_getBlockByNumber", "latest", false); err != nil {
+		if err := c.RPC().Call(&b, "xcb_getBlockByNumber", "latest", false); err != nil {
 			t.Fatal("eth_getBlockByNumber call failed:", err)
 		}
 		switch b.Number {

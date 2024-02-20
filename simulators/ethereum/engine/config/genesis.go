@@ -5,7 +5,7 @@ import (
 
 	"github.com/core-coin/go-core/common"
 	"github.com/core-coin/go-core/core"
-	"github.com/ethereum/hive/simulators/ethereum/engine/config/cancun"
+	"github.com/core-coin/hive/simulators/ethereum/engine/config/cancun"
 )
 
 func (f *ForkConfig) ConfigGenesis(genesis *core.Genesis) error {

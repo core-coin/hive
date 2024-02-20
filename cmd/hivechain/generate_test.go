@@ -10,7 +10,7 @@ func TestGenerate(t *testing.T) {
 	cfg := generatorConfig{
 		txInterval:   1,
 		txCount:      10,
-		forkInterval: 2,
+		// forkInterval: 2,
 		chainLength:  30,
 		outputDir:    outdir,
 		outputs:      outputFunctionNames(),

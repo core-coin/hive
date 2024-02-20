@@ -13,19 +13,19 @@ import (
 	"net/http"
 	"os"
 
+	gokzg4844 "github.com/crate-crypto/go-kzg-4844"
 	"github.com/pkg/errors"
 
-	"github.com/ethereum/hive/simulators/ethereum/engine/client"
-	"github.com/ethereum/hive/simulators/ethereum/engine/globals"
+	"github.com/core-coin/hive/simulators/ethereum/engine/client"
+	"github.com/core-coin/hive/simulators/ethereum/engine/globals"
 
-	gokzg4844 "github.com/crate-crypto/go-kzg-4844"
-	"github.com/core-coin/go-core/common"
-	"github.com/core-coin/go-core/core"
-	"github.com/core-coin/go-core/core/types"
-	"github.com/core-coin/go-core/rlp"
-	"github.com/core-coin/go-core/rpc"
-	"github.com/ethereum/hive/hivesim"
-	typ "github.com/ethereum/hive/simulators/ethereum/engine/types"
+	"github.com/core-coin/go-core/v2/common"
+	"github.com/core-coin/go-core/v2/core"
+	"github.com/core-coin/go-core/v2/core/types"
+	"github.com/core-coin/go-core/v2/rlp"
+	"github.com/core-coin/go-core/v2/rpc"
+	"github.com/core-coin/hive/hivesim"
+	typ "github.com/core-coin/hive/simulators/ethereum/engine/types"
 )
 
 var kzg4844Context *gokzg4844.Context

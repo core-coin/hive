@@ -5,10 +5,11 @@ import (
 	"encoding/binary"
 	"math/big"
 
-	"github.com/core-coin/go-core/common"
-	"github.com/core-coin/go-core/core"
-	"github.com/core-coin/go-core/core/types"
-	"github.com/core-coin/go-core/params"
+	"github.com/core-coin/go-core/v2/common"
+	"github.com/core-coin/go-core/v2/core"
+	"github.com/core-coin/go-core/v2/core/types"
+	"github.com/core-coin/go-core/v2/crypto"
+	"github.com/core-coin/go-core/v2/params"
 )
 
 type blockModifier interface {
@@ -42,51 +43,44 @@ func (ctx *genBlockContext) NumberU64() uint64 {
 
 // Timestamp returns the block timestamp.
 func (ctx *genBlockContext) Timestamp() uint64 {
-	return ctx.block.Timestamp()
+	block := ctx.block.PrevBlock(-1)
+	return block.Time()
 }
 
-// HasGas reports whether the block still has more than the given amount of gas left.
-func (ctx *genBlockContext) HasGas(gas uint64) bool {
-	return ctx.block.Gas() > gas
+// HasEnergy reports whether the block still has more than the given amount of energy left.
+func (ctx *genBlockContext) HasEnergy(energy uint64) bool {
+	return ctx.block.Energy() > energy
 }
 
 // AddNewTx adds a transaction into the block.
-func (ctx *genBlockContext) AddNewTx(sender *genAccount, data types.TxData) *types.Transaction {
-	tx, err := types.SignNewTx(sender.key, ctx.Signer(), data)
+func (ctx *genBlockContext) AddNewTx(sender *crypto.PrivateKey, tx *types.Transaction) *types.Transaction {
+	signedTx, err := types.SignTx(tx, ctx.Signer(), sender)
 	if err != nil {
 		panic(err)
 	}
-	ctx.block.AddTx(tx.WithoutBlobTxSidecar())
+	ctx.block.AddTx(signedTx)
 	ctx.txcount++
-	return tx
+	return signedTx
 }
 
 // TxSenderAccount chooses an account to send transactions from.
-func (ctx *genBlockContext) TxSenderAccount() *genAccount {
+func (ctx *genBlockContext) TxSenderAccount() *crypto.PrivateKey {
 	a := ctx.gen.accounts[0]
-	return &a
+	return a
 }
 
-// TxCreateIntrinsicGas gives the 'intrinsic gas' of a contract creation transaction.
-func (ctx *genBlockContext) TxCreateIntrinsicGas(data []byte) uint64 {
-	genesis := ctx.gen.genesis
-	isHomestead := genesis.Config.IsHomestead(ctx.block.Number())
-	isEIP2028 := genesis.Config.IsIstanbul(ctx.block.Number())
-	isEIP3860 := genesis.Config.IsShanghai(ctx.block.Number(), ctx.block.Timestamp())
-	igas, err := core.IntrinsicGas(data, nil, true, isHomestead, isEIP2028, isEIP3860)
+// TxCreateIntrinsicEnergy gives the 'intrinsic energy' of a contract creation transaction.
+func (ctx *genBlockContext) TxCreateIntrinsicEnergy(data []byte) uint64 {
+	ienergy, err := core.IntrinsicEnergy(data, true)
 	if err != nil {
 		panic(err)
 	}
-	return igas
+	return ienergy
 }
 
-// TxGasFeeCap returns the minimum gasprice that should be used for transactions.
-func (ctx *genBlockContext) TxGasFeeCap() *big.Int {
-	fee := big.NewInt(1)
-	if !ctx.ChainConfig().IsLondon(ctx.block.Number()) {
-		return fee
-	}
-	return fee.Add(fee, ctx.block.BaseFee())
+// TxEnergyFeeCap returns the minimum energyprice that should be used for transactions.
+func (ctx *genBlockContext) TxEnergyFeeCap() *big.Int {
+	return big.NewInt(1)
 }
 
 // AccountNonce returns the current nonce of an address.
@@ -96,7 +90,7 @@ func (ctx *genBlockContext) AccountNonce(addr common.Address) uint64 {
 
 // Signer returns a signer for the current block.
 func (ctx *genBlockContext) Signer() types.Signer {
-	return ctx.block.Signer()
+	return types.MakeSigner(ctx.ChainConfig().NetworkID)
 }
 
 // TxCount returns the number of transactions added so far.

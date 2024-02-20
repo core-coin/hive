@@ -6,10 +6,10 @@ import (
 	"time"
 
 	"github.com/core-coin/go-core/common"
-	"github.com/ethereum/hive/simulators/ethereum/engine/clmock"
-	"github.com/ethereum/hive/simulators/ethereum/engine/config"
-	"github.com/ethereum/hive/simulators/ethereum/engine/devp2p"
-	"github.com/ethereum/hive/simulators/ethereum/engine/test"
+	"github.com/core-coin/hive/simulators/ethereum/engine/clmock"
+	"github.com/core-coin/hive/simulators/ethereum/engine/config"
+	"github.com/core-coin/hive/simulators/ethereum/engine/devp2p"
+	"github.com/core-coin/hive/simulators/ethereum/engine/test"
 )
 
 type ForkIDSpec struct {

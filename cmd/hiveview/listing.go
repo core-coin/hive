@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ethereum/hive/internal/libhive"
+	"github.com/core-coin/hive/internal/libhive"
 )
 
 const listLimit = 200 // number of runs reported

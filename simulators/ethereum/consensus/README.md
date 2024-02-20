@@ -1,6 +1,6 @@
 ## Go Consensus
 
-This is a 'simulator', which should be run from within [hive](https://github.com/ethereum/hive). 
+This is a 'simulator', which should be run from within [hive](https://github.com/core-coin/hive). 
 
 ## Cross client testing
 

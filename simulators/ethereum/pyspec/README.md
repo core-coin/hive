@@ -1,6 +1,6 @@
 # Hive Pyspec
 
-This is a `simulator` for running the python [execution-spec-tests](https://github.com/ethereum/execution-spec-tests) within [`hive`](https://github.com/ethereum/hive), based on the `consensus` simulator. It differs mostly by using the `Engine API` to feed blocks into clients. 
+This is a `simulator` for running the python [execution-spec-tests](https://github.com/ethereum/execution-spec-tests) within [`hive`](https://github.com/core-coin/hive), based on the `consensus` simulator. It differs mostly by using the `Engine API` to feed blocks into clients. 
 
 The simulator is only valid for post `Merge` forks (>= `Merge`).
 

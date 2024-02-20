@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/core-coin/go-core/common"
-	"github.com/ethereum/hive/hivesim"
+	"github.com/core-coin/go-core/v2/common"
+	"github.com/core-coin/hive/hivesim"
 	"github.com/tidwall/gjson"
 	"github.com/tidwall/sjson"
 	diff "github.com/yudai/gojsondiff"
@@ -43,7 +43,7 @@ running node. It tests client implementations of the JSON-RPC API for
 conformance with the execution API specification.`[1:],
 	}
 	suite.Add(&hivesim.ClientTestSpec{
-		Role:        "eth1",
+		Role:        "xcb1",
 		Name:        "client launch",
 		Description: `This test launches the client and collects its logs.`,
 		Parameters:  clientEnv,

@@ -1,6 +1,6 @@
 // ============================================================================== //
 // Pyspec Hive Simulator: Ported/Altered directly from the Consensus Simulator.   //
-// -> https://github.com/ethereum/hive/tree/master/simulators/ethereum/consensus  //
+// -> https://github.com/core-coin/hive/tree/master/simulators/ethereum/consensus  //
 // ============================================================================== //
 
 package main
@@ -14,7 +14,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/ethereum/hive/hivesim"
+	"github.com/core-coin/hive/hivesim"
 )
 
 func main() {

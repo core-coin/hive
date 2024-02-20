@@ -14,8 +14,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/core-coin/go-core/core"
-	"github.com/ethereum/hive/hivesim"
+	"github.com/core-coin/go-core/v2/core"
+	"github.com/core-coin/hive/hivesim"
 )
 
 func main() {
@@ -31,7 +31,7 @@ func main() {
 The GraphQL tests were initially imported from the Besu codebase.`,
 	}
 	suite.Add(hivesim.ClientTestSpec{
-		Role: "eth1",
+		Role: "xcb1",
 		Name: "client launch",
 		Description: `This is a meta-test. It launches the client with the test chain
 and reads the test case files. The individual test cases are run as sub-tests against
@@ -65,7 +65,7 @@ func graphqlTest(t *hivesim.T, c *hivesim.Client) {
 		go func() {
 			defer wg.Done()
 			for test := range testCh {
-				url := "https://github.com/ethereum/hive/blob/master/simulators/ethereum/graphql/testcases"
+				url := "https://github.com/core-coin/hive/blob/master/simulators/ethereum/graphql/testcases"
 				t.Run(hivesim.TestSpec{
 					Name:        fmt.Sprintf("%s (%s)", test.name, c.Type),
 					Description: fmt.Sprintf("Test case source: %s/%v.json", url, test.name),
@@ -222,21 +222,8 @@ func loadGenesis(path string) core.Genesis {
 
 func getParameters(genesis core.Genesis) hivesim.Params {
 	return hivesim.Params{
-		"HIVE_CHAIN_ID":                  genesis.Config.ChainID.String(),
+		"HIVE_NETWORK_ID":                  genesis.Config.NetworkID.String(),
 		"HIVE_GRAPHQL_ENABLED":           "1",
 		"HIVE_ALLOW_UNPROTECTED_TX":      "1",
-		"HIVE_FORK_FRONTIER":             "0",
-		"HIVE_FORK_HOMESTEAD":            genesis.Config.HomesteadBlock.String(),
-		"HIVE_FORK_TANGERINE":            genesis.Config.EIP150Block.String(),
-		"HIVE_FORK_SPURIOUS":             genesis.Config.EIP155Block.String(),
-		"HIVE_FORK_BYZANTIUM":            genesis.Config.ByzantiumBlock.String(),
-		"HIVE_FORK_CONSTANTINOPLE":       genesis.Config.ConstantinopleBlock.String(),
-		"HIVE_FORK_PETERSBURG":           genesis.Config.PetersburgBlock.String(),
-		"HIVE_FORK_ISTANBUL":             genesis.Config.IstanbulBlock.String(),
-		"HIVE_FORK_MUIR_GLACIER":         genesis.Config.MuirGlacierBlock.String(),
-		"HIVE_FORK_BERLIN":               genesis.Config.BerlinBlock.String(),
-		"HIVE_FORK_LONDON":               genesis.Config.LondonBlock.String(),
-		"HIVE_TERMINAL_TOTAL_DIFFICULTY": genesis.Config.TerminalTotalDifficulty.String(),
-		"HIVE_SHANGHAI_TIMESTAMP":        fmt.Sprintf("%d", *genesis.Config.ShanghaiTime),
 	}
 }
