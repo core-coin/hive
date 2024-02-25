@@ -13,9 +13,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/core-coin/go-core/common"
-	"github.com/core-coin/go-core/core"
-	"github.com/core-coin/go-core/rpc"
+	"github.com/core-coin/go-core/v2/common"
+	"github.com/core-coin/go-core/v2/core"
+	"github.com/core-coin/go-core/v2/rpc"
 	"github.com/core-coin/hive/hivesim"
 )
 
@@ -556,13 +556,10 @@ func toGethGenesis(test *btJSON) *core.Genesis {
 		Nonce:         test.Genesis.Nonce.Uint64(),
 		Timestamp:     test.Genesis.Timestamp.Uint64(),
 		ExtraData:     test.Genesis.ExtraData,
-		GasLimit:      test.Genesis.GasLimit,
+		EnergyLimit:      test.Genesis.GasLimit,
 		Difficulty:    test.Genesis.Difficulty,
-		Mixhash:       test.Genesis.MixHash,
 		Coinbase:      test.Genesis.Coinbase,
 		Alloc:         test.Pre,
-		BaseFee:       test.Genesis.BaseFee,
-		ExcessBlobGas: test.Genesis.ExcessBlobGas,
 	}
 	return genesis
 }

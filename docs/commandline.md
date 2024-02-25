@@ -72,7 +72,7 @@ arguments are:
  - `baseimage`: For clients pulled from DockerHub, this can be used to override the organization
    and image name. Example `ethereum/client-go`.
  - `github`: For client Dockerfiles building from git, this setting can be used to change
-   the source code repository (fork) on GitHub. Example: `ethereum/go-ethereum`.
+   the source code repository (fork) on GitHub. Example: `core-coin/go-core`.
 
 ### Docker Options
 

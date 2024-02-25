@@ -5,14 +5,14 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/core-coin/go-core/common"
-	"github.com/core-coin/go-core/core/types"
+	"github.com/core-coin/go-core/v2/common"
+	"github.com/core-coin/go-core/v2/core/types"
 )
 
 func TestGenesisParsing(t *testing.T) {
 	// Taken from a failing nethermind test
 	genesisResponse := `{
-  "author": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+  "author": "ce042adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
   "baseFeePerGas": "0x3b9aca00",
   "difficulty": "0x20000",
   "extraData": "0x00",
@@ -20,7 +20,7 @@ func TestGenesisParsing(t *testing.T) {
   "gasUsed": "0x0",
   "hash": "0xa29ba2a76546b56f331f02e70b24c4a1452b1b392e1d2fe51828ff57f551d62e",
   "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-  "miner": "0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
+  "miner": "ce042adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
   "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "nonce": "0x0000000000000000",
   "number": "0x0",
@@ -35,10 +35,11 @@ func TestGenesisParsing(t *testing.T) {
   "transactionsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
   "uncles": []
 }`
+	coinbase, _ := common.HexToAddress("ce042adc25665018aa1fe0e6bc666dac8fc2697ff9ba")
 	// Taken from https://github.com/ethereum/tests/blob/develop/BlockchainTests/GeneralStateTests/VMTests/vmArithmeticTest/add.json
 	expHeader := btHeader{
 		Bloom:            types.Bloom{},
-		Coinbase:         common.HexToAddress("0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba"),
+		Coinbase:         coinbase,
 		MixHash:          common.Hash{},
 		Nonce:            types.BlockNonce{},
 		Number:           new(big.Int),
