@@ -26,16 +26,15 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/core/types"
-	ethlog "github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/core-coin/go-core/v2/core/types"
+	xcblog "github.com/core-coin/go-core/v2/log"
+	"github.com/core-coin/go-core/v2/rlp"
 )
 
 func main() {
-	// Initialize go-ethereum logging.
-	// This is mostly for displaying the DAG generator progress.
-	handler := ethlog.StreamHandler(os.Stderr, ethlog.TerminalFormat(false))
-	ethlog.Root().SetHandler(ethlog.LvlFilterHandler(ethlog.LvlWarn, handler))
+	// Initialize go-core logging.
+	handler := xcblog.StreamHandler(os.Stderr, xcblog.TerminalFormat(false))
+	xcblog.Root().SetHandler(xcblog.LvlFilterHandler(xcblog.LvlWarn, handler))
 
 	flag.Usage = usage
 
@@ -63,10 +62,10 @@ func generateCommand(args []string) {
 	flag.IntVar(&cfg.chainLength, "length", 2, "The length of the pow chain to generate")
 	flag.IntVar(&cfg.txInterval, "tx-interval", 10, "Add transactions to chain every n blocks")
 	flag.IntVar(&cfg.txCount, "tx-count", 1, "Maximum number of txs per block")
-	flag.IntVar(&cfg.forkInterval, "fork-interval", 0, "Number of blocks between fork activations")
+	// flag.IntVar(&cfg.forkInterval, "fork-interval", 0, "Number of blocks between fork activations")
 	flag.StringVar(&cfg.outputDir, "outdir", ".", "Destination directory")
-	flag.StringVar(&cfg.lastFork, "lastfork", "", "Name of the last fork to activate")
-	flag.BoolVar(&cfg.clique, "clique", false, "Create a clique chain")
+	// flag.StringVar(&cfg.lastFork, "lastfork", "", "Name of the last fork to activate")
+	// flag.BoolVar(&cfg.clique, "clique", false, "Create a clique chain")
 	flag.CommandLine.Parse(args)
 
 	if *outlist != "" {

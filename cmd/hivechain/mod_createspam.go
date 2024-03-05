@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/core-coin/go-core/v2/core/types"
 )
 
 // Here we create transactions that create spam contracts. These exist simply to fill up
@@ -11,42 +11,38 @@ func init() {
 	register("randomlogs", func() blockModifier {
 		return &modCreateSpam{
 			code: genlogsCode,
-			gas:  20000,
+			energy:  20000,
 		}
 	})
 	register("randomcode", func() blockModifier {
 		return &modCreateSpam{
 			code: gencodeCode,
-			gas:  60000,
+			energy:  60000,
 		}
 	})
 	register("randomstorage", func() blockModifier {
 		return &modCreateSpam{
 			code: genstorageCode,
-			gas:  80000,
+			energy:  80000,
 		}
 	})
 }
 
 type modCreateSpam struct {
 	code []byte
-	gas  uint64
+	energy  uint64
 }
 
 func (m *modCreateSpam) apply(ctx *genBlockContext) bool {
-	gas := ctx.TxCreateIntrinsicGas(m.code) + m.gas
-	if !ctx.HasGas(gas) {
+	energy := ctx.TxCreateIntrinsicEnergy(m.code) + m.energy
+	if !ctx.HasEnergy(energy) {
 		return false
 	}
 
 	sender := ctx.TxSenderAccount()
-	txdata := &types.LegacyTx{
-		Nonce:    ctx.AccountNonce(sender.addr),
-		Gas:      gas,
-		GasPrice: ctx.TxGasFeeCap(),
-		Data:     m.code,
-	}
-	ctx.AddNewTx(sender, txdata)
+	//todo:error2215 add some `to` address and amount 
+	tx := types.NewTransaction(ctx.AccountNonce(sender.Address()), sender.Address(), nil, energy, ctx.TxEnergyFeeCap(), m.code)
+	ctx.AddNewTx(sender, tx)
 	return true
 }
 

@@ -1,13 +1,10 @@
-module github.com/core-coin/hive/simulators/devp2p
+module github.com/core-coin/hive/simulators/smoke/clique
 
 go 1.21
 
 toolchain go1.22.0
 
-require (
-	github.com/core-coin/hive v0.0.0-20240214125912-54575de94bf7
-	github.com/shogo82148/go-tap v0.0.3
-)
+require github.com/core-coin/hive v0.0.0-20240214125912-54575de94bf7
 
 require (
 	github.com/aristanetworks/goarista v0.0.0-20170210015632-ea17b1a17847 // indirect

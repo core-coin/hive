@@ -2,10 +2,11 @@ package main
 
 import (
 	"encoding/json"
+	"os"
 	"strconv"
 	"testing"
 
-	"github.com/ethereum/hive/hivesim"
+	"github.com/core-coin/hive/hivesim"
 )
 
 type testResponse struct {

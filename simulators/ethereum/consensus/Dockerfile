@@ -1,9 +1,9 @@
-# This simulation runs the ethereum consensus tests.
+# This simulation runs the core-coin consensus tests.
 FROM golang:1-alpine as builder
-RUN apk add --update git ca-certificates gcc musl-dev linux-headers
+RUN apk add --update git ca-certificates gcc musl-dev linux-headers g++
 
 # Clone the tests repo.
-RUN git clone --depth 1 https://github.com/ethereum/tests.git /tests
+RUN git clone --depth 1 https://github.com/core-coin/tests.git /tests
 
 # Build the simulator executable.
 ADD . /source

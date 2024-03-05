@@ -1,5 +1,5 @@
 FROM golang:1-alpine as builder
-RUN apk add --update git gcc musl-dev linux-headers
+RUN apk add --update git gcc musl-dev linux-headers g++
 
 # Build the simulator executable.
 ADD . /sync

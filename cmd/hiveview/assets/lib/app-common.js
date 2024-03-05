@@ -28,7 +28,7 @@ function hiveInfoHTML(data) {
         txt += '<span>built: ' + date + '</span>';
     }
     if (data.sourceCommit) {
-        let url = 'https://github.com/ethereum/hive/commits/' + escape(data.sourceCommit);
+        let url = 'https://github.com/core-coin/hive/commits/' + escape(data.sourceCommit);
         let link = makeLink(url, data.sourceCommit.substring(0, 8));
         txt += '<span>commit: ' + link.outerHTML + '</span>';
     }

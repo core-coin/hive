@@ -4,7 +4,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/ethereum/hive/internal/simapi"
+	"github.com/core-coin/hive/internal/simapi"
 )
 
 // clientSetup collects client options.

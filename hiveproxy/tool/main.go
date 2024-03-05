@@ -5,7 +5,7 @@ import (
 	"net"
 	"os"
 
-	"github.com/ethereum/hive/hiveproxy"
+	"github.com/core-coin/hive/hiveproxy"
 )
 
 func main() {

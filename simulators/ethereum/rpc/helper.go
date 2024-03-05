@@ -10,13 +10,13 @@ import (
 	"os"
 	"time"
 
-	"github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/ethereum/go-ethereum/rpc"
-	"github.com/ethereum/hive/hivesim"
+	xcb "github.com/core-coin/go-core/v2"
+	"github.com/core-coin/go-core/v2/common"
+	"github.com/core-coin/go-core/v2/core"
+	"github.com/core-coin/go-core/v2/core/types"
+	"github.com/core-coin/go-core/v2/xcbclient"
+	"github.com/core-coin/go-core/v2/rpc"
+	"github.com/core-coin/hive/hivesim"
 	"github.com/kr/pretty"
 )
 
@@ -27,7 +27,7 @@ var rpcTimeout = 10 * time.Second
 type TestEnv struct {
 	*hivesim.T
 	RPC   *rpc.Client
-	Eth   *ethclient.Client
+	Xcb   *xcbclient.Client
 	Vault *vault
 
 	// This holds most recent context created by the Ctx method.
@@ -52,7 +52,7 @@ func runHTTP(t *hivesim.T, c *hivesim.Client, v *vault, fn func(*TestEnv)) {
 	env := &TestEnv{
 		T:     t,
 		RPC:   rpcClient,
-		Eth:   ethclient.NewClient(rpcClient),
+		Xcb:   xcbclient.NewClient(rpcClient),
 		Vault: v,
 	}
 	fn(env)
@@ -74,7 +74,7 @@ func runWS(t *hivesim.T, c *hivesim.Client, v *vault, fn func(*TestEnv)) {
 	env := &TestEnv{
 		T:     t,
 		RPC:   rpcClient,
-		Eth:   ethclient.NewClient(rpcClient),
+		Xcb:   xcbclient.NewClient(rpcClient),
 		Vault: v,
 	}
 	fn(env)
@@ -85,7 +85,7 @@ func runWS(t *hivesim.T, c *hivesim.Client, v *vault, fn func(*TestEnv)) {
 
 // CallContext is a helper method that forwards a raw RPC request to
 // the underlying RPC client. This can be used to call RPC methods
-// that are not supported by the ethclient.Client.
+// that are not supported by the xcbclient.Client.
 func (t *TestEnv) CallContext(ctx context.Context, result interface{}, method string, args ...interface{}) error {
 	return t.RPC.CallContext(ctx, result, method, args...)
 }
@@ -113,7 +113,7 @@ func waitSynced(c *rpc.Client) (err error) {
 		}
 	}()
 
-	ec := ethclient.NewClient(c)
+	ec := xcbclient.NewClient(c)
 	for {
 		progress, err := ec.SyncProgress(ctx)
 		if err != nil {
@@ -140,8 +140,8 @@ func waitForTxConfirmations(t *TestEnv, txHash common.Hash, n uint64) (*types.Re
 	)
 
 	for i := 0; i < 90; i++ {
-		receipt, err = t.Eth.TransactionReceipt(t.Ctx(), txHash)
-		if err != nil && err != ethereum.NotFound {
+		receipt, err = t.Xcb.TransactionReceipt(t.Ctx(), txHash)
+		if err != nil && err != xcb.NotFound {
 			return nil, err
 		}
 		if receipt != nil {
@@ -150,21 +150,21 @@ func waitForTxConfirmations(t *TestEnv, txHash common.Hash, n uint64) (*types.Re
 		time.Sleep(time.Second)
 	}
 	if receipt == nil {
-		return nil, ethereum.NotFound
+		return nil, xcb.NotFound
 	}
 
-	if startBlock, err = t.Eth.BlockByNumber(t.Ctx(), nil); err != nil {
+	if startBlock, err = t.Xcb.BlockByNumber(t.Ctx(), nil); err != nil {
 		return nil, err
 	}
 
 	for i := 0; i < 90; i++ {
-		currentBlock, err := t.Eth.BlockByNumber(t.Ctx(), nil)
+		currentBlock, err := t.Xcb.BlockByNumber(t.Ctx(), nil)
 		if err != nil {
 			return nil, err
 		}
 
 		if startBlock.NumberU64()+n >= currentBlock.NumberU64() {
-			if checkReceipt, err := t.Eth.TransactionReceipt(t.Ctx(), txHash); checkReceipt != nil {
+			if checkReceipt, err := t.Xcb.TransactionReceipt(t.Ctx(), txHash); checkReceipt != nil {
 				if bytes.Compare(receipt.PostState, checkReceipt.PostState) == 0 {
 					return receipt, nil
 				} else { // chain reorg
@@ -178,7 +178,7 @@ func waitForTxConfirmations(t *TestEnv, txHash common.Hash, n uint64) (*types.Re
 		time.Sleep(time.Second)
 	}
 
-	return nil, ethereum.NotFound
+	return nil, xcb.NotFound
 }
 
 // loggingRoundTrip writes requests and responses to the test log.
@@ -225,7 +225,7 @@ func loadGenesis() *types.Block {
 	if err := json.Unmarshal(contents, &genesis); err != nil {
 		panic(fmt.Errorf("can't parse genesis JSON: %v", err))
 	}
-	return genesis.ToBlock()
+	return genesis.ToBlock(nil)
 }
 
 // diff checks whether x and y are deeply equal, returning a description

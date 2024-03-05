@@ -110,14 +110,14 @@ first create a new subdirectory in `./simulators` and initialize a Go module the
 
     mkdir ./simulators/ethereum/my-simulation
     cd ./simulators/ethereum/my-simulation
-    go mod init github.com/ethereum/hive/simulators/ethereum/my-simulation
-    go get github.com/ethereum/hive/hivesim@latest
+    go mod init github.com/core-coin/hive/simulators/ethereum/my-simulation
+    go get github.com/core-coin/hive/hivesim@latest
 
 Now create the simulator program file `my-simulation.go`.
 
     package main
 
-    import "github.com/ethereum/hive/hivesim"
+    import "github.com/core-coin/hive/hivesim"
 
     func main() {
         suite := hivesim.Suite{
@@ -486,7 +486,7 @@ Response:
     "172.22.0.2"
 
 [client interface documentation]: ./clients.md
-[package hivesim]: https://pkg.go.dev/github.com/ethereum/hive/hivesim
+[package hivesim]: https://pkg.go.dev/github.com/core-coin/hive/hivesim
 [launch the simulation]: ./overview.md#running-hive
 [hiveview]: ./commandline.md#viewing-simulation-results-hiveview
 [Overview]: ./overview.md

@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/trie"
+	"github.com/core-coin/go-core/v2/common"
+	"github.com/core-coin/go-core/v2/core/types"
+	"github.com/core-coin/go-core/v2/trie"
 )
 
 func init() {
@@ -26,12 +26,6 @@ type unclesInfo struct {
 }
 
 func (m *modUncles) apply(ctx *genBlockContext) bool {
-	cfg := ctx.ChainConfig()
-	merged := cfg.MergeNetsplitBlock != nil && cfg.MergeNetsplitBlock.Cmp(ctx.Number()) <= 0
-	if merged || cfg.Ethash == nil || ctx.NumberU64() < 3 {
-		return false
-	}
-
 	info := m.info[ctx.NumberU64()]
 	if len(info.Hashes) >= 2 {
 		return false // block has enough uncles already

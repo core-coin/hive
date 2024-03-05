@@ -1,40 +1,24 @@
 package main
 
 import (
-	"fmt"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/core-coin/go-core/v2/common"
+	"github.com/core-coin/go-core/v2/common/hexutil"
+	"github.com/core-coin/go-core/v2/core/types"
+	"github.com/core-coin/go-core/v2/params"
 )
 
 func init() {
-	register("tx-transfer-legacy", func() blockModifier {
+	register("tx-transfer", func() blockModifier {
 		return &modValueTransfer{
-			txType:   types.LegacyTxType,
-			gasLimit: params.TxGas,
+			energyLimit: params.TxEnergy,
 		}
 	})
-	register("tx-transfer-eip2930", func() blockModifier {
-		return &modValueTransfer{
-			txType:   types.AccessListTxType,
-			gasLimit: params.TxGas,
-		}
-	})
-	register("tx-transfer-eip1559", func() blockModifier {
-		return &modValueTransfer{
-			txType:   types.DynamicFeeTxType,
-			gasLimit: params.TxGas,
-		}
-	})
-
 }
 
 type modValueTransfer struct {
-	txType   byte
-	gasLimit uint64
+	energyLimit uint64
 
 	txs []valueTransferInfo
 }
@@ -47,58 +31,20 @@ type valueTransferInfo struct {
 }
 
 func (m *modValueTransfer) apply(ctx *genBlockContext) bool {
-	if !ctx.HasGas(m.gasLimit) {
+	if !ctx.HasEnergy(m.energyLimit) {
 		return false
 	}
 
 	sender := ctx.TxSenderAccount()
 	recipient := pickRecipient(ctx)
 
-	var txdata types.TxData
-	switch m.txType {
-	case types.LegacyTxType:
-		txdata = &types.LegacyTx{
-			Nonce:    ctx.AccountNonce(sender.addr),
-			Gas:      m.gasLimit,
-			GasPrice: ctx.TxGasFeeCap(),
-			To:       &recipient,
-			Value:    big.NewInt(1),
-		}
-
-	case types.AccessListTxType:
-		if !ctx.ChainConfig().IsBerlin(ctx.Number()) {
-			return false
-		}
-		txdata = &types.AccessListTx{
-			Nonce:    ctx.AccountNonce(sender.addr),
-			Gas:      m.gasLimit,
-			GasPrice: ctx.TxGasFeeCap(),
-			To:       &recipient,
-			Value:    big.NewInt(1),
-		}
-
-	case types.DynamicFeeTxType:
-		if !ctx.ChainConfig().IsLondon(ctx.Number()) {
-			return false
-		}
-		txdata = &types.DynamicFeeTx{
-			Nonce:     ctx.AccountNonce(sender.addr),
-			Gas:       m.gasLimit,
-			GasFeeCap: ctx.TxGasFeeCap(),
-			GasTipCap: big.NewInt(1),
-			To:        &recipient,
-			Value:     big.NewInt(1),
-		}
-
-	default:
-		panic(fmt.Errorf("unhandled tx type %d", m.txType))
-	}
+	txdata := types.NewTransaction(ctx.AccountNonce(sender.Address()), recipient, big.NewInt(1), m.energyLimit, ctx.TxEnergyFeeCap(), nil)
 
 	txindex := ctx.TxCount()
 	tx := ctx.AddNewTx(sender, txdata)
 	m.txs = append(m.txs, valueTransferInfo{
 		Block:  hexutil.Uint64(ctx.NumberU64()),
-		Sender: sender.addr,
+		Sender: sender.Address(),
 		TxHash: tx.Hash(),
 		Index:  txindex,
 	})
@@ -111,5 +57,5 @@ func (m *modValueTransfer) txInfo() any {
 
 func pickRecipient(ctx *genBlockContext) common.Address {
 	i := ctx.TxRandomValue() % uint64(len(ctx.gen.accounts))
-	return ctx.gen.accounts[i].addr
+	return ctx.gen.accounts[i].Address()
 }

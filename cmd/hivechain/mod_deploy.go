@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/core-coin/go-core/v2/common"
+	"github.com/core-coin/go-core/v2/common/hexutil"
+	"github.com/core-coin/go-core/v2/core/types"
+	"github.com/core-coin/go-core/v2/crypto"
+	"github.com/core-coin/go-core/v2/params"
 )
 
 func init() {
@@ -38,23 +38,20 @@ func (m *modDeploy) apply(ctx *genBlockContext) bool {
 	var code []byte
 	code = append(code, deployerCode...)
 	code = append(code, m.code...)
-	gas := ctx.TxCreateIntrinsicGas(code)
-	gas += uint64(len(m.code)) * params.CreateDataGas
+	gas := ctx.TxCreateIntrinsicEnergy(code)
+	gas += uint64(len(m.code)) * params.CreateDataEnergy
 	gas += 15000 // extra gas for constructor execution
-	if !ctx.HasGas(gas) {
+	if !ctx.HasEnergy(gas) {
 		return false
 	}
 
 	sender := ctx.TxSenderAccount()
-	nonce := ctx.AccountNonce(sender.addr)
-	ctx.AddNewTx(sender, &types.LegacyTx{
-		Nonce:    nonce,
-		Gas:      gas,
-		GasPrice: ctx.TxGasFeeCap(),
-		Data:     code,
-	})
+	nonce := ctx.AccountNonce(sender.Address())
+	//todo:error2215 add some `to` address and amount 
+	tx := types.NewTransaction(nonce, sender.Address(), nil, gas, ctx.TxEnergyFeeCap(), code)
+	ctx.AddNewTx(sender, tx)
 	m.info = &deployTxInfo{
-		Contract: crypto.CreateAddress(sender.addr, nonce),
+		Contract: crypto.CreateAddress(sender.Address(), nonce),
 		Block:    hexutil.Uint64(ctx.block.Number().Uint64()),
 	}
 	return true

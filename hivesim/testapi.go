@@ -9,8 +9,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/ethereum/go-ethereum/rpc"
-	"github.com/ethereum/hive/internal/simapi"
+	"github.com/core-coin/go-core/v2/rpc"
+	"github.com/core-coin/hive/internal/simapi"
 )
 
 // Suite is the description of a test suite.

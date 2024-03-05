@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/ethereum/hive/hiveproxy"
-	"github.com/ethereum/hive/internal/libhive"
+	"github.com/core-coin/hive/hiveproxy"
+	"github.com/core-coin/hive/internal/libhive"
 	"gopkg.in/inconshreveable/log15.v2"
 )
 

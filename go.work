@@ -1,0 +1,15 @@
+go 1.22.0
+
+use (
+	.
+	./hiveproxy
+	./simulators/devp2p
+	./simulators/ethereum/consensus
+	./simulators/ethereum/graphql
+	./simulators/ethereum/rpc
+	./simulators/ethereum/rpc-compat
+	./simulators/ethereum/sync
+	./simulators/smoke/genesis
+	./simulators/smoke/mining
+	./simulators/smoke/network
+)

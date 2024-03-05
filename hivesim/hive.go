@@ -15,8 +15,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/p2p/enode"
-	"github.com/ethereum/hive/internal/simapi"
+	"github.com/core-coin/go-core/v2/p2p/enode"
+	"github.com/core-coin/hive/internal/simapi"
 )
 
 // Simulation wraps the simulation HTTP API provided by hive.

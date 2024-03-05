@@ -9,7 +9,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/ethereum/hive/internal/libhive"
+	"github.com/core-coin/hive/internal/libhive"
 )
 
 // BackendHooks can be used to override the behavior of the fake backend.

@@ -12,7 +12,7 @@ documentation]. You can check the installed Go version by running `go version`.
 To get hive, you first need to clone the repository to the location of your choice.
 Then you can build the hive executable.
 
-    git clone https://github.com/ethereum/hive
+    git clone https://github.com/core-coin/hive
     cd ./hive
     go build .
 
@@ -72,7 +72,7 @@ arguments are:
  - `baseimage`: For clients pulled from DockerHub, this can be used to override the organization
    and image name. Example `ethereum/client-go`.
  - `github`: For client Dockerfiles building from git, this setting can be used to change
-   the source code repository (fork) on GitHub. Example: `ethereum/go-ethereum`.
+   the source code repository (fork) on GitHub. Example: `core-coin/go-core`.
 
 ### Docker Options
 

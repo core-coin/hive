@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ethereum/hive/internal/libdocker"
-	"github.com/ethereum/hive/internal/libhive"
+	"github.com/core-coin/hive/internal/libdocker"
+	"github.com/core-coin/hive/internal/libhive"
 	"gopkg.in/inconshreveable/log15.v2"
 )
 
