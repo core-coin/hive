@@ -1,0 +1,12 @@
+{
+  "request":     
+    "{ energyPrice }",
+  "responses": [
+    {
+      "data" : {
+        "energyPrice" : "0x3b9aca00"
+      }
+    }
+  ],
+  "statusCode": 200
+}

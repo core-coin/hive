@@ -1,0 +1,27 @@
+{
+  "request": "{  block(number: 15) { logs( filter: {  topics :  [[\"0x00000000000000000000ce89fc05449b338c813f74f61f157699c1adb7264d4d\", \"0x52818dd789bafd2b091a2020832994407f938992a31a0084d80f0f7c1e264824\"]]}) { index  topics  data account{address} transaction{hash} }  } }",
+  "responses": [{
+    "data": {
+      "block": {
+        "logs": [
+          {
+            "index": 4,
+            "topics": [
+              "0x52818dd789bafd2b091a2020832994407f938992a31a0084d80f0f7c1e264824",
+              "0x00000000000000000000ce89fc05449b338c813f74f61f157699c1adb7264d4d"
+            ],
+            "data": "0x",
+            "account": {
+              "address": "ce44eb769ec7c6c8e7690340fb7af7a5ec0d6270058e"
+            },
+            "transaction": {
+              "hash": "0x9694ba6ea4affb19351a3302ff0abf932ab786607d9176393cd48a84c546549b"
+            }
+          }
+        ]
+      }
+    }
+  }],
+
+  "statusCode": 200
+}

@@ -1,0 +1,34 @@
+{
+  "request": "{ blocks(from:10) { number } }",
+  "responses": [{
+    "data": {
+      "blocks": [
+        {
+          "number": "0xa"
+        },
+        {
+          "number": "0xb"
+        },
+        {
+          "number": "0xc"
+        },
+        {
+          "number": "0xd"
+        },
+        {
+          "number": "0xe"
+        },
+        {
+          "number": "0xf"
+        },
+        {
+          "number": "0x10"
+        },
+        {
+          "number": "0x11"
+        }
+      ]
+    }
+  }],
+  "statusCode": 200
+}

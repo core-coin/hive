@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/big"
 
 	"github.com/core-coin/go-core/v2/common"
 	"github.com/core-coin/go-core/v2/core/types"
@@ -9,11 +10,11 @@ import (
 )
 
 func init() {
-	register("uncles", func() blockModifier {
-		return &modUncles{
-			info: make(map[uint64]unclesInfo),
-		}
-	})
+	// register("uncles", func() blockModifier {
+	// 	return &modUncles{
+	// 		info: make(map[uint64]unclesInfo),
+	// 	}
+	// })
 }
 
 type modUncles struct {
@@ -26,6 +27,9 @@ type unclesInfo struct {
 }
 
 func (m *modUncles) apply(ctx *genBlockContext) bool {
+	if ctx.NumberU64() < 3 {
+		return false
+	}
 	info := m.info[ctx.NumberU64()]
 	if len(info.Hashes) >= 2 {
 		return false // block has enough uncles already
@@ -34,6 +38,8 @@ func (m *modUncles) apply(ctx *genBlockContext) bool {
 	parent := ctx.ParentBlock()
 	time := parent.Time() + 1
 	uncle := &types.Header{
+		Difficulty: new(big.Int).Set(parent.Difficulty()),
+		EnergyLimit:   parent.EnergyLimit(),
 		Number:     parent.Number(),
 		ParentHash: parent.ParentHash(),
 		Time:       time,

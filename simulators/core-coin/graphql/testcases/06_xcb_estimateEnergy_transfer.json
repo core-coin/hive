@@ -1,0 +1,11 @@
+{
+  "request" :"{block{estimateEnergy (data: {from :\"ce816295ee1b4f6dd65047762f924ecd367c17eabf8f\", to :\"ce18de521e43741cf785cbad450d5649187b9612018f\"})}}",
+  "responses":[{
+    "data" : {
+      "block" : {
+        "estimateEnergy" : "0x5208"
+      }
+    }
+  }],
+  "statusCode": 200
+}

@@ -1,0 +1,26 @@
+{
+  "request": "mutation { sendRawTransaction(data: \"0xf8df0a0182c350824d3396ce646ab5537056fdc08dca544a767edb437272c0e8fb80911123123123123123123123123123123123b8abfb697a599b453e3d3787828a968e1c6ffe92ec4ad5e4e14cffb06d750f479235a5f1117f80afdf1b64a492417ff7a1eee96c6fcc6128d1a200acd31d21b7af8632db1720f09c391a11224e329402116364456de48934547110c939681710e55ad125a1130afb7d3a217a0cd0de3dde681f000f8f00de07e2ae4d9c9897c6d2449e89c848d29df7fc1b76eac804d6353927583c2e692a1bb9694aa34a4ff37b97678ef066874153beb76e00\") }",
+  "responses": [{
+    "errors": [
+      {
+        "message": "Exception while fetching data (/sendRawTransaction) : Nonce too low",
+        "locations": [
+          {
+            "line": 1,
+            "column": 12
+          }
+        ],
+        "path": [
+          "sendRawTransaction"
+        ],
+        "extensions": {
+          "errorCode": -32001,
+          "errorMessage": "Nonce too low",
+          "classification": "DataFetchingException"
+        }
+      }
+    ],
+    "data": null
+  }],
+  "statusCode": 400
+}

@@ -1,0 +1,106 @@
+{
+  "request": "{ logs( filter: { fromBlock:10, toBlock: 16, topics :  [], addresses : []}) { index  topics  data account{address} transaction{hash block {number}} } }",
+  "responses": [{
+    "data": {
+      "logs": [
+        {
+          "index": 0,
+          "topics": [
+            "0xf44c3bfbe5c9f6c6215c71d588688f093c5264ac95f9d7c15e06b899cc170a61"
+          ],
+          "data": "0x",
+          "account": {
+            "address": "ce44eb769ec7c6c8e7690340fb7af7a5ec0d6270058e"
+          },
+          "transaction": {
+            "hash": "0x9694ba6ea4affb19351a3302ff0abf932ab786607d9176393cd48a84c546549b",
+            "block": {
+              "number": "0xf"
+            }
+          }
+        },
+        {
+          "index": 1,
+          "topics": [
+            "0xdf94c109eaf09c6ae0f6f63ad3848d4f23f5baca53c076d8d6096833e0b6be5b"
+          ],
+          "data": "0x0000000000000000000000000000000000000000000000000000000000000001",
+          "account": {
+            "address": "ce44eb769ec7c6c8e7690340fb7af7a5ec0d6270058e"
+          },
+          "transaction": {
+            "hash": "0x9694ba6ea4affb19351a3302ff0abf932ab786607d9176393cd48a84c546549b",
+            "block": {
+              "number": "0xf"
+            }
+          }
+        },
+        {
+          "index": 2,
+          "topics": [
+            "0x67b15b7b119723e10cda66d64abe2c5abbdad58a80c7fe87a84269870b479b7d",
+            "0x0000000000000000000000000000000000000000000000000000000000000001"
+          ],
+          "data": "0x",
+          "account": {
+            "address": "ce44eb769ec7c6c8e7690340fb7af7a5ec0d6270058e"
+          },
+          "transaction": {
+            "hash": "0x9694ba6ea4affb19351a3302ff0abf932ab786607d9176393cd48a84c546549b",
+            "block": {
+              "number": "0xf"
+            }
+          }
+        },
+        {
+          "index": 3,
+          "topics": [
+            "0x8d191de11ad932288883c26fb31ec7f22554bcffe24580f671bf01766e38d05f"
+          ],
+          "data": "0x00000000000000000000ce89fc05449b338c813f74f61f157699c1adb7264d4d",
+          "account": {
+            "address": "ce44eb769ec7c6c8e7690340fb7af7a5ec0d6270058e"
+          },
+          "transaction": {
+            "hash": "0x9694ba6ea4affb19351a3302ff0abf932ab786607d9176393cd48a84c546549b",
+            "block": {
+              "number": "0xf"
+            }
+          }
+        },
+        {
+          "index": 4,
+          "topics": [
+            "0x52818dd789bafd2b091a2020832994407f938992a31a0084d80f0f7c1e264824",
+            "0x00000000000000000000ce89fc05449b338c813f74f61f157699c1adb7264d4d"
+          ],
+          "data": "0x",
+          "account": {
+            "address": "ce44eb769ec7c6c8e7690340fb7af7a5ec0d6270058e"
+          },
+          "transaction": {
+            "hash": "0x9694ba6ea4affb19351a3302ff0abf932ab786607d9176393cd48a84c546549b",
+            "block": {
+              "number": "0xf"
+            }
+          }
+        },
+        {
+          "index": 5,
+          "topics": [],
+          "data": "0x000000000000000000000000000000000000000000000000000000000000000100000000000000000000ce89fc05449b338c813f74f61f157699c1adb7264d4d",
+          "account": {
+            "address": "ce44eb769ec7c6c8e7690340fb7af7a5ec0d6270058e"
+          },
+          "transaction": {
+            "hash": "0x9694ba6ea4affb19351a3302ff0abf932ab786607d9176393cd48a84c546549b",
+            "block": {
+              "number": "0xf"
+            }
+          }
+        }
+      ]
+    }
+  }],
+  "statusCode": 200
+}

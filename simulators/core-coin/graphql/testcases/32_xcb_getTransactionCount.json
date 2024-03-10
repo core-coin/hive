@@ -1,0 +1,13 @@
+{
+  "request": "{block{ account(address: \"ce89fc05449b338c813f74f61f157699c1adb7264d4d\") { transactionCount } }}",
+  "responses": [{
+    "data": {
+      "block": {
+        "account": {
+          "transactionCount": "0xe"
+        }
+      }
+    }
+  }],
+  "statusCode": 200
+}

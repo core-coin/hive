@@ -48,7 +48,7 @@ func TestClientTypes(t *testing.T) {
 func TestEnodeReplaceIP(t *testing.T) {
 	// Set up the backend to return enode:// URL containing the
 	// localhost IP.
-	urlBase := "enode://a61215641fb8714a373c80edbfa0ea8878243193f57c96eeb44d0bc019ef295abd4e044fd619bfc4c59731a73fb79afe84e9ab6da0c743ceb479cbb6d263fa91@"
+	urlBase := "enode://aaee47e4f7afb3a0dfd813320278e8ce0c9b1f94bded9a7e0ad9f9250c3360e16cbb3d90484ccc59805be6398b6ca774959d37a8a4cdc81faf@"
 	hooks := &fakes.BackendHooks{
 		RunProgram: func(containerID string, script []string) (*libhive.ExecInfo, error) {
 			if len(script) != 1 || script[0] != "/hive-bin/enode.sh" {

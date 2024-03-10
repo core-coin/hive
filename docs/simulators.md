@@ -197,7 +197,7 @@ or create your own. Make sure to add all support files to container in the Docke
 Dockerfile might look like this:
 
     FROM golang:1-alpine AS builder
-    RUN apk --no-cache add gcc musl-dev linux-headers
+    RUN apk --no-cache add gcc musl-dev linux-headers g++
     ADD . /source
     WORKDIR /source
     RUN go build -o ./sim .
@@ -214,7 +214,7 @@ You can test this build by running `docker build .` in the simulator directory.
 
 Finally, go back to the root of the repository (`cd ../../..`) and run the simulation.
 
-    ./hive --sim my-simulation --client go-ethereum,besu
+    ./hive --sim my-simulation --client go-core,besu
 
 You can check the results using [hiveview].
 
@@ -300,7 +300,7 @@ Response
 
     [
       {
-        "name": "go-ethereum",
+        "name": "go-core",
         "version": "Geth/v1.10.0-unstable-8e547eec-20210224/linux-amd64/go1.16",
         "meta": {
           "roles": [
@@ -328,7 +328,7 @@ Response
     content-disposition: form-data; name=config
 
     {
-      "client": "go-ethereum_latest",
+      "client": "go-core_latest",
       "environment": {"HIVE_CHAIN_ID": "8"}
     }
     --boundary--
@@ -389,7 +389,7 @@ Response:
     200 OK
     content-type: application/json
 
-    {"id":"abcdef1234","name":"go-ethereum_latest"}
+    {"id":"abcdef1234","name":"go-core_latest"}
 
 #### Running client scripts
 

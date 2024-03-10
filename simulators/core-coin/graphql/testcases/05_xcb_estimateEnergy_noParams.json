@@ -1,0 +1,11 @@
+{
+  "request" :"{block(number: 8) { estimateEnergy(data:{}) }}",
+  "responses":[{
+    "data" : {
+      "block" : {
+        "estimateEnergy" : "0xcf08"
+      }
+    }
+  }],
+  "statusCode": 200
+}

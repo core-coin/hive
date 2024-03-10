@@ -1,0 +1,14 @@
+{
+  "request" : "{block{ account(address: \"ce18de521e43741cf785cbad450d5649187b9612018f\") { code } }}",
+
+  "responses": [{
+    "data": {
+      "block": {
+        "account": {
+          "code": "0x"
+        }
+      }
+    }
+  }],
+  "statusCode": 200
+}

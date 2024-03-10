@@ -1,0 +1,14 @@
+{
+  "request": "{block (number : \"0x5\") { energyUsed energyLimit hash }} ",
+
+  "responses":[{
+    "data": {
+      "block": {
+        "energyUsed": "0x0",
+        "energyLimit": "0x7f604ff2",
+        "hash": "0x6d228330055da6fd683b1ffa89fff1788fc7556086a232a6e2e3dbbdefa4ca5a"
+      }
+    }
+  }],
+  "statusCode": 200
+}

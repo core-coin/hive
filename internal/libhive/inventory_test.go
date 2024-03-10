@@ -134,11 +134,11 @@ func TestClientNaming(t *testing.T) {
 
 func TestParseClientListYAML(t *testing.T) {
 	yamlInput := `
-- client: go-ethereum
+- client: go-core
   dockerfile: git
   build_args:
     tag: custom
-- client: go-ethereum
+- client: go-core
   dockerfile: local
 - client: supereth3000
   build_args:
@@ -148,14 +148,14 @@ func TestParseClientListYAML(t *testing.T) {
 `
 
 	expectedOutput := []ClientDesignator{
-		{Client: "go-ethereum", Nametag: "custom", DockerfileExt: "git", BuildArgs: map[string]string{"tag": "custom"}},
-		{Client: "go-ethereum", DockerfileExt: "local"},
+		{Client: "go-core", Nametag: "custom", DockerfileExt: "git", BuildArgs: map[string]string{"tag": "custom"}},
+		{Client: "go-core", DockerfileExt: "local"},
 		{Client: "supereth3000", Nametag: "github_org/repository", BuildArgs: map[string]string{"github": "org/repository"}},
 		{Client: "supereth3000", Nametag: "thebest"},
 	}
 
 	var inv Inventory
-	inv.AddClient("go-ethereum", &InventoryClient{Dockerfiles: []string{"git", "local"}})
+	inv.AddClient("go-core", &InventoryClient{Dockerfiles: []string{"git", "local"}})
 	inv.AddClient("supereth3000", nil)
 
 	r := strings.NewReader(yamlInput)

@@ -1,6 +1,8 @@
 package main
 
 import (
+	"math/big"
+
 	"github.com/core-coin/go-core/v2/core/types"
 )
 
@@ -40,8 +42,7 @@ func (m *modCreateSpam) apply(ctx *genBlockContext) bool {
 	}
 
 	sender := ctx.TxSenderAccount()
-	//todo:error2215 add some `to` address and amount 
-	tx := types.NewTransaction(ctx.AccountNonce(sender.Address()), sender.Address(), nil, energy, ctx.TxEnergyFeeCap(), m.code)
+	tx := types.NewTransaction(ctx.AccountNonce(sender.Address()), sender.Address(), big.NewInt(1), energy, ctx.TxEnergyFeeCap(), m.code)
 	ctx.AddNewTx(sender, tx)
 	return true
 }

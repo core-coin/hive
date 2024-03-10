@@ -9,9 +9,10 @@ require github.com/core-coin/hive v0.0.0-20240214125912-54575de94bf7
 require (
 	github.com/aristanetworks/goarista v0.0.0-20170210015632-ea17b1a17847 // indirect
 	github.com/core-coin/ed448 v1.0.2 // indirect
-	github.com/core-coin/go-core/v2 v2.1.7-0.20240218161044-485ad0aeef4d // indirect
+	github.com/core-coin/go-core/v2 v2.1.7 // indirect
 	github.com/core-coin/go-goldilocks v1.0.17 // indirect
 	github.com/deckarep/golang-set v1.8.0 // indirect
+	github.com/ethereum/hive v0.0.0-20240308212029-d78973b36630 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/go-stack/stack v1.8.1 // indirect

@@ -1,0 +1,17 @@
+{
+  "request": "{block (hash : \"0x123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0\") {number } }",
+  "responses": [{
+    "errors": [
+      {
+        "message": "header for hash not found",
+        "path": [
+          "block"
+        ]
+      }
+    ],
+    "data": {
+      "block": null
+    }
+  }],
+  "statusCode": 400
+}

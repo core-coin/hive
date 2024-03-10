@@ -51,7 +51,7 @@ Creates `accounts.json` containing accounts and corresponding private keys.
 
 ### genesis
 
-This writes the `genesis.json` file containing a go-ethereum style genesis spec. Note
+This writes the `genesis.json` file containing a go-core style genesis spec. Note
 this file includes the fork block numbers/timestamps.
 
 ### forkenv

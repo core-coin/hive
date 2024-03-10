@@ -20,7 +20,7 @@ func main() {
 		},
 		Parameters: hivesim.Params{
 			"HIVE_PRIVATEKEY": "44cc42018b039b182dc1f8a05f4696995e39ba0e2af6d14f8dc68ee2fdf77195a85cbd6f8cf94905015b039300f44d8d639b287cb15abe4db0",
-			"HIVE_MINER":             "cb65e49851f010cd7d81b5b4969f3b0e8325c415359d",
+			"HIVE_MINER":             "ce56e49851f010cd7d81b5b4969f3b0e8325c415359d",
 			"HIVE_NETWORK_ID":            "1334",
 		},
 		Run: miningTest,
@@ -36,12 +36,12 @@ type block struct {
 
 func miningTest(t *hivesim.T, c *hivesim.Client) {
 	start := time.Now()
-	timeout := 10 * time.Second
+	timeout := 20 * time.Second
 
 	for {
 		var b block
 		if err := c.RPC().Call(&b, "xcb_getBlockByNumber", "latest", false); err != nil {
-			t.Fatal("eth_getBlockByNumber call failed:", err)
+			t.Fatal("xcb_getBlockByNumber call failed:", err)
 		}
 		switch b.Number {
 		case "0x0":

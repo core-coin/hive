@@ -1,0 +1,44 @@
+{
+  "request": 
+    
+    "{blocks (from : 10, to: 12) { number energyUsed energyLimit hash nonce stateRoot receiptsRoot transactionCount }} ",
+
+
+  "responses":[{
+    "data": {
+      "blocks": [
+        {
+          "number": "0xa",
+          "energyUsed": "0x625c1",
+          "energyLimit": "0x7ec16720",
+          "hash": "0x7cc97181c1596e6e4ca6ef3f4c9589c9950eec5516938b13c65b21fb465589fd",
+          "nonce": "0x4404f602b121c4b6",
+          "stateRoot": "0xf73755f458cc7d38e8a5036c94d8bde821f23fde256a3c3c7e27994e6786f8db",
+          "receiptsRoot": "0x499ef5f7fd1029477bea78b1a67a627feee9b5bf157920834647916c0be85583",
+          "transactionCount": 1
+        },
+        {
+          "number": "0xb",
+          "energyUsed": "0x68ef5",
+          "energyLimit": "0x7ea1b6c8",
+          "hash": "0xf29a758d203a1c91ab25c181545bac5f0a5f4b3913d21b32c3172825bd7248f7",
+          "nonce": "0x3a30982a378f3d15",
+          "stateRoot": "0xa4fd15483f6fc2d4644de4437084f2a02a9a51bd63a51bfd6903f22437988496",
+          "receiptsRoot": "0x3beecee9ffa924eafc2711eb0e9fbeca5d967322325004f2bf4bbfe60d4e03f8",
+          "transactionCount": 1
+        },
+        {
+          "number": "0xc",
+          "energyUsed": "0x0",
+          "energyLimit": "0x7e820e5c",
+          "hash": "0x1af9e630ec34d149a48f4f13d071b8052a09bf4eb9fd825bdec3daee5c18181d",
+          "nonce": "0x3f51e5f8b1abacd4",
+          "stateRoot": "0x64b7f54b788a1435e5f5dccff7ca44e4e2814250c1fa07833251edfde838e72f",
+          "receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "transactionCount": 0
+        }
+      ]
+    }
+  }],
+  "statusCode": 200
+}

@@ -1,0 +1,46 @@
+{
+  "request": "{ logs( filter: { fromBlock:5, toBlock: 20, topics :  [], addresses : []}) { index transaction{hash} } }",
+  "responses": [{
+    "data": {
+      "logs": [
+        {
+          "index": 0,
+          "transaction": {
+            "hash": "0x9694ba6ea4affb19351a3302ff0abf932ab786607d9176393cd48a84c546549b"
+          }
+        },
+        {
+          "index": 1,
+          "transaction": {
+            "hash": "0x9694ba6ea4affb19351a3302ff0abf932ab786607d9176393cd48a84c546549b"
+          }
+        },
+        {
+          "index": 2,
+          "transaction": {
+            "hash": "0x9694ba6ea4affb19351a3302ff0abf932ab786607d9176393cd48a84c546549b"
+          }
+        },
+        {
+          "index": 3,
+          "transaction": {
+            "hash": "0x9694ba6ea4affb19351a3302ff0abf932ab786607d9176393cd48a84c546549b"
+          }
+        },
+        {
+          "index": 4,
+          "transaction": {
+            "hash": "0x9694ba6ea4affb19351a3302ff0abf932ab786607d9176393cd48a84c546549b"
+          }
+        },
+        {
+          "index": 5,
+          "transaction": {
+            "hash": "0x9694ba6ea4affb19351a3302ff0abf932ab786607d9176393cd48a84c546549b"
+          }
+        }
+      ]
+    }
+  }],
+  "statusCode": 200
+}

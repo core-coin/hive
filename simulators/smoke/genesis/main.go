@@ -12,11 +12,14 @@ func main() {
 	suite.Add(hivesim.ClientTestSpec{
 		Role:        "xcb1",
 		Name:        "empty genesis",
-		Description: "This imports an empty genesis block with no environment variables.",
+		Description: "This imports an empty genesis block.",
 		Files: map[string]string{
 			"/genesis.json": "genesis-empty.json",
 		},
-		Run: genesisTest{"0x433d0b859a77a29753d2a6df477c971dcc6300af33f9d64d821a1d490b4148b1"}.test,
+		Parameters: map[string]string{
+			"HIVE_NETWORK_ID":            "7",
+		},
+		Run: genesisTest{"0x709b9d43c547920818628cc46d0908c2158fc3d99ce5b74b397a4344fcf62e7c"}.test,
 	})
 	suite.Add(hivesim.ClientTestSpec{
 		Role:        "xcb1",
@@ -26,9 +29,9 @@ func main() {
 			"/genesis.json": "genesis-nonempty.json",
 		},
 		Parameters: map[string]string{
-			"HIVE_NETWORK_ID":            "10",
+			"HIVE_NETWORK_ID":            "7",
 		},
-		Run: genesisTest{"0x5ae31c6522bd5856129f66be3d582b842e4e9faaa87f21cce547128339a9db3c"}.test,
+		Run: genesisTest{"0x483845f05cd7d26a38a818e3cf04007deb1ce508f95eaf1810c8528f48fddfc0"}.test,
 	})
 	suite.Add(hivesim.ClientTestSpec{
 		Name:        "precomp-storage",
@@ -37,9 +40,9 @@ func main() {
 			"/genesis.json": "genesis-precomp-storage.json",
 		},
 		Parameters: map[string]string{
-			"HIVE_NETWORK_ID":            "10",
+			"HIVE_NETWORK_ID":            "7",
 		},
-		Run: genesisTest{"0x1b5dc4bd86f9209e6261d43dd3085034d3a502c3823903a417a95320caccaebf"}.test,
+		Run: genesisTest{"0xfc2f5fb65cdd077cf0c8172b45cac2a304f570a71de2046333abe5832080954a"}.test,
 	})
 	suite.Add(hivesim.ClientTestSpec{
 		Name:        "precomp-empty",
@@ -48,9 +51,9 @@ func main() {
 			"/genesis.json": "genesis-precomp-empty.json",
 		},
 		Parameters: map[string]string{
-			"HIVE_NETWORK_ID":            "10",
+			"HIVE_NETWORK_ID":            "7",
 		},
-		Run: genesisTest{"0xf6df6eb772235f4f193b1a514f34bc5e4e9ce747a83732d4e8fced78ba2e939c"}.test,
+		Run: genesisTest{"0xd2d343dbfb3e243681046bd708c60770c55688cd9fff9e047e10f9e48e1d310d"}.test,
 	})
 	suite.Add(hivesim.ClientTestSpec{
 		Role:        "xcb1",
@@ -60,9 +63,9 @@ func main() {
 			"/genesis.json": "genesis-precomp-zero-balance.json",
 		},
 		Parameters: map[string]string{
-			"HIVE_NETWORK_ID":            "10",
+			"HIVE_NETWORK_ID":            "7",
 		},
-		Run: genesisTest{"0x251e6c3c84531a8b59a62535db474d0b5967f6f4ec82e47d62e70497ccdde6a7"}.test,
+		Run: genesisTest{"0x139047cc6de920174727c048897fa6ba144187473496392e472c819f7b5d5de2"}.test,
 	})
 
 	hivesim.MustRunSuite(hivesim.New(), suite)

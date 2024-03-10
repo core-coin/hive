@@ -8,7 +8,7 @@ Clients are docker images which can be instantiated by a simulation. A client de
 consists of a Dockerfile and associated resources. Client definitions live in
 subdirectories of `clients/` in the hive repository.
 
-See the [go-ethereum client definition][geth-docker] for an example of a client
+See the [go-core client definition][geth-docker] for an example of a client
 Dockerfile.
 
 When hive runs a simulation, it first builds all client docker images using their
@@ -21,7 +21,7 @@ The client Dockerfile should support an optional argument named `branch`, which 
 the requested client version. This argument can be set by users by appending it to the
 client name like:
 
-    ./hive --sim my-simulation --client go-ethereum_v1.9.23,go_ethereum_v1.9.22
+    ./hive --sim my-simulation --client go-core_v1.9.23,go_ethereum_v1.9.22
 
 Other build arguments can also be set using a YAML file, see the [hive command
 documentation][hive-client-yaml] for more information.
@@ -98,7 +98,7 @@ container:
 On startup, the entry point script must first load the genesis block and state into the
 client implementation from `/genesis.json`. To do this, the script needs to translate from
 Geth genesis format into a format appropriate for the specific client implementation. The
-translation is usually done using a jq script. See the [go-ethereum genesis
+translation is usually done using a jq script. See the [go-core genesis
 translator][geth-genesis-jq], for example.
 
 After the genesis state, the client should import the blocks from `/chain.rlp` if it is
@@ -162,9 +162,9 @@ For the server role, the following additional variables should be supported:
 
 
 [LES]: https://github.com/ethereum/devp2p/blob/master/caps/les.md
-[geth-docker]: ../clients/go-ethereum/Dockerfile
+[geth-docker]: ../clients/go-core/Dockerfile
 [hive-client-yaml]: ./commandline.md#client-build-parameters
-[geth-genesis-jq]: ../clients/go-ethereum/mapper.jq
+[geth-genesis-jq]: ../clients/go-core/mapper.jq
 [EIP-155]: https://eips.ethereum.org/EIPS/eip-155
 [EIP-606]: https://eips.ethereum.org/EIPS/eip-606
 [EIP-607]: https://eips.ethereum.org/EIPS/eip-607

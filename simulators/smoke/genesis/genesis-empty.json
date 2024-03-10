@@ -1,5 +1,8 @@
 {
+  "config"       : {
+    "networkId": 7
+  },
   "difficulty": "0x20000",
-  "gasLimit": "0x1",
+  "energyLimit": "0x1",
   "alloc": {}
 }

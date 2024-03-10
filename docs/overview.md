@@ -31,7 +31,7 @@ This is an overview of some of the simulators which are currently implemented an
 continuously on the production hive instance:
 
 - `devp2p`: This simulator runs 'eth', 'snap' and 'discv4' peer-to-peer protocol tests.
-  The test suites themselves are maintained in the go-ethereum repository. In their hive
+  The test suites themselves are maintained in the go-core repository. In their hive
   adaptation, the simulator launches the client with a known test chain, obtains its
   peer-to-peer endpoint (the `enode://` URL) and sends protocol messages to it. The
   client's responses are analyzed by the test suite to ensure that they conform to the
@@ -71,7 +71,7 @@ This section explains what happens during a simulation run.
 For a single run, the user provides the name of the simulator to run, and a set of client
 names to run against. For example:
 
-    ./hive --sim ethereum/sync --client go-ethereum,besu,nethermind
+    ./hive --sim ethereum/sync --client go-core,besu,nethermind
 
 Hive first builds simulator and client images using docker. It expects a Dockerfile in the
 `./simulators/ethereum/sync` directory as well as a Dockerfile for each client (in
@@ -118,7 +118,7 @@ executed by a simulator, a JSON file like the following is created:
       "description": "This test suite verifies that...",
       "clientVersions": {
         "besu": "",
-        "go-ethereum": ""
+        "go-core": ""
       },
       "simLog": "1612356621-simulator-a9a2e71a6aabe509bbde35c79e7f0ed9c259a642c19ba0da6167fa9efd0ea5a1.log"
       "testCases": {

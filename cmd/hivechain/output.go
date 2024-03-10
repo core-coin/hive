@@ -130,16 +130,7 @@ func (g *generator) writePoWChain() error {
 }
 
 func exportN(bc *core.BlockChain, w io.Writer, first uint64, last uint64) error {
-	for nr := first; nr <= last; nr++ {
-		block := bc.GetBlockByNumber(nr)
-		if block == nil {
-			return fmt.Errorf("export failed on #%d: not found", nr)
-		}
-		if err := block.EncodeRLP(w); err != nil {
-			return err
-		}
-	}
-	return nil
+	return bc.ExportN(w, first, last)
 }
 
 // writeTxInfo writes information about the transactions that were added into the chain.
