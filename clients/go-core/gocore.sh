@@ -45,7 +45,6 @@ else
     # then it tries to bump memory quite a lot
     FLAGS="$FLAGS --networkid 1337"
     HIVE_NETWORK_ID=1337
-    echo $HIVE_NETWORK_ID
 fi
 
 # Handle any client mode or operation requests
@@ -123,7 +122,7 @@ fi
 
 # Configure any mining operation
 if [ "$HIVE_MINER" != "" ] && [ "$HIVE_NODETYPE" != "light" ]; then
-    FLAGS="$FLAGS --mine --miner.corebase $HIVE_MINER --miner.threads=99"
+    FLAGS="$FLAGS --mine --miner.corebase $HIVE_MINER --miner.threads=5"
 fi
 if [ "$HIVE_MINER_EXTRA" != "" ]; then
     FLAGS="$FLAGS --miner.extradata $HIVE_MINER_EXTRA"
