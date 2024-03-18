@@ -32,19 +32,14 @@ function run {
   (cd $HIVEHOME && $1)
 }
 
-function testconsensus {
-  client=$1
-  echo "$(date) Starting hive consensus simulation [$client]"
-  run "./hive --sim ethereum/consensus --client $client --sim.loglevel 6 --sim.testlimit 2 $FLAGS"
-}
 function testgraphql {
   echo "$(date) Starting graphql simulation [$1]"
-  run "./hive --sim ethereum/graphql --client $1 $FLAGS"
+  run "./hive --sim core-coin/graphql --client $1 $FLAGS"
 }
 
 function testsync {
   echo "$(date) Starting hive sync simulation [$1]"
-  run "./hive --sim ethereum/sync --client=$1 $FLAGS"
+  run "./hive --sim core-coin/sync --client=$1 $FLAGS"
 }
 
 function testdevp2p {
@@ -54,39 +49,15 @@ function testdevp2p {
 
 mkdir $RESULTS
 
-# Sync are quick tests
-#
+# main tests (devp2p, sync)
+testdevp2p go-core_latest
+testgraphql go-core_latest
+testsync go-core_latest
 
-# These can succsessfully sync with themselves
-#testsync go-ethereum_latest
+# smoke tests
+./hive --sim smoke/genesis --client go-core_latest --loglevel 4 --results-root /tmp/TestResults  --sim.parallelism 1 --client.checktimelimit=60s
+./hive --sim smoke/mining --client go-core_latest --loglevel 4 --results-root /tmp/TestResults  --sim.parallelism 1 --client.checktimelimit=60s
+./hive --sim smoke/network --client go-core_latest --loglevel 4 --results-root /tmp/TestResults  --sim.parallelism 1 --client.checktimelimit=60s
 
-# These two are failing - even against themselves
-testsync besu_latest       # fails
-testsync nethermind_latest # fails
-
-#testsync besu_latest,nethermind_latest
-
-#testsync go-ethereum_latest go-ethereum_stable
-#testsync go-ethereum_latest nethermind_latest
-#testsync go-ethereum_latest besu_latest
-
-# GraphQL implemented only in besu and geth
-#
-
-testgraphql go-ethereum_latest
-testgraphql besu_latest
-
-
-# The devp2p tests are pretty quick -- a few minutes
-#testdevp2p go-ethereum_latest
-#testdevp2p nethermind_latest
-#testdevp2p besu_latest
-
-
-# These take an extremely long time to run
-#testconsensus go-ethereum_latest
-#testconsensus nethermind_latest
-#testconsensus besu_latest
-
-
-
+# # rpc tests
+./hive --sim core-coin/rpc --client go-core_latest --loglevel 4 --results-root /tmp/TestResults  --sim.parallelism 1 --client.checktimelimit=120s

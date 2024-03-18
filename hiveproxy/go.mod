@@ -5,7 +5,7 @@ go 1.21
 toolchain go1.22.0
 
 require (
-	github.com/core-coin/go-core/v2 v2.1.7-0.20240218161044-485ad0aeef4d
+	github.com/core-coin/go-core/v2 v2.1.7
 	github.com/hashicorp/yamux v0.1.1
 )
 

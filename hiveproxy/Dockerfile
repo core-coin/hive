@@ -1,5 +1,5 @@
 FROM golang:1-alpine as builder
-RUN apk add --update gcc musl-dev linux-headers
+RUN apk add --update gcc musl-dev linux-headers g++
 
 # Get dependencies first. This improves caching behavior since they only need
 # to be re-downloaded when go.mod changes.

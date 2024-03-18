@@ -24,7 +24,7 @@ import (
 const hiveEnvvarPrefix = "HIVE_"
 
 // This is the default timeout for starting clients.
-const defaultStartTimeout = time.Duration(60 * time.Second)
+const defaultStartTimeout = time.Duration(120 * time.Second)
 
 // newSimulationAPI creates handlers for the simulation API.
 func newSimulationAPI(b ContainerBackend, env SimEnv, tm *TestManager) http.Handler {

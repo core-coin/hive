@@ -32,12 +32,12 @@ simulation, use the following command:
 For example, if you want to run the `discv4` test against geth, here is
 how the command would look:
 
-    ./hive --sim devp2p --sim.limit discv4 --client go-ethereum,nethermind
+    ./hive --sim devp2p --sim.limit discv4 --client go-core,nethermind
 
 The client list may contain any number of clients. You can select a specific client
 version by appending it to the client name with `_`, for example:
 
-    ./hive --sim devp2p --client go-ethereum_v1.9.22,go-ethereum_v1.9.23
+    ./hive --sim devp2p --client go-core_v1.9.22,go-core_v1.9.23
 
 ### Client Build Parameters
 
@@ -49,7 +49,7 @@ use a client list file.
 
 Here is an example clients.yaml file:
 
-    - client: go-ethereum
+    - client: go-core
       dockerfile: git
     - client: nethermind
       build_args:

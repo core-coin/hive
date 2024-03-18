@@ -8,7 +8,6 @@ import (
 	"github.com/core-coin/go-core/v2/common/hexutil"
 	"github.com/core-coin/go-core/v2/core/types"
 	"github.com/core-coin/go-core/v2/crypto"
-	"github.com/core-coin/go-core/v2/log"
 )
 
 func init() {
@@ -41,10 +40,11 @@ func (m *modInvokeEmit) apply(ctx *genBlockContext) bool {
 	}
 
 	sender := ctx.TxSenderAccount()
-	recipient, err := common.HexToAddress(emitAddr)
+
+	checksum := common.CalculateChecksum(common.Hex2Bytes(emitAddr), common.Hex2Bytes(common.DefaultNetworkID.String()))
+	recipient, err := common.HexToAddress(common.DefaultNetworkID.String()+ checksum+ emitAddr)
 	if err != nil {
-		log.Error("failed to parse emit address", "err", err)
-		return false
+		panic(err)
 	}
 	calldata := m.genCallData(ctx)
 	datahash := crypto.SHA3Hash(calldata)

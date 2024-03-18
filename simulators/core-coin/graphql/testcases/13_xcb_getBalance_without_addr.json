@@ -1,0 +1,18 @@
+{
+  "request": "{block{account { balance } }}",
+  "responses": [{
+    "errors": [
+      {
+        "message": "Field \"account\" argument \"address\" of type \"Address!\" is required but not provided.",
+        "locations": [
+          {
+            "line": 1,
+            "column": 8
+          }
+        ]
+      }
+    ]
+  }],
+  "statusCode": 400
+}
+

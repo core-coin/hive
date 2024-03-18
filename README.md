@@ -16,7 +16,7 @@ If you find a bug in your client implementation due to this project, please be s
 to add it here to the trophy list. It could help prove that `hive` is indeed a useful tool
 for validating Ethereum client implementations.
 
-- go-ethereum:
+- go-core:
   - Genesis chain config couldn't handle present but empty settings: [#2790](https://github.com/core-coin/go-core/pull/2790)
   - Data race between remote block import and local block mining: [#2793](https://github.com/core-coin/go-core/pull/2793)
   - Downloader didn't penalize incompatible forks harshly enough: [#2801](https://github.com/core-coin/go-core/pull/2801)

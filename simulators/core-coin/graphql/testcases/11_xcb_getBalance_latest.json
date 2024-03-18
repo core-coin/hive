@@ -1,0 +1,14 @@
+{
+  "request": "{block{account(address: \"ce89fc05449b338c813f74f61f157699c1adb7264d4d\") { balance } }}",
+  "responses":[{
+    "data": {
+      "block": {
+        "account": {
+          "balance": "0x49b9ca9a69433b9b0"
+        }
+      }
+    }
+  }],
+  "statusCode": 200
+}
+

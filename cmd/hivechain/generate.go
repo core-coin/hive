@@ -11,7 +11,6 @@ import (
 	"github.com/core-coin/go-core/v2/consensus/cryptore"
 	"github.com/core-coin/go-core/v2/core"
 	"github.com/core-coin/go-core/v2/core/rawdb"
-	"github.com/core-coin/go-core/v2/core/state"
 	"github.com/core-coin/go-core/v2/core/types"
 	"github.com/core-coin/go-core/v2/core/vm"
 	"github.com/core-coin/go-core/v2/crypto"
@@ -100,20 +99,15 @@ func (cfg *generatorConfig) createBlockModifiers() (list []*modifierInstance) {
 
 // run produces a chain and writes it.
 func (g *generator) run() error {
-	db := rawdb.NewMemoryDatabase()
-	engine := g.createConsensusEngine(db)
-
 	// Init genesis block.
-	// trieconfig := *trie.HashDefaults
-	// trieconfig.Preimages = true
-	// triedb := trie.NewDatabase(db, &trieconfig)
+	db := rawdb.NewMemoryDatabase()
 	genesis := g.genesis.MustCommit(db)
-
+ 
 	// Create the blocks.
-	chain, _ := core.GenerateChain(g.genesis.Config, genesis, engine, db, g.cfg.chainLength, g.modifyBlock)
+	chain, _ := core.GenerateChain(g.genesis.Config, genesis, cryptore.NewFaker(), db, g.cfg.chainLength, g.modifyBlock)
 
 	// Import the chain. This runs all block validation rules.
-	bc, err := g.importChain(engine, chain, g.genesis.Config, genesis)
+	bc, err := g.importChain(cryptore.NewFaker(), chain, g.genesis.Config, genesis, db)
 	if err != nil {
 		return err
 	}
@@ -122,23 +116,7 @@ func (g *generator) run() error {
 	return g.write()
 }
 
-func (g *generator) createConsensusEngine(db xcbdb.Database) consensus.Engine {
-	// var inner consensus.Engine
-	// if g.genesis.Config.Clique != nil {
-	// 	cliqueEngine := clique.New(g.genesis.Config.Clique, db)
-	// 	cliqueEngine.Authorize(cliqueSignerAddr, func(signer accounts.Account, mimeType string, message []byte) ([]byte, error) {
-	// 		sig, err := crypto.Sign(crypto.Keccak256(message), cliqueSignerKey)
-	// 		return sig, err
-	// 	})
-	// 	inner = instaSeal{cliqueEngine}
-	// } else {
-		// inner = cryptore.NewFaker()
-	// }
-	return cryptore.NewFaker()
-}
-
-func (g *generator) importChain(engine consensus.Engine, chain []*types.Block, config *params.ChainConfig, genesis *types.Block) (*core.BlockChain, error) {
-	db := rawdb.NewMemoryDatabase()
+func (g *generator) importChain(engine consensus.Engine, chain []*types.Block, config *params.ChainConfig, genesis *types.Block, db xcbdb.Database) (*core.BlockChain, error) {
 	cacheconfig :=  &core.CacheConfig{
 		TrieCleanLimit: 256,
 		TrieDirtyLimit: 256,
@@ -152,10 +130,6 @@ func (g *generator) importChain(engine consensus.Engine, chain []*types.Block, c
 		return nil, fmt.Errorf("can't create blockchain: %v", err)
 	}
 
-	err = blockchain.ResetWithGenesisBlock(genesis)
-	if err != nil {
-		return nil, fmt.Errorf("can't set genesis block: %v", err)
-	}
 	i, err := blockchain.InsertChain(chain)
 	if err != nil {
 		blockchain.Stop()
@@ -166,58 +140,18 @@ func (g *generator) importChain(engine consensus.Engine, chain []*types.Block, c
 
 func (g *generator) modifyBlock(i int, gen *core.BlockGen) {
 	fmt.Println("generating block", gen.Number())
-	// if g.genesis.Config.Clique != nil {
-	// 	g.setClique(i, gen)
-	// }
 	g.setDifficulty(i, gen)
-	// g.setParentBeaconRoot(i, gen)
 	g.runModifiers(i, gen)
 }
 
-// func (g *generator) setClique(i int, gen *core.BlockGen) {
-// 	mergeblock := g.genesis.Config.MergeNetsplitBlock
-// 	if mergeblock != nil && gen.Number().Cmp(mergeblock) >= 0 {
-// 		return
-// 	}
-
-// 	gen.SetCoinbase(cliqueSignerAddr)
-// 	// Add a positive vote to keep the signer in the set.
-// 	gen.SetNonce(types.BlockNonce{0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff})
-// 	// The clique engine requires the block to have blank extra-data of the correct length before sealing.
-// 	gen.SetExtra(make([]byte, 32+65))
-// }
-
 func (g *generator) setDifficulty(i int, gen *core.BlockGen) {
-	// chaincfg := g.genesis.Config
-	// mergeblock := chaincfg.MergeNetsplitBlock
-	// if mergeblock == nil {
-	// 	mergeblock = new(big.Int).SetUint64(math.MaxUint64)
-	// }
-	// switch gen.Number().Cmp(mergeblock) {
-	// case 1:
-	// 	gen.SetPoS()
-	// case 0:
-	// 	gen.SetPoS()
-	// 	chaincfg.TerminalTotalDifficulty = new(big.Int).Set(g.td)
-	// default:
 		prevBlock := gen.PrevBlock(-1)
 		if prevBlock == nil {
-			//todo:error2215 WHAT TO DO IF PREV BLOCK IS NIL
-			fmt.Println("WHAT TO DO IF PREV BLOCK IS NIL???")
 			g.td = g.td.Add(g.td, big.NewInt(8192))
 		} else {
 			g.td = g.td.Add(g.td, prevBlock.Difficulty())
 		}
-	// }
 }
-
-// func (g *generator) setParentBeaconRoot(i int, gen *core.BlockGen) {
-// 	if g.genesis.Config.IsCancun(gen.Number(), gen.Timestamp()) {
-// 		var h common.Hash
-// 		g.rand.Read(h[:])
-// 		gen.SetParentBeaconRoot(h)
-// 	}
-// }
 
 // runModifiers executes the chain modifiers.
 func (g *generator) runModifiers(i int, gen *core.BlockGen) {
@@ -261,22 +195,4 @@ func (g *generator) runModifiers(i int, gen *core.BlockGen) {
 		run(g.mods[index])
 		g.modOffset++
 	}
-}
-
-// instaSeal wraps a consensus engine with instant block sealing. When a block is produced
-// using FinalizeAndAssemble, it also applies Seal.
-type instaSeal struct{ consensus.Engine }
-
-// FinalizeAndAssemble implements consensus.Engine, accumulating the block and uncle rewards,
-// setting the final state and assembling the block.
-func (e instaSeal) FinalizeAndAssemble(chain consensus.ChainHeaderReader, header *types.Header, state *state.StateDB, txs []*types.Transaction, uncles []*types.Header, receipts []*types.Receipt) (*types.Block, error) {
-	block, err := e.Engine.FinalizeAndAssemble(chain, header, state, txs, uncles, receipts)
-	if err != nil {
-		return nil, err
-	}
-	sealedBlock := make(chan *types.Block, 1)
-	if err = e.Engine.Seal(chain, block, sealedBlock, nil); err != nil {
-		return nil, err
-	}
-	return <-sealedBlock, nil
 }

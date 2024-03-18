@@ -18,7 +18,7 @@
       github: ethereumjs/ethereumjs-monorepo
       tag: master
 
-- client: go-ethereum
+- client: go-core
   nametag: cancun-git
   dockerfile: git
 

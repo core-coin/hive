@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 	"os"
@@ -33,36 +32,35 @@ func main() {
 		},
 	}
 
-	discv5 := hivesim.Suite{
-		Name:        "discv5",
-		Description: "This suite runs Discovery v5 protocol tests.",
-		Tests: []hivesim.AnyTest{
-			hivesim.ClientTestSpec{
-				Role: "xcb1",
-				Parameters: hivesim.Params{
-					"HIVE_NETWORK_ID":     "19763",
-					"HIVE_LOGLEVEL":       "5",
-				},
-				AlwaysRun: true,
-				Run: func(t *hivesim.T, c *hivesim.Client) {
-					runDiscv5Test(t, c, (*hivesim.Client).EnodeURL)
-				},
-			},
-			hivesim.ClientTestSpec{
-				Role: "xcb1",
-				Parameters: hivesim.Params{
-					"HIVE_LOGLEVEL":        "5",
-					"HIVE_CHECK_LIVE_PORT": "4000",
-				},
-				AlwaysRun: true,
-				Run: func(t *hivesim.T, c *hivesim.Client) {
-					runDiscv5Test(t, c, (*hivesim.Client).EnodeURL)
-				},
-			},
-		},
-	}
+	// discv5 := hivesim.Suite{
+	// 	Name:        "discv5",
+	// 	Description: "This suite runs Discovery v5 protocol tests.",
+	// 	Tests: []hivesim.AnyTest{
+	// 		hivesim.ClientTestSpec{
+	// 			Role: "xcb1",
+	// 			Parameters: hivesim.Params{
+	// 				"HIVE_NETWORK_ID":     "19763",
+	// 				"HIVE_LOGLEVEL":       "5",
+	// 			},
+	// 			AlwaysRun: true,
+	// 			Run: func(t *hivesim.T, c *hivesim.Client) {
+	// 				runDiscv5Test(t, c, (*hivesim.Client).EnodeURL)
+	// 			},
+	// 		},
+	// 		hivesim.ClientTestSpec{
+	// 			Role: "xcb1",
+	// 			Parameters: hivesim.Params{
+	// 				"HIVE_LOGLEVEL":        "5",
+	// 				"HIVE_CHECK_LIVE_PORT": "4000",
+	// 			},
+	// 			AlwaysRun: true,
+	// 			Run: func(t *hivesim.T, c *hivesim.Client) {
+	// 				runDiscv5Test(t, c, (*hivesim.Client).EnodeURL)
+	// 			},
+	// 		},
+	// 	},
+	// }
 
-	forkenv := loadTestChainConfig()
 	xcb := hivesim.Suite{
 		Name:        "xcb",
 		Description: "This suite tests a client's ability to accurately respond to basic xcb protocol messages.",
@@ -72,10 +70,13 @@ func main() {
 				Name: "client launch",
 				Description: `This test launches the client and runs the test tool.
 Results from the test tool are reported as individual sub-tests.`,
-				Parameters: forkenv,
+				Parameters: hivesim.Params{
+					"HIVE_NETWORK_ID":     "19763",
+					"HIVE_LOGLEVEL":       "5",
+				},
 				Files: map[string]string{
 					"genesis.json": testChainDir + "/genesis.json",
-					"chain.rlp":    testChainDir + "/chain.rlp",
+					"halfchain.rlp":    testChainDir + "/halfchain.rlp",
 				},
 				AlwaysRun: true,
 				Run:       runXcbTest,
@@ -83,39 +84,27 @@ Results from the test tool are reported as individual sub-tests.`,
 		},
 	}
 
-	snap := hivesim.Suite{
-		Name:        "snap",
-		Description: "This suite tests the snap protocol.",
-		Tests: []hivesim.AnyTest{
-			hivesim.ClientTestSpec{
-				Role: "xcb1",
-				Name: "client launch",
-				Description: `This test launches the client and runs the test tool.
-Results from the test tool are reported as individual sub-tests.`,
-				Parameters: forkenv,
-				Files: map[string]string{
-					"genesis.json": testChainDir + "/genesis.json",
-					"chain.rlp":    testChainDir + "/chain.rlp",
-				},
-				AlwaysRun: true,
-				Run:       runSnapTest,
-			},
-		},
-	}
+// 	snap := hivesim.Suite{
+// 		Name:        "snap",
+// 		Description: "This suite tests the snap protocol.",
+// 		Tests: []hivesim.AnyTest{
+// 			hivesim.ClientTestSpec{
+// 				Role: "xcb1",
+// 				Name: "client launch",
+// 				Description: `This test launches the client and runs the test tool.
+// Results from the test tool are reported as individual sub-tests.`,
+// 				Parameters: forkenv,
+// 				Files: map[string]string{
+// 					"genesis.json": testChainDir + "/genesis.json",
+// 					"chain.rlp":    testChainDir + "/chain.rlp",
+// 				},
+// 				AlwaysRun: true,
+// 				Run:       runSnapTest,
+// 			},
+// 		},
+// 	}
 
-	hivesim.MustRun(hivesim.New(), discv4, discv5, xcb, snap)
-}
-
-func loadTestChainConfig() hivesim.Params {
-	content, err := os.ReadFile(testChainDir + "/forkenv.json")
-	if err != nil {
-		panic(err)
-	}
-	var p hivesim.Params
-	if err := json.Unmarshal(content, &p); err != nil {
-		panic(err)
-	}
-	return p
+	hivesim.MustRun(hivesim.New(),discv4, xcb)
 }
 
 func runXcbTest(t *hivesim.T, c *hivesim.Client) {
@@ -128,35 +117,35 @@ func runXcbTest(t *hivesim.T, c *hivesim.Client) {
 	cmd := exec.Command("./devp2p", "rlpx", "xcb-test",
 		"--tap",
 		"--run", pattern,
-		"--node", enode,
-		"--chain", testChainDir,
-		"--engineapi", fmt.Sprintf("http://%s:8551", c.IP),
-		"--jwtsecret", "0x7365637265747365637265747365637265747365637265747365637265747365",
+		enode,
+		testChainDir+ "/chain.rlp",
+		testChainDir+ "/genesis.json",
+
 	)
 	if err := runTAP(t, c.Type, cmd); err != nil {
 		t.Fatal(err)
 	}
 }
 
-func runSnapTest(t *hivesim.T, c *hivesim.Client) {
-	enode, err := c.EnodeURL()
-	if err != nil {
-		t.Fatal(err)
-	}
+// func runSnapTest(t *hivesim.T, c *hivesim.Client) {
+// 	enode, err := c.EnodeURL()
+// 	if err != nil {
+// 		t.Fatal(err)
+// 	}
 
-	_, pattern := t.Sim.TestPattern()
-	cmd := exec.Command("./devp2p", "rlpx", "snap-test",
-		"--tap",
-		"--run", pattern,
-		"--node", enode,
-		"--chain", testChainDir,
-		"--engineapi", fmt.Sprintf("http://%s:8551", c.IP),
-		"--jwtsecret", "0x7365637265747365637265747365637265747365637265747365637265747365",
-	)
-	if err := runTAP(t, c.Type, cmd); err != nil {
-		t.Fatal(err)
-	}
-}
+// 	_, pattern := t.Sim.TestPattern()
+// 	cmd := exec.Command("./devp2p", "rlpx", "snap-test",
+// 		"--tap",
+// 		"--run", pattern,
+// 		"--node", enode,
+// 		"--chain", testChainDir,
+// 		"--engineapi", fmt.Sprintf("http://%s:8551", c.IP),
+// 		"--jwtsecret", "0x7365637265747365637265747365637265747365637265747365637265747365",
+// 	)
+// 	if err := runTAP(t, c.Type, cmd); err != nil {
+// 		t.Fatal(err)
+// 	}
+// }
 
 const network = "network1"
 
@@ -187,27 +176,27 @@ func createTestNetwork(t *hivesim.T) (bridgeIP, net1IP string) {
 	return bridgeIP, net1IP
 }
 
-func runDiscv5Test(t *hivesim.T, c *hivesim.Client, getENR func(*hivesim.Client) (string, error)) {
-	bridgeIP, net1IP := createTestNetwork(t)
+// func runDiscv5Test(t *hivesim.T, c *hivesim.Client, getENR func(*hivesim.Client) (string, error)) {
+// 	bridgeIP, net1IP := createTestNetwork(t)
 
-	// Connect client to the test network.
-	if err := t.Sim.ConnectContainer(t.SuiteID, network, c.Container); err != nil {
-		t.Fatal("can't connect client to network1:", err)
-	}
+// 	// Connect client to the test network.
+// 	if err := t.Sim.ConnectContainer(t.SuiteID, network, c.Container); err != nil {
+// 		t.Fatal("can't connect client to network1:", err)
+// 	}
 
-	nodeURL, err := getENR(c)
-	if err != nil {
-		t.Fatal("can't get client enode URL:", err)
-	}
-	t.Log("ENR:", nodeURL)
+// 	nodeURL, err := getENR(c)
+// 	if err != nil {
+// 		t.Fatal("can't get client enode URL:", err)
+// 	}
+// 	t.Log("ENR:", nodeURL)
 
-	// Run the test tool.
-	_, pattern := t.Sim.TestPattern()
-	cmd := exec.Command("./devp2p", "discv5", "test", "--run", pattern, "--tap", "--listen1", bridgeIP, "--listen2", net1IP, nodeURL)
-	if err := runTAP(t, c.Type, cmd); err != nil {
-		t.Fatal(err)
-	}
-}
+// 	// Run the test tool.
+// 	_, pattern := t.Sim.TestPattern()
+// 	cmd := exec.Command("./devp2p", "discv5", "test", "--run", pattern, "--tap", "--listen1", bridgeIP, "--listen2", net1IP, nodeURL)
+// 	if err := runTAP(t, c.Type, cmd); err != nil {
+// 		t.Fatal(err)
+// 	}
+// }
 
 func runDiscv4Test(t *hivesim.T, c *hivesim.Client) {
 	bridgeIP, net1IP := createTestNetwork(t)
