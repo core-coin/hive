@@ -6,7 +6,7 @@ We have not tested hive on any OS other than Linux. It is usually best to use Ub
 Debian.
 
 First add `build-essential` by `sudo apt install build-essential`. Also install Go
-version 1.17 or later and add it to your `$PATH` as described in the [Go installation
+version 1.20 or later and add it to your `$PATH` as described in the [Go installation
 documentation]. You can check the installed Go version by running `go version`.
 
 To get hive, you first need to clone the repository to the location of your choice.
@@ -29,15 +29,15 @@ simulation, use the following command:
 
     ./hive --sim <simulation> --client <client(s) you want to test against>
 
-For example, if you want to run the `discv4` test against geth, here is
+For example, if you want to run the `discv4` test against go-core, here is
 how the command would look:
 
-    ./hive --sim devp2p --sim.limit discv4 --client go-core,nethermind
+    ./hive --sim devp2p --sim.limit discv4 --client go-core
 
 The client list may contain any number of clients. You can select a specific client
 version by appending it to the client name with `_`, for example:
 
-    ./hive --sim devp2p --client go-core_v1.9.22,go-core_v1.9.23
+    ./hive --sim devp2p --client go-core_v2.1.9,go-core_v2.1.8
 
 ### Client Build Parameters
 
@@ -51,10 +51,6 @@ Here is an example clients.yaml file:
 
     - client: go-core
       dockerfile: git
-    - client: nethermind
-      build_args:
-        baseimage: nethermindeth/hive
-        tag: latest
 
 For each client in the list, the following options can be given:
 
@@ -70,7 +66,7 @@ arguments are:
 
  - `tag`: The git commit/tag/branch or docker tag name to use.
  - `baseimage`: For clients pulled from DockerHub, this can be used to override the organization
-   and image name. Example `ethereum/client-go`.
+   and image name. Example `core-coin/go-core`.
  - `github`: For client Dockerfiles building from git, this setting can be used to change
    the source code repository (fork) on GitHub. Example: `core-coin/go-core`.
 
@@ -97,14 +93,9 @@ improve command-line ergonomics, the test pattern is split at the first occurren
 The part before `/` matches the suite name and everything after it matches test names.
 
 For example, the following command runs the `devp2p` simulator, limiting the run to the
-`eth` suite and selecting only tests containing the word `Large`.
+`xcb` suite and selecting only tests containing the word `Large`.
 
-    ./hive --sim devp2p --sim.limit eth/Large
-
-This command runs the `consensus` simulator and runs only tests from the `stBugs`
-directory (note the first `/`, matching any suite name):
-
-    ./hive --sim ethereum/consensus --sim.limit /stBugs/
+    ./hive --sim devp2p --sim.limit xcb/Large
 
 `--sim.timelimit <timeout>`: Simulation timeout. Hive aborts the simulator if it exceeds
 this time. There is no default timeout.
@@ -142,7 +133,7 @@ Run it like this to start the HTTP server:
 This command runs a web interface on <http://127.0.0.1:8080>. The interface shows
 information about all simulation runs for which information was collected.
 
-## Generating Ethereum 1.x test chains (hivechain)
+## Generating Core Blockchain test chains (hivechain)
 
 The `hivechain` tool allows you to create RLP-encoded blockchains for inclusion into
 simulations. Build it with:
@@ -157,9 +148,9 @@ hivechain generates empty blocks by default. The chain will contain non-empty bl
 the following accounts have balance in genesis state. You can find the corresponding
 private keys in the hivechain source code.
 
-- `0x71562b71999873DB5b286dF957af199Ec94617F7`
-- `0x703c4b2bD70c169f5717101CaeE543299Fc946C7`
-- `0x0D3ab14BBaD3D99F4203bd7a11aCB94882050E7e`
+- `0x0000000000000000071562b71999873DB5b286dF957af199Ec94617F7`
+- `0x00000000000000000703c4b2bD70c169f5717101CaeE543299Fc946C7`
+- `0x000000000000000000D3ab14BBaD3D99F4203bd7a11aCB94882050E7e`
 
 [Go installation documentation]: https://golang.org/doc/install
 [Install docker]: https://docs.docker.com/engine/install/debian/#install-using-the-repository

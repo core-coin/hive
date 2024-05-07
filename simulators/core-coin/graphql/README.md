@@ -1,6 +1,6 @@
 # GraphQL
 
-This simulator tests the GraphQL endpoint of Ethereum clients to validate they are following the [specification](https://github.com/core-coin/execution-apis/tree/main#graphql).
+This simulator tests the GraphQL endpoint of Core Blockchain clients to validate they are following the [specification](https://github.com/core-coin/execution-apis/tree/main#graphql).
 
 ## Adding a test
 
