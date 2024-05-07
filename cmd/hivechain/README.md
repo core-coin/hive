@@ -6,7 +6,6 @@ the created chain excercises many protocol features, including:
 - different types of transactions
 - diverse set of contracts with interesting storage, code, etc.
 - contracts to create known log events
-- non-transaction chain modifications: coinbase fee payments, uncles, withdrawals...
 
 ## Running hivechain
 
@@ -20,7 +19,6 @@ be created in the `chain/` directory:
 
 - `genesis.json` contains the genesis block specification
 - `chain.rlp` has the blocks in binary RLP format
-- `headfcu.json` contains an Engine API request that sends the head block to a client
 
 To see all generator options, run:
 
@@ -38,16 +36,6 @@ Creates `accounts.json` containing accounts and corresponding private keys.
 ### chain, powchain
 
 `chain` creates `chain.rlp` containing the chain blocks.
-
-`powchain` creates `powchain.rlp` containing only the pre-merge blocks.
-
-### fcu, headfcu, newpayload
-
-`fcu.json` is a JSON array of forkchoiceUpdated requests for all post-merge blocks.
-
-`headfcu.json` is a request for just the head block. This is useful for triggering a sync in the client.
-
-`newpayload.json` is a JSON array of newPayload requests for post-merge blocks.
 
 ### genesis
 

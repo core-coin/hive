@@ -1,4 +1,4 @@
-# RPC ETH test suite
+# RPC XCB test suite
 
 The RPC test suite runs a set of RPC related tests against a running node. It tests
 several real-world scenarios such as sending value transactions, deploying a contract or
@@ -14,7 +14,7 @@ support.
 
 The test suite consists of 2 groups:
 
-- ethclient, contains tests using the `ethclient` package
+- xcbclient, contains tests using the `xcbclient` package
 - abi, contains tests using the `abi` package
 
 The genesis block also contains 2 contracts:
@@ -22,7 +22,7 @@ The genesis block also contains 2 contracts:
 - vault contract, used to fund new accounts that are created for the tests
 - events contract, contract that raises events and is used for various tests
 
-Ethclient runs various tests that use the `ethclient.Client` API. Such as sending
+Xcbclient runs various tests that use the `xcbclient.Client` API. Such as sending
 transactions, retrieving logs and balances.
 
 ABI, interacts with the pre-deployed events contract. It send transactions, executes calls

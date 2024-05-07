@@ -8,12 +8,12 @@ Clients are docker images which can be instantiated by a simulation. A client de
 consists of a Dockerfile and associated resources. Client definitions live in
 subdirectories of `clients/` in the hive repository.
 
-See the [go-core client definition][geth-docker] for an example of a client
+See the [go-core client definition][gocore-docker] for an example of a client
 Dockerfile.
 
 When hive runs a simulation, it first builds all client docker images using their
 Dockerfile, i.e. it basically runs `docker build .` in the client directory. Since most
-client definitions wrap an existing Ethereum client, and building the client from source
+client definitions wrap an existing Core Blockchain client, and building the client from source
 may take a long time, it is usually best to base the hive client wrapper on a pre-built
 docker image from Docker Hub.
 
@@ -21,7 +21,7 @@ The client Dockerfile should support an optional argument named `branch`, which 
 the requested client version. This argument can be set by users by appending it to the
 client name like:
 
-    ./hive --sim my-simulation --client go-core_v1.9.23,go_ethereum_v1.9.22
+    ./hive --sim my-simulation --client go-core_v2.1.8,go_core_v2.1.9
 
 Other build arguments can also be set using a YAML file, see the [hive command
 documentation][hive-client-yaml] for more information.
@@ -39,13 +39,13 @@ the Dockerfile). Currently, the only purpose of this file is specifying the clie
 list:
 
     roles:
-      - "eth1"
-      - "eth1_light_client"
+      - "xcb1"
+      - "xcb1_light_client"
 
 The role list is available to simulators and can be used to differentiate between clients
 based on features. Declaring a client role also signals that the client supports certain
 role-specific environment variables and files. If `hive.yaml` is missing or doesn't declare
-roles, the `eth1` role is assumed.
+roles, the `xcb1` role is assumed.
 
 ### /version.txt
 
@@ -74,32 +74,32 @@ client has failed to start.
 Environment variables and files interpreted by the entry point define a 'protocol' between
 the simulator and client. While hive itself does not require support for any specific
 variables or files, simulators usually expect client containers to be configurable in
-certain ways. In order to run tests against multiple Ethereum clients, for example, the
+certain ways. In order to run tests against multiple Core Blockchain clients, for example, the
 simulator needs to be able to configure all clients for a specific blockchain and make
 them join the peer-to-peer network used for testing.
 
-## Eth1 Client Requirements
+## Xcb1 Client Requirements
 
-This section describes the requirements for the `eth1` client role.
+This section describes the requirements for the `xcb1` client role.
 
-Eth1 clients must provide JSON-RPC over HTTP on TCP port 8545. They may also support
+Xcb1 clients must provide JSON-RPC over HTTP on TCP port 8545. They may also support
 JSON-RPC over WebSocket on port 8546, but this is not strictly required.
 
 ### Files
 
-The simulator customizes client startup by placing these files into the eth1 client
+The simulator customizes client startup by placing these files into the xcb1 client
 container:
 
-- `/genesis.json` contains Ethereum genesis state in the JSON format used by Geth. This
+- `/genesis.json` contains Core Blockchain genesis state in the JSON format used by Gocore. This
   file is mandatory.
 - `/chain.rlp` contains RLP-encoded blocks to import before startup.
 - `/blocks/` directory containing `.rlp` files.
 
 On startup, the entry point script must first load the genesis block and state into the
 client implementation from `/genesis.json`. To do this, the script needs to translate from
-Geth genesis format into a format appropriate for the specific client implementation. The
+Gocore genesis format into a format appropriate for the specific client implementation. The
 translation is usually done using a jq script. See the [go-core genesis
-translator][geth-genesis-jq], for example.
+translator][gocore-genesis-jq], for example.
 
 After the genesis state, the client should import the blocks from `/chain.rlp` if it is
 present, and finally import the individual blocks from `/blocks` in file name order. The
@@ -110,7 +110,7 @@ block' should be the last valid, imported block.
 
 ### Scripts
 
-Some tests require peer-to-peer node information of the client instance. All eth1 client
+Some tests require peer-to-peer node information of the client instance. All xcb1 client
 containers must contain a `/hive-bin/enode.sh` script. This script should output the enode
 URL of the running instance.
 
@@ -127,26 +127,14 @@ may map these to command line flags or use them to generate a config file, for e
 | `HIVE_GRAPHQL_ENABLED`     | 0 - 1         | if set, GraphQL is enabled on port 8545        |
 | `HIVE_MINER`               | address       | if set, mining is enabled. value is coinbase   |
 | `HIVE_MINER_EXTRA`         | hex           | extradata for mined blocks                     |
-| `HIVE_CLIQUE_PERIOD`       | decimal       | enables clique PoA. value is target block time |
-| `HIVE_CLIQUE_PRIVATEKEY`   | hex           | private key for signing of clique blocks       |
+| `HIVE_PRIVATEKEY`          | hex           | private key for signing                        |
 | `HIVE_NETWORK_ID`          | decimal       | p2p network ID                                 |
-| `HIVE_CHAIN_ID`            | decimal       | [EIP-155] chain ID                             |
-| `HIVE_FORK_HOMESTEAD`      | decimal       | [Homestead][EIP-606] transition block          |
-| `HIVE_FORK_DAO_BLOCK`      | decimal       | [DAO fork][EIP-779] transition block           |
-| `HIVE_FORK_TANGERINE`      | decimal       | [Tangerine Whistle][EIP-608] transition block  |
-| `HIVE_FORK_SPURIOUS`       | decimal       | [Spurious Dragon][EIP-607] transition block    |
-| `HIVE_FORK_BYZANTIUM`      | decimal       | [Byzantium][EIP-609] transition block          |
-| `HIVE_FORK_CONSTANTINOPLE` | decimal       | [Constantinople][EIP-1013] transition block    |
-| `HIVE_FORK_PETERSBURG`     | decimal       | [Petersburg][EIP-1716] transition block        |
-| `HIVE_FORK_ISTANBUL`       | decimal       | [Istanbul][EIP-1679] transition block          |
-| `HIVE_FORK_MUIRGLACIER`    | decimal       | [Muir Glacier][EIP-2387] transition block      |
-| `HIVE_FORK_BERLIN`         | decimal       | [Berlin][EIP-2070] transition block            |
-| `HIVE_FORK_LONDON`         | decimal       | [London][london-spec] transition block         |
+
 
 ## LES client/server roles
 
-Eth1 clients containing an implementation of [LES] may additionally support roles
-`eth1_les_client` and `eth1_les_server`.
+Xcb1 clients containing an implementation of [LES] may additionally support roles
+`xcb1_les_client` and `xcb1_les_server`.
 
 For the client role, the following additional variables should be supported:
 
@@ -162,21 +150,9 @@ For the server role, the following additional variables should be supported:
 
 
 [LES]: https://github.com/ethereum/devp2p/blob/master/caps/les.md
-[geth-docker]: ../clients/go-core/Dockerfile
+[gocore-docker]: ../clients/go-core/Dockerfile
 [hive-client-yaml]: ./commandline.md#client-build-parameters
-[geth-genesis-jq]: ../clients/go-core/mapper.jq
-[EIP-155]: https://eips.ethereum.org/EIPS/eip-155
-[EIP-606]: https://eips.ethereum.org/EIPS/eip-606
-[EIP-607]: https://eips.ethereum.org/EIPS/eip-607
-[EIP-608]: https://eips.ethereum.org/EIPS/eip-608
-[EIP-609]: https://eips.ethereum.org/EIPS/eip-609
-[EIP-779]: https://eips.ethereum.org/EIPS/eip-779
-[EIP-1013]: https://eips.ethereum.org/EIPS/eip-1013
-[EIP-1679]: https://eips.ethereum.org/EIPS/eip-1679
-[EIP-1716]: https://eips.ethereum.org/EIPS/eip-1716
-[EIP-2387]: https://eips.ethereum.org/EIPS/eip-2387
-[EIP-2070]: https://eips.ethereum.org/EIPS/eip-2070
-[london-spec]: https://github.com/ethereum/eth1.0-specs/blob/master/network-upgrades/mainnet-upgrades/london.md
+[gocore-genesis-jq]: ../clients/go-core/mapper.jq
 [Overview]: ./overview.md
 [Hive Commands]: ./commandline.md
 [Simulators]: ./simulators.md

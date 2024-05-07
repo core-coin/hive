@@ -108,9 +108,9 @@ hivesim] for more information about writing simulators in Go.
 Simulators are contained in the hive repository as independent Go modules. To create one,
 first create a new subdirectory in `./simulators` and initialize a Go module there:
 
-    mkdir ./simulators/ethereum/my-simulation
-    cd ./simulators/ethereum/my-simulation
-    go mod init github.com/core-coin/hive/simulators/ethereum/my-simulation
+    mkdir ./simulators/core-coin/my-simulation
+    cd ./simulators/core-coin/my-simulation
+    go mod init github.com/core-coin/hive/simulators/core-coin/my-simulation
     go get github.com/core-coin/hive/hivesim@latest
 
 Now create the simulator program file `my-simulation.go`.
@@ -214,7 +214,7 @@ You can test this build by running `docker build .` in the simulator directory.
 
 Finally, go back to the root of the repository (`cd ../../..`) and run the simulation.
 
-    ./hive --sim my-simulation --client go-core,besu
+    ./hive --sim my-simulation --client go-core,core
 
 You can check the results using [hiveview].
 
@@ -301,19 +301,19 @@ Response
     [
       {
         "name": "go-core",
-        "version": "Geth/v1.10.0-unstable-8e547eec-20210224/linux-amd64/go1.16",
+        "version": "Gocore/v2.1.9/linux-amd64/go1.21",
         "meta": {
           "roles": [
-            "eth1"
+            "xcb1"
           ]
         }
       },
       {
-        "name": "besu",
-        "version": "besu/v21.1.1-dev-f1c74ed2/linux-x86_64/oracle_openjdk-java-11",
+        "name": "core",
+        "version": "Core/v21.1.1-dev-f1c74ed2/linux-x86_64/oracle_openjdk-java-11",
         "meta": {
           "roles": [
-            "eth1"
+            "xcb1"
           ]
         }
       }
@@ -329,14 +329,14 @@ Response
 
     {
       "client": "go-core_latest",
-      "environment": {"HIVE_CHAIN_ID": "8"}
+      "environment": {"HIVE_NETWORK_ID": "8"}
     }
     --boundary--
     content-disposition: form-data; name=/genesis.json; filename=genesis.json
 
     {
       "difficulty": "0x20000",
-      "gasLimit": "0xFFFFFFFF",
+      "energyLimit": "0xFFFFFFFF",
       ...
     }
     --boundary----
@@ -363,7 +363,7 @@ container will not be created if any of the given networks doesn't exist.
 
 `"environment"` configures environment variables to be set in the client container. All
 variable names must start with prefix `HIVE_`. Please see the [client interface
-documentation] for environment variables supported by Ethereum clients.
+documentation] for environment variables supported by Core Blockchain clients.
 
 The submitted form data may also contain files. Any form parameters with a non-empty
 filename are copied into the client container as files. Note: the **form parameter name**
